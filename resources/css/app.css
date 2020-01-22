@@ -1,0 +1,9 @@
+/* Reset */
+@import "tailwindcss/base";
+
+/* Components */
+@import "tailwindcss/components";
+@import "nprogress";
+
+/* Utilities */
+@import "tailwindcss/utilities";
