@@ -14,7 +14,7 @@ class CreateUsersTable extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->uuid('id');
+            $table->uuid('id')->unique();
             $table->primary('id');
             $table->string('name');
             $table->string('email')->unique();
@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->boolean('email_verified')->default(false);
             $table->timestamp('email_verified_at')->nullable();
             $table->enum('state', [
-                'invited', "email", "activated", "deactivated", "deleted"
+                'INVITED', "EMAIL", "ACTIVATED", "DEACTIVATED", "DELETED"
             ])->default('email');
             $table->enum('gender', ['M', 'F'])->default('M');
             $table->enum('type', ['staff', 'member'])->default('member');
