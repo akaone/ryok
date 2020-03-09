@@ -6,6 +6,7 @@ Route::post("/login", "Web\LoginController@store")->name("login.store");
 Route::prefix("dashboard")->name('dashboard.')->middleware(['auth'])->group(function () {
 
     # apps -> list of all apps
+    Route::get("/apps", "Web\AppsController@index")->name("apps.index");
     # apps/create (get) -> create a new app form
     # apps/store (post) -> create a new app
     

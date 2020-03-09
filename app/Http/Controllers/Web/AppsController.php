@@ -2,22 +2,44 @@
 
 namespace App\Http\Controllers\Web;
 
-use App\Models\User;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Models\App;
+use App\Models\AppUser;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
-class LoginController extends Controller
+class AppsController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of user's apps.
+     * ACL -> []
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        return Inertia::render('Login/LoginIndex');
+        $user = Auth::user();
+
+        if ($user->type == 'staff') {
+            $request = DB::table('apps');
+        } else {
+            $request = DB::table('apps')
+                ->join('app_users', 'apps.id', '=', 'app_users.app_id')
+                ->where('app_users.user_id', $user->id)
+                ->where('app_users.state', 'ACTIVATED')
+            ;
+        }
+
+        $apps = $request
+            ->select('apps.*')
+            ->get()
+        ;
+
+        return Inertia::render('Apps/AppsIndex', [
+            'apps' => $apps,
+        ]);
     }
 
     /**
@@ -32,22 +54,13 @@ class LoginController extends Controller
 
     /**
      * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'email' => ['required', 'email'],
-            'password' => ['required', 'string', 'min:6']
-        ]);
-
-        $email = $request['email'];
-        $password = $request['password'];
-
-
-        if(Auth::attempt(['email' => $email, 'password' => $password, 'state' => 'ACTIVATED'])) {
-            return redirect()->route('dashboard.apps.index');
-        }
-        return redirect()->route('login');
+        //
     }
 
     /**

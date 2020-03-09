@@ -14,8 +14,17 @@ class CreateCarriersTable extends Migration
     public function up()
     {
         Schema::create('carriers', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->uuid('id')->unique();
+            $table->primary('id');
             $table->timestamps();
+
+            $table->string('name');
+            $table->string('ibm')->unique();
+            $table->string('country');
+            $table->string('regex');
+            
+            $table->enum('state', ['ACTIVATED', 'DEACTIVATED', 'DELETED'])->default('ACTIVATED');
+            $table->text('state_reason')->nullable();
         });
     }
 

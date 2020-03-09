@@ -14,8 +14,23 @@ class CreateAppKeysTable extends Migration
     public function up()
     {
         Schema::create('app_keys', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->uuid('id')->unique();
+            $table->primary('id');
             $table->timestamps();
+            $table->enum('state', ['ACTIVATED', 'DEACTIVATED'])->default('ACTIVATED');
+
+            $table->string('secret_key')->unique();
+            $table->string('public_key')->unique();
+
+            $table->string('test_secret_key')->unique();
+            $table->string('test_public_key')->unique();
+
+            $table->string('app_id');
+            $table->foreign('app_id')
+                ->references('id')->on('apps')
+                ->onDelete('no action')
+                ->onUpdate('no action');
+            
         });
     }
 

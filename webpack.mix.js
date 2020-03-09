@@ -23,7 +23,10 @@ mix.js('resources/js/app.js', 'public/js')
       ],
    })
    .webpackConfig({
-     output: { chunkFilename: 'js/[name].js?id=[chunkhash]' },
+     output: {
+
+      publicPath: '/static/',
+        chunkFilename: 'js/[name].js?id=[chunkhash]' },
      resolve: {
        alias: {
          'vue$': 'vue/dist/vue.runtime.esm.js',

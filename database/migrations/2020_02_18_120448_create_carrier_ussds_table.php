@@ -14,8 +14,21 @@ class CreateCarrierUssdsTable extends Migration
     public function up()
     {
         Schema::create('carrier_ussds', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->uuid('id')->unique();
+            $table->primary('id');
             $table->timestamps();
+            
+            $table->enum('state', ['ACTIVATED', 'DEACTIVATED'])->default('ACTIVATED');
+            $table->string('ussd_regex')->nullable();
+            $table->string('ussd_format')->nullable();
+            $table->string('sms_format')->nullable();
+
+            $table->string('carrier_id');
+            $table->foreign('carrier_id')
+                ->references('id')->on('carriers')
+                ->onDelete('no action')
+                ->onUpdate('no action');
+
         });
     }
 
