@@ -4,38 +4,30 @@ namespace App\Http\Controllers\Web;
 
 use Inertia\Inertia;
 use Illuminate\Http\Request;
-use App\Models\App;
-use App\Models\AppUser;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\DB;
+use App\Repositories\Web\AppsRepository;
 
 class AppsController extends Controller
 {
     /**
+     * @var AppsRepository
+     */
+    private $rp;
+
+    public function __construct() {
+        $this->rp = new AppsRepository();
+    }
+
+    /**
      * Display a listing of user's apps.
      * ACL -> []
      *
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
         $user = Auth::user();
-
-        if ($user->type == 'staff') {
-            $request = DB::table('apps');
-        } else {
-            $request = DB::table('apps')
-                ->join('app_users', 'apps.id', '=', 'app_users.app_id')
-                ->where('app_users.user_id', $user->id)
-                ->where('app_users.state', 'ACTIVATED')
-            ;
-        }
-
-        $apps = $request
-            ->select('apps.*')
-            ->get()
-        ;
+        $apps = $this->rp->getUserApps($user->type, $user->id);
 
         return Inertia::render('Apps/AppsIndex', [
             'apps' => $apps,
@@ -43,33 +35,45 @@ class AppsController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * Show the form for creating an app.
+     * ACL -> []
      */
     public function create()
     {
-        //
+        return Inertia::render('Apps/AppsCreate');
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * Store a newly created app.
+     * ACL -> []
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required|string|min:3',
+            'icon' => 'nullable|image',
+            'platform' => 'required|in:ANDROID,IOS,WEB,HYBRID',
+            'package_name' => 'required_if:platform,ANDROID,IOS',
+            'website_url' => 'required_if:platform,WEB|url',
+            'webhook_url' => 'nullable|url',
+        ]);
+
+        $user = Auth::user();
+
+        $input = $request->except(['icon']);
+        $image = $request->hasFile('icon') ? $request->file('icon') : null;
+
+        $storedApp = $this->rp->storePendingApp($input, $image, $user->id);
+
+        return redirect()->route('dashboard.apps.index');
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified app.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  int  $appId
      */
-    public function show($id)
+    public function show($appId)
     {
         //
     }

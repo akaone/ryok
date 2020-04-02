@@ -21,7 +21,6 @@ class CreateCarriersTable extends Migration
             $table->string('name');
             $table->string('ibm')->unique();
             $table->string('country');
-            $table->string('regex');
             
             $table->enum('state', ['ACTIVATED', 'DEACTIVATED', 'DELETED'])->default('ACTIVATED');
             $table->text('state_reason')->nullable();

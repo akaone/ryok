@@ -20,6 +20,7 @@ abstract class TestCase extends BaseTestCase
 
 
         // Seed Rights
+        $this->artisan('db:seed', ['--class' => "RoleTableSeeder"]);
         $this->artisan('db:seed', ['--class' => "WithdrawModeTableSeeder"]);
     }
 }

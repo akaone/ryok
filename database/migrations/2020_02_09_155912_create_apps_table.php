@@ -21,12 +21,12 @@ class CreateAppsTable extends Migration
 
             $table->string('name');
             $table->string('icon')->nullable();
-            $table->enum('platform', ['ANDROID', 'IOS', 'WEB']);
+            $table->enum('platform', ['ANDROID', 'IOS', 'WEB', 'HYBRID']);
             $table->string('package_name')->nullable();
             $table->string('website_url')->nullable();
             $table->string('webhook_url')->nullable();
             
-            $table->enum('state', ['PENDING', 'ACTIVATED', 'DEACTIVATED'])->default('PENDING');
+            $table->enum('state', ['PENDING', 'ACTIVATED', 'DEACTIVATED', 'REJECTED', 'DELETED'])->default('PENDING');
             $table->text('state_reason')->nullable();
         });
     }
