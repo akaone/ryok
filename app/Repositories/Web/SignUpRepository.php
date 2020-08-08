@@ -45,4 +45,22 @@ class SignUpRepository
         $user = DB::table('users')->where([ 'id' => $userId ])->select('email')->first();
         return $user->email;
     }
+
+    /**
+     * Verify email
+     * @param $emailLink
+     * @return bool
+     */
+    public function verifyEmail($emailLink)
+    {
+        $operation = DB::table('users')
+            ->where('email_link', $emailLink)
+            ->update([
+                'email_verified' => true,
+                'state' => 'ACTIVATED',
+                'email_link' => Uuid::generate()->string,
+            ])
+        ;
+        return $operation;
+    }
 }

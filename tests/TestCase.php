@@ -4,6 +4,7 @@ namespace Tests;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+use Spatie\Permission\PermissionRegistrar;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -17,6 +18,8 @@ abstract class TestCase extends BaseTestCase
         if (DB::connection() instanceof \Illuminate\Database\SQLiteConnection) {
             DB::statement(DB::raw('PRAGMA foreign_keys=on'));
         }
+
+        $this->app->make(PermissionRegistrar::class)->registerPermissions();
 
 
         // Seed Rights

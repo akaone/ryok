@@ -4,9 +4,11 @@ namespace Tests\Feature\Web;
 
 use Tests\TestCase;
 use App\Models\User;
+use Livewire\Livewire;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\Http\Livewire\LivewireLoginIndex;
 
 class LoginTest extends TestCase
 {
@@ -22,14 +24,12 @@ class LoginTest extends TestCase
             'email' => 'desouzakevinm@gmail.com',
         ]);
 
-        # act
-        $response = $this->post('/login', [
-            'email' => 'desouzakevinm@gmail.com',
-            'password' => 'password',
-        ]);
-
-        # asser
-        $response->assertRedirect(route('dashboard.apps.index'));
+        Livewire::test(LivewireLoginIndex::class)
+            ->set('email', $user->email)
+            ->set('password', 'password')
+            ->call('login')
+            ->assertRedirect(route('dashboard.apps.index'))
+        ;
     }
     
     /** @test */
@@ -42,14 +42,12 @@ class LoginTest extends TestCase
             'email' => 'member@ryok.com',
         ]);
 
-        # act
-        $response = $this->post(route('login'), [
-            'email' => 'member@ryok.com',
-            'password' => 'password',
-        ]);
-
-        # asser
-        $response->assertRedirect(route('dashboard.apps.index'));
+        Livewire::test(LivewireLoginIndex::class)
+            ->set('email', $user->email)
+            ->set('password', 'password')
+            ->call('login')
+            ->assertRedirect(route('dashboard.apps.index'))
+        ;
     }
     
     /** @test */
@@ -62,13 +60,11 @@ class LoginTest extends TestCase
             'email' => 'member@ryok.com',
         ]);
 
-        # act
-        $response = $this->post(route('login'), [
-            'email' => 'member@ryok.com',
-            'password' => 'password',
-        ]);
-
-        # asser
-        $response->assertRedirect(route('login'));
+        Livewire::test(LivewireLoginIndex::class)
+            ->set('email', $user->email)
+            ->set('password', 'password')
+            ->call('login')
+            ->assertOk()
+        ;
     }
 }

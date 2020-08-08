@@ -52,6 +52,48 @@ class SignUpTest extends TestCase
         $response->assertSee($user->email);
     }
 
+    /** @test */
+    # user can verify email with valid email link
+    public function user_can_verify_email_with_valid_email_link()
+    {
+        # arrange
+        $user = factory(User::class)->create([
+            'state' => 'EMAIL',
+            'email_verified' => false,
+        ]);
+
+        # act
+        $response = $this->get(route('sign-up.verify', ['emailLink' => $user->email_link]));
+
+        # assert
+        $response->assertStatus(200);
+        $this->assertDatabaseMissing('users', [
+            'id' => $user->id,
+            'email_link' => $user->email_link
+        ]);
+    }
+
+    /** @test */
+    # user cannot verify without valid email link
+    public function user_cannot_verify_without_valid_email_link()
+    {
+        # arrange
+        $user = factory(User::class)->create([
+            'state' => 'EMAIL',
+            'email_verified' => false,
+        ]);
+
+        # act
+        $response = $this->get(route('sign-up.verify', ['emailLink' => 'INVALID_EMAIL_LINK']));
+
+        # assert
+        $response->assertStatus(200);
+        $this->assertDatabaseHas('users', [
+            'id' => $user->id,
+            'email_link' => $user->email_link
+        ]);
+    }
+
     # email should be sent to newly signup users
 
     # user with existing email can't sign up

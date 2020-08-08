@@ -40,7 +40,7 @@ class AppsRepository
      * @param $data
      * @param $image
      * @param $userId
-     * @return Collection
+     * @return string appUuid
      */
     public function storePendingApp($data, $image, $userId)
     {
@@ -49,9 +49,9 @@ class AppsRepository
         if($image) {
             $file = $image->store('images');
         }
-        
+        $appUuid = Uuid::generate()->string;
         $appendData = $data;
-        $appendData['id'] = Uuid::generate()->string;
+        $appendData['id'] = $appUuid;
         $appendData['state'] = 'PENDING';
         $appendData['icon'] = $file;
 
@@ -62,12 +62,29 @@ class AppsRepository
         $appAdminUser = DB::table('app_users')
             ->insert([
                 'id' => Uuid::generate()->string,
-                'app_id' => $appendData['id'],
+                'app_id' => $appUuid,
                 'user_id' => $userId,
             ])
         ;
 
         $appKeyRepository = new AppKeysRepository();
-        $appKeyRepository->generateInitialKeysForApp($appendData['id']);
+        $appKeyRepository->generateInitialKeysForApp($appUuid);
+
+        return $appUuid;
+    }
+
+    /**
+     * Create a marchand account for the app
+     * @param $appUuid
+     */
+    public function createAccountForApp($appUuid)
+    {
+        DB::table('accounts')
+            ->insert([
+                'id' => Uuid::generate()->string,
+                'app_id' => $appUuid,
+                'type'=> 'APP'
+            ])
+        ;
     }
 }

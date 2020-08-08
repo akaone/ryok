@@ -7,6 +7,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\User;
 use App\Models\App;
+use App\Models\AppUser;
 
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
@@ -82,11 +83,16 @@ class AppsStateUpdateTest extends TestCase
             'state' => 'ACTIVATED',
             'email' => 'desouzakevinm@gmail.com',
         ]);
-        $user->assignRole('admin');
 
         $app = factory(App::class)->states('MOBILE')->create([
             'state' => 'PENDING',
         ]);
+        $appUser = AppUser::create([
+            'app_id' => $app->id,
+            'user_id' => $user->id,
+            'state' => 'ACTIVATED',
+        ]);
+        $appUser->assignRole('admin');
         
         $response = $this->actingAs($user)->patch(
             route('dashboard.apps.state.update', ['appId' => $app->id]),

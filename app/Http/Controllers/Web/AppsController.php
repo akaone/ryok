@@ -28,8 +28,7 @@ class AppsController extends Controller
     {
         $user = Auth::user();
         $apps = $this->rp->getUserApps($user->type, $user->id);
-
-        return Inertia::render('Apps/AppsIndex', [
+        return Inertia::render('apps.apps-index', [
             'apps' => $apps,
         ]);
     }
@@ -52,7 +51,7 @@ class AppsController extends Controller
         $this->validate($request, [
             'name' => 'required|string|min:3',
             'icon' => 'nullable|image',
-            'platform' => 'required|in:ANDROID,IOS,WEB,HYBRID',
+            'platform' => 'required|in:ANDROID,IOS,WEB,HYBRIDE',
             'package_name' => 'required_if:platform,ANDROID,IOS',
             'website_url' => 'required_if:platform,WEB|url',
             'webhook_url' => 'nullable|url',
@@ -63,7 +62,9 @@ class AppsController extends Controller
         $input = $request->except(['icon']);
         $image = $request->hasFile('icon') ? $request->file('icon') : null;
 
-        $storedApp = $this->rp->storePendingApp($input, $image, $user->id);
+        $storedAppUuid = $this->rp->storePendingApp($input, $image, $user->id);
+
+        $this->rp->createAccountForApp($storedAppUuid);
 
         return redirect()->route('dashboard.apps.index');
     }

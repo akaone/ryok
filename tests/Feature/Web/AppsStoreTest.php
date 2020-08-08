@@ -7,6 +7,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\UploadedFile;
 use Tests\TestCase;
 use App\Models\User;
+use App\Models\App;
 use App\Models\AppKey;
 use Illuminate\Support\Facades\Storage;
 
@@ -111,6 +112,44 @@ class AppsStoreTest extends TestCase
             'user_id' => $user->id,
         ]);
         $this->assertEquals(1, AppKey::count());
+        $response->assertStatus(302);
+        $response->assertRedirect(route('dashboard.apps.index'));
+    }
+    
+    /** @test  */
+    # created app should have a default account
+    public function created_app_should_have_a_default_account()
+    {
+        # arrange
+        $user = factory(User::class)->create([
+            'type' => 'member',
+            'state' => 'ACTIVATED',
+            'email' => 'member@ryok.com',
+        ]);
+
+        # act
+        $response = $this->actingAs($user)->post(route('dashboard.apps.store'), [
+            'name' => 'MY_COOL_APP',
+            'platform' => 'ANDROID',
+            'package_name' => 'my.cool.app'
+        ]);
+
+        # assert
+        $this->assertDatabaseHas('apps', [
+            'name' => 'MY_COOL_APP',
+            'state' => 'PENDING',
+            'platform' => 'ANDROID',
+        ]);
+        $this->assertDatabaseHas('app_users', [
+            'user_id' => $user->id,
+        ]);
+        
+        $app = App::where('name', 'MY_COOL_APP')->first();
+        $this->assertDatabaseHas('accounts', [
+            'app_id' => $app->id,
+            'type' => 'APP',
+        ]);
+
         $response->assertStatus(302);
         $response->assertRedirect(route('dashboard.apps.index'));
     }

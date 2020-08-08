@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 $factory->define(App::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
-        'platform' => $faker->randomElement(['ANDROID', 'IOS', 'WEB', 'HYBRID']),
+        'platform' => $faker->randomElement(['ANDROID', 'IOS', 'WEB', 'HYBRIDE']),
         'state' => $faker->randomElement(['PENDING', 'ACTIVATED', 'DEACTIVATED']),
     ];
 });

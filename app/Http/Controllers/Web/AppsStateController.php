@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\App;
+use App\Models\AppUser;
 use Illuminate\Support\Facades\Auth;
 use App\Repositories\Web\AppsStateRepository;
 use App\Exceptions\UserAccessLevelException;
@@ -36,12 +37,20 @@ class AppsStateController extends Controller
         $state = $request->input('state');
         $stateReason = $request->input('state_reason');
 
-        if(!$user->hasPermissionTo('app-state')) { throw new UserAccessLevelException; }
+        if(!$user->fresh()->hasPermissionTo('app-state')) {
+            $appUser = AppUser::where([
+                'user_id' => $user->id,
+                'app_id' => $app->id,
+            ])->first();
+            if($appUser == null || !$appUser->fresh()->hasPermissionTo('app-state')) {
+                throw new UserAccessLevelException;
+            }
+        }
         switch ($state) {
             case 'ACTIVATED':
-                if(!$user->hasRole('staff-admin')) { throw new UserAccessLevelException; }
+                if(!$user->fresh()->hasRole('staff-admin')) { throw new UserAccessLevelException; }
             case 'REJECTED':
-                if(!$user->hasRole('staff-admin')) { throw new UserAccessLevelException; }
+                if(!$user->fresh()->hasRole('staff-admin')) { throw new UserAccessLevelException; }
             default:
                 break;
         }

@@ -3,7 +3,6 @@
 Route::get("/", "Web\HomeController@index")->name("home.index");
 
 Route::get("/login", "Web\LoginController@index")->name("login");
-Route::post("/login", "Web\LoginController@store")->name("login.store");
 # Route::post("/logout", "Web\LoginController@destroy")->name("login.destroy");
 # forgot password
 # change password
@@ -20,6 +19,8 @@ Route::prefix("sign-up")->name('sign-up.')->group(function () {
     # sign-up/store (post) -> create a new app
     Route::post("/store", "Web\SignUpController@store")->name("store");
     Route::get("/done/{userId}", "Web\SignUpController@done")->name('done');
+    # sign-up/verify (get) -> verify the email of a signup user
+    Route::get("/verify/{emailLink}", "Web\SignUpController@update")->name('verify');
 
 });
 
@@ -38,8 +39,8 @@ Route::prefix("dashboard")->name('dashboard.')->middleware(['auth'])->group(func
         # apps/store (post) -> create a new app
         Route::post("/store", "Web\AppsController@store")->name("store");
         
-        # apps/{appId}/stats -> stats of sells & withdwal
-        # apps/{appId}/stats/payouts -> payouts & settings
+        # apps/{appId}/operations -> operations of sells & withdwal
+        # apps/{appId}/operations/payouts -> payouts & settings
         
         # apps/{appId}/keys -> api key settings
         # apps/{appId}/keys/edit -> edit bundle id | site url | webhook
@@ -48,8 +49,12 @@ Route::prefix("dashboard")->name('dashboard.')->middleware(['auth'])->group(func
         # apps/{appId}/countries/edit -> edit enabled countries
         
         # apps/{appId}/users -> list of app users
+        Route::get("/{appId}/users", "Web\AppsUsersController@index")->name("users.index");
         # apps/{appId}/users/create (get) -> add a user to an app form
+        Route::get("/{appId}/users/create", "Web\AppsUsersController@create")->name("users.create");
         # apps/{appId}/users/store (post) -> add a user to an app
+        Route::get("/{appId}/users/store", "Web\AppsUsersController@store")->name("users.store");
+        # apps/{appId}/users/{userId}/show
         # apps/{appId}/users/{userId}/edit
         # apps/{appId}/users/{userId}/state
     

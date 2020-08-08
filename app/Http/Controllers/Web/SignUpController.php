@@ -57,6 +57,16 @@ class SignUpController extends Controller
     public function done(Request $request, $user_id)
     {
         $email = $this->signUpRepository->getEmailFromId($user_id);
-        return Inertia::render('SignUp/SignUpDone', [$email]);
+        return Inertia::render('SignUp/SignUpDone', ['email' => $email]);
+    }
+
+    /**
+     * Verify the user email.
+     *
+     */
+    public function update(Request $request, $emailLink)
+    {
+        $isVerified = $this->signUpRepository->verifyEmail($emailLink);
+        return Inertia::render('SignUp/SignUpVerify', ['isVerified' => $isVerified]);
     }
 }
