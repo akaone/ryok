@@ -8,7 +8,7 @@
 
         <div class="px-6">@component('components.alert')@endcomponent</div>
 
-        <form wire:submit.prevent="login" class="flex flex-col" method="POST" @submit.prevent="login">
+        <form wire:submit.prevent="login" class="flex flex-col">
             <div class="flex flex-col px-6 mt-2">
                 <label class="font-thin text-gray-33 text-md" for="email">{{ trans('login.email') }}</label>
                 <input
@@ -33,7 +33,7 @@
     </div>
 
     <div class="flex flex-row mx-auto my-4">
-    <a href="{{ route('sign-up.create') }}" class="text-pblue text-md italic self-center ml-1 underline cursor-pointer">
+    <a href="{{ route('sign-up.index') }}" class="text-pblue text-md italic self-center ml-1 underline cursor-pointer">
         {{ trans('login.signup_link') }}
     </a>
     </div>

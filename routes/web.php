@@ -14,12 +14,11 @@ Route::get("/login", "Web\LoginController@index")->name("login");
 
 Route::prefix("sign-up")->name('sign-up.')->group(function () {
 
-    # sign-up/create (get) -> new sign up form
-    Route::get("", "Web\SignUpController@create")->name("create");
-    # sign-up/store (post) -> create a new app
-    Route::post("/store", "Web\SignUpController@store")->name("store");
+    # sign-up/create -> new sign up form
+    Route::get("", "Web\SignUpController@index")->name("index");
+    # when sign-up is done
     Route::get("/done/{userId}", "Web\SignUpController@done")->name('done');
-    # sign-up/verify (get) -> verify the email of a signup user
+    # sign-up/verify -> verify the email of a signup user
     Route::get("/verify/{emailLink}", "Web\SignUpController@update")->name('verify');
 
 });

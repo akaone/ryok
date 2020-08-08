@@ -6,6 +6,8 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\User;
+use Livewire\Livewire;
+use App\Http\Livewire\LivewireSignupIndex;
 
 class SignUpTest extends TestCase
 {
@@ -15,19 +17,18 @@ class SignUpTest extends TestCase
     # a new user can sign up
     public function a_new_user_can_sign_up()
     {
-        # arrange
-
         # act
-        $response = $this->post(route('sign-up.store'), [
-            'email' => 'desouza.kevin@ryok.com',
-            'name' => 'de SOUZA Kevin',
-            'gender' => 'M',
-            'password' => 'secret',
-            'confirm_password' => 'secret'
-        ]);
+        Livewire::test(LivewireSignupIndex::class)
+            ->set('gender', 'M')
+            ->set('password', 'secret')
+            ->set('name', 'de SOUZA Kevin')
+            ->set('confirmPassword', 'secret')
+            ->set('email', 'desouza.kevin@ryok.com')
+            ->call('createAccount')
+        ;
+        
 
         # assert
-        $response->assertStatus(302);
         $this->assertDatabaseHas('users', [
             'email' => 'desouza.kevin@ryok.com',
             'name' => 'de SOUZA Kevin',
