@@ -28,7 +28,7 @@ class LoginTest extends TestCase
             ->set('email', $user->email)
             ->set('password', 'password')
             ->call('login')
-            ->assertRedirect(route('dashboard.apps.index'))
+            ->assertRedirect(route('dashboard.stats.index'))
         ;
     }
     
@@ -46,7 +46,7 @@ class LoginTest extends TestCase
             ->set('email', $user->email)
             ->set('password', 'password')
             ->call('login')
-            ->assertRedirect(route('dashboard.apps.index'))
+            ->assertRedirect(route('dashboard.stats.index'))
         ;
     }
     

@@ -1,6 +1,6 @@
 @extends('layouts.dash')
 
-@section('title', 'Apps')
+@section('title', trans('apps.index.title'))
 
 @section('body')
   apps-index

@@ -16,4 +16,11 @@ class LoginController extends Controller
     {
         return view('login/login-index');
     }
+
+
+    public function destroy()
+    {
+        auth()->logout();
+        return redirect()->route('login');
+    }
 }

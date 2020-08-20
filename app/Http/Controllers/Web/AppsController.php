@@ -28,9 +28,7 @@ class AppsController extends Controller
     {
         $user = Auth::user();
         $apps = $this->rp->getUserApps($user->type, $user->id);
-        return Inertia::render('apps.apps-index', [
-            'apps' => $apps,
-        ]);
+        return view('apps.apps-index');
     }
 
     /**
@@ -39,7 +37,7 @@ class AppsController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Apps/AppsCreate');
+        return view('apps.apps-create');
     }
 
     /**

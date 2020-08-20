@@ -3,7 +3,7 @@
 Route::get("/", "Web\HomeController@index")->name("home.index");
 
 Route::get("/login", "Web\LoginController@index")->name("login");
-# Route::post("/logout", "Web\LoginController@destroy")->name("login.destroy");
+Route::get("/logout", "Web\LoginController@destroy")->name("login.destroy");
 # forgot password
 # change password
 
@@ -26,17 +26,18 @@ Route::prefix("sign-up")->name('sign-up.')->group(function () {
 
 Route::prefix("dashboard")->name('dashboard.')->middleware(['auth'])->group(function () {
 
+    Route::get("/", "Web\StatsController@index")->name("stats.index");
+
     Route::prefix("apps")->name('apps.')->group(function () {
 
         # apps -> list of all apps
         Route::get("/", "Web\AppsController@index")->name("index");
-
-        # apps/{appId} (get) -> Show app details
-        Route::get("/{appId}", "Web\AppsController@show")->name("show");
         # apps/create (get) -> create a new app form
         Route::get("/create", "Web\AppsController@create")->name("create");
         # apps/store (post) -> create a new app
         Route::post("/store", "Web\AppsController@store")->name("store");
+        # apps/{appId} (get) -> Show app details
+        Route::get("/{appId}", "Web\AppsController@show")->name("show");
         
         # apps/{appId}/operations -> operations of sells & withdwal
         # apps/{appId}/operations/payouts -> payouts & settings

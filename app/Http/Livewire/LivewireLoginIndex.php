@@ -20,7 +20,7 @@ class LivewireLoginIndex extends Component
         ]);
 
         if(Auth::attempt(['email' => $this->email, 'password' => $this->password, 'state' => 'ACTIVATED'])) {
-            return redirect()->route('dashboard.apps.index');
+            return redirect()->route('dashboard.stats.index');
         }
         session()->flash('error', trans('login.error_email'));
         $this->password = "";

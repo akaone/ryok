@@ -16,11 +16,11 @@
                 <a href="#" class="font-light hover:underline hover:text-pblue text-sm mr-3">Developpeurs & Entreprises</a>
                 <a href="#" class="font-light hover:underline hover:text-pblue text-sm mr-3">Faq</a>
             </div>
-            <div class="w-1/6 hidden md:flex justify-end">
-                <a href="{{ route('login') }}" class="font-medium text-white text-xs bg-pblue px-4 py-2 rounded-full shadow hover:shadow-lg">
+            <a href="{{ route('login') }}" class=" bg-pblue px-2 py-2 rounded-full shadow hover:shadow-lg">
+                <div class="font-medium text-white text-xs">
                 Accés marchand
-                </a>
-            </div>
+                </div>
+            </a>
             </div>
         </div>
         <!-- END NAVBAR -->
