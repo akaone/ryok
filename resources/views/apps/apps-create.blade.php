@@ -1,4 +1,4 @@
-@extends('layouts.dash')
+@extends('layouts.home')
 
 @section('title', trans('apps.create.title'))
 

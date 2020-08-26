@@ -21,7 +21,11 @@ class CreateAppsTable extends Migration
 
             $table->string('name');
             $table->string('icon')->nullable();
-            $table->enum('platform', ['ANDROID', 'IOS', 'WEB', 'HYBRIDE']);
+            $table->string('cfe_recto')->nullable();
+            $table->string('cfe_verso')->nullable();
+            $table->string('nif')->nullable();
+            $table->string('organization')->nullable();
+            $table->enum('platform', ['ANDROID', 'IOS', 'WEB', 'HYBRIDE'])->default('HYBRIDE');
             $table->string('package_name')->nullable();
             $table->string('website_url')->nullable();
             $table->string('webhook_url')->nullable();

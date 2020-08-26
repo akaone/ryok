@@ -7,7 +7,9 @@ use App\Repositories\Web\AppsRepository;
 
 class LivewireAppsDropdown extends Component
 {
+
     public $allApps;
+    protected $currentApp = [];
 
 
     public function mount(AppsRepository $appsRepo)
@@ -15,11 +17,20 @@ class LivewireAppsDropdown extends Component
         $user = auth()->user();
         $apps = $appsRepo->getUserApps($user->type, $user->id);
         $this->allApps = $apps->toArray();
+
+        $appId = request()->appId;
+        $this->currentApp = $appsRepo->getApp($appId);
+        
+        // This not emiting a thing
+        // $this->emit('appSelected', $this->currentApp->id);
+
     }
 
 
     public function render()
     {
-        return view('livewire.components.livewire-apps-dropdown');
+        return view('livewire.components.livewire-apps-dropdown', [
+            'currentApp' => $this->currentApp
+        ]);
     }
 }

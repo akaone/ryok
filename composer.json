@@ -24,6 +24,7 @@
         "webpatser/laravel-uuid": "^3.0"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.4",
         "facade/ignition": "^2.0",
         "fzaninotto/faker": "^1.9.1",
         "laravel/dusk": "^5.8",

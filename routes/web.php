@@ -30,14 +30,14 @@ Route::prefix("dashboard")->name('dashboard.')->middleware(['auth'])->group(func
 
     Route::prefix("apps")->name('apps.')->group(function () {
 
-        # apps -> list of all apps
-        Route::get("/", "Web\AppsController@index")->name("index");
         # apps/create (get) -> create a new app form
         Route::get("/create", "Web\AppsController@create")->name("create");
+        # apps -> list of all apps
+        Route::get("/{appId}", "Web\AppsController@index")->name("index");
         # apps/store (post) -> create a new app
         Route::post("/store", "Web\AppsController@store")->name("store");
         # apps/{appId} (get) -> Show app details
-        Route::get("/{appId}", "Web\AppsController@show")->name("show");
+        // Route::get("/{appId}", "Web\AppsController@show")->name("show");
         
         # apps/{appId}/operations -> operations of sells & withdwal
         # apps/{appId}/operations/payouts -> payouts & settings

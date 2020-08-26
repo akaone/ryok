@@ -6,6 +6,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Webpatser\Uuid\Uuid;
 use App\Repositories\Web\AppKeysRepository;
+use Carbon\Carbon;
 
 class AppsRepository
 {
@@ -36,24 +37,63 @@ class AppsRepository
     }
 
     /**
+     * Get an app
+     * @param $appId
+     * @return Collection
+     */
+    public function getApp($appId)
+    {
+        $app = DB::table('apps')
+            ->where('id', $appId)
+            ->first()
+        ;
+
+        return $app;
+    }
+
+    /**
+     * Get first created app
+     * @param $userId
+     * @return Collection
+     */
+    public function getFirstApp($userId)
+    {
+        $app = DB::table('apps as a')
+            ->join('app_users as au', 'au.app_id', '=', 'a.id')
+            ->where('au.user_id', $userId)
+            ->orderBy('a.created_at', 'DESC')
+            ->select('a.*')
+            ->first()
+        ;
+
+        return $app;
+    }
+
+    /**
      * Store a app creation request made buy a user
      * @param $data
      * @param $image
      * @param $userId
      * @return string appUuid
      */
-    public function storePendingApp($data, $image, $userId)
+    public function storePendingApp($data, $image, $cfeRecto, $cfeVerso, $userId)
     {
 
         $file = null;
         if($image) {
             $file = $image->store('images');
         }
+        $fileCfeRecto = $cfeRecto->store('images');
+        $fileCfeVerso = $cfeVerso->store('images');
         $appUuid = Uuid::generate()->string;
         $appendData = $data;
         $appendData['id'] = $appUuid;
         $appendData['state'] = 'PENDING';
         $appendData['icon'] = $file;
+        $appendData['cfe_recto'] = $fileCfeRecto;
+        $appendData['cfe_verso'] = $fileCfeVerso;
+        $appendData['created_at'] = Carbon::now();
+        $appendData['updated_at'] = Carbon::now();
 
         $app = DB::table('apps')
             ->insert($appendData)
