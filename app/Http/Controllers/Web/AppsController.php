@@ -26,8 +26,6 @@ class AppsController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
-        $apps = $this->rp->getUserApps($user->type, $user->id);
         return view('apps.apps-index');
     }
 
@@ -38,33 +36,6 @@ class AppsController extends Controller
     public function create()
     {
         return view('apps.apps-create');
-    }
-
-    /**
-     * Store a newly created app.
-     * ACL -> []
-     */
-    public function store(Request $request)
-    {
-        $this->validate($request, [
-            'name' => 'required|string|min:3',
-            'icon' => 'nullable|image',
-            'platform' => 'required|in:ANDROID,IOS,WEB,HYBRIDE',
-            'package_name' => 'required_if:platform,ANDROID,IOS',
-            'website_url' => 'required_if:platform,WEB|url',
-            'webhook_url' => 'nullable|url',
-        ]);
-
-        $user = Auth::user();
-
-        $input = $request->except(['icon']);
-        $image = $request->hasFile('icon') ? $request->file('icon') : null;
-
-        $storedAppUuid = $this->rp->storePendingApp($input, $image, $user->id);
-
-        $this->rp->createAccountForApp($storedAppUuid);
-
-        return redirect()->route('dashboard.apps.index');
     }
 
     /**

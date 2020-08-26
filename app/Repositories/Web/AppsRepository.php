@@ -61,7 +61,7 @@ class AppsRepository
         $app = DB::table('apps as a')
             ->join('app_users as au', 'au.app_id', '=', 'a.id')
             ->where('au.user_id', $userId)
-            ->orderBy('a.created_at', 'DESC')
+            ->orderBy('a.created_at', 'ASC')
             ->select('a.*')
             ->first()
         ;

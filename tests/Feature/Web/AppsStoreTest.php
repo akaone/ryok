@@ -10,13 +10,15 @@ use App\Models\User;
 use App\Models\App;
 use App\Models\AppKey;
 use Illuminate\Support\Facades\Storage;
+use Livewire\Livewire;
+use App\Http\Livewire\LivewireAppsCreate;
 
 class AppsStoreTest extends TestCase
 {
     use RefreshDatabase;
     
     /** @test  */
-    public function a_user_can_submit_an_ios_app_request_with_icon()
+    public function a_user_can_submit_an_app_request_with_icon()
     {
         # arrange
         $user = factory(User::class)->create([
@@ -27,66 +29,40 @@ class AppsStoreTest extends TestCase
 
         // Storage::fake('images');
         $file = UploadedFile::fake()->image('app_icon_img.jpg');
+        $recto = UploadedFile::fake()->image('cfe_recto.jpg');
+        $verso = UploadedFile::fake()->image('cfe_verso.jpg');
 
         # action
-        $response = $this->actingAs($user)->post(route('dashboard.apps.store'), [
-            'name' => 'My cool app',
-            'platform' => 'IOS',
-            'icon' => $file,
-            'package_name' => 'my.cool.app'
-        ]);
+        $this->actingAs($user);
+        Livewire::test(LivewireAppsCreate::class)
+            ->set('appName','my first app')
+            ->set('website', 'http://ryoktest.com')
+            ->set('webhookUrl', 'http://ryoktest.com/hook')
+            ->set('organization', 'Ryok')
+            ->set('nif', '123456TG')
+            ->set('appIcon', $file)
+            ->set('cfe_recto', $recto)
+            ->set('cfe_verso', $verso)
+            ->call('save')
+        ;
 
         # assert
         $this->assertDatabaseHas('apps', [
-            'name' => 'My cool app',
+            'name' => 'my first app',
             'state' => 'PENDING',
-            'platform' => 'IOS',
+            'platform' => 'HYBRIDE',
         ]);
         $this->assertDatabaseHas('app_users', [
             'user_id' => $user->id,
         ]);
 
         // Storage::disk('images')->assertExists($file->hashName());
-        $response->assertStatus(302);
-        $response->assertRedirect(route('dashboard.apps.index'));
-    }
-
-    
-    /** @test  */
-    public function a_user_can_submit_an_android_app_request_without_icon()
-    {
-        # arrange
-        $user = factory(User::class)->create([
-            'type' => 'member',
-            'state' => 'ACTIVATED',
-            'email' => 'member@ryok.com',
-        ]);
-
-        # action
-        $response = $this->actingAs($user)->post(route('dashboard.apps.store'), [
-            'name' => 'My cool app',
-            'platform' => 'ANDROID',
-            'package_name' => 'my.cool.app'
-        ]);
-
-        # assert
-        $this->assertDatabaseHas('apps', [
-            'name' => 'My cool app',
-            'state' => 'PENDING',
-            'platform' => 'ANDROID',
-        ]);
-        $this->assertDatabaseHas('app_users', [
-            'user_id' => $user->id,
-        ]);
-
-        $response->assertStatus(302);
-        $response->assertRedirect(route('dashboard.apps.index'));
     }
 
     
     /** @test  */
     # created app should be create with app key
-    public function created_app_should_be_create_with_app_key()
+    public function created_app_should_be_created_with_app_key()
     {
         # arrange
         $user = factory(User::class)->create([
@@ -95,25 +71,34 @@ class AppsStoreTest extends TestCase
             'email' => 'member@ryok.com',
         ]);
 
+        $file = UploadedFile::fake()->image('app_icon_img.jpg');
+        $recto = UploadedFile::fake()->image('cfe_recto.jpg');
+        $verso = UploadedFile::fake()->image('cfe_verso.jpg');
+
         # action
-        $response = $this->actingAs($user)->post(route('dashboard.apps.store'), [
-            'name' => 'My cool app',
-            'platform' => 'ANDROID',
-            'package_name' => 'my.cool.app'
-        ]);
+        $this->actingAs($user);
+        Livewire::test(LivewireAppsCreate::class)
+            ->set('appName','my first app')
+            ->set('website', 'http://ryoktest.com')
+            ->set('webhookUrl', 'http://ryoktest.com/hook')
+            ->set('organization', 'Ryok')
+            ->set('nif', '123456TG')
+            ->set('appIcon', $file)
+            ->set('cfe_recto', $recto)
+            ->set('cfe_verso', $verso)
+            ->call('save')
+        ;
 
         # assert
         $this->assertDatabaseHas('apps', [
-            'name' => 'My cool app',
+            'name' => 'my first app',
             'state' => 'PENDING',
-            'platform' => 'ANDROID',
+            'platform' => 'HYBRIDE',
         ]);
         $this->assertDatabaseHas('app_users', [
             'user_id' => $user->id,
         ]);
         $this->assertEquals(1, AppKey::count());
-        $response->assertStatus(302);
-        $response->assertRedirect(route('dashboard.apps.index'));
     }
     
     /** @test  */
@@ -127,31 +112,39 @@ class AppsStoreTest extends TestCase
             'email' => 'member@ryok.com',
         ]);
 
-        # act
-        $response = $this->actingAs($user)->post(route('dashboard.apps.store'), [
-            'name' => 'MY_COOL_APP',
-            'platform' => 'ANDROID',
-            'package_name' => 'my.cool.app'
-        ]);
+        $file = UploadedFile::fake()->image('app_icon_img.jpg');
+        $recto = UploadedFile::fake()->image('cfe_recto.jpg');
+        $verso = UploadedFile::fake()->image('cfe_verso.jpg');
+
+        # action
+        $this->actingAs($user);
+        Livewire::test(LivewireAppsCreate::class)
+            ->set('appName','my first app')
+            ->set('website', 'http://ryoktest.com')
+            ->set('webhookUrl', 'http://ryoktest.com/hook')
+            ->set('organization', 'Ryok')
+            ->set('nif', '123456TG')
+            ->set('appIcon', $file)
+            ->set('cfe_recto', $recto)
+            ->set('cfe_verso', $verso)
+            ->call('save')
+        ;
 
         # assert
         $this->assertDatabaseHas('apps', [
-            'name' => 'MY_COOL_APP',
+            'name' => 'my first app',
             'state' => 'PENDING',
-            'platform' => 'ANDROID',
+            'platform' => 'HYBRIDE',
         ]);
         $this->assertDatabaseHas('app_users', [
             'user_id' => $user->id,
         ]);
         
-        $app = App::where('name', 'MY_COOL_APP')->first();
+        $app = App::where('name', 'my first app')->first();
         $this->assertDatabaseHas('accounts', [
             'app_id' => $app->id,
             'type' => 'APP',
         ]);
-
-        $response->assertStatus(302);
-        $response->assertRedirect(route('dashboard.apps.index'));
     }
 
 }

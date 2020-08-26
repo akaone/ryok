@@ -32,10 +32,10 @@ Route::prefix("dashboard")->name('dashboard.')->middleware(['auth'])->group(func
 
         # apps/create (get) -> create a new app form
         Route::get("/create", "Web\AppsController@create")->name("create");
+        
         # apps -> list of all apps
         Route::get("/{appId}", "Web\AppsController@index")->name("index");
-        # apps/store (post) -> create a new app
-        Route::post("/store", "Web\AppsController@store")->name("store");
+        
         # apps/{appId} (get) -> Show app details
         // Route::get("/{appId}", "Web\AppsController@show")->name("show");
         
