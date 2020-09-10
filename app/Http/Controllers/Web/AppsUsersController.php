@@ -8,23 +8,17 @@ use Illuminate\Http\Request;
 class AppsUsersController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        //
+        return view('apps-users.apps-users-index');
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        //
+        return view('apps-users.apps-users-create');
     }
 
     /**

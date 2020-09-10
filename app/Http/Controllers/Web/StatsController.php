@@ -11,6 +11,10 @@ class StatsController extends Controller
     {
         $user = auth()->user();
 
+        if(auth()->user()->type != 'member') {
+            return redirect()->route('dashboard.apps.list');
+        }
+
         $appsRepo = new AppsRepository();
         $firstApp = $appsRepo->getFirstApp($user->id);
 

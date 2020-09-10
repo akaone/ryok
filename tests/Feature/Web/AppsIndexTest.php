@@ -9,6 +9,8 @@ use App\Models\AppUser;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Livewire\Livewire;
+use App\Http\Livewire\LivewireAppsList;
 
 class AppsIndexTest extends TestCase
 {
@@ -27,15 +29,13 @@ class AppsIndexTest extends TestCase
         
         factory(App::class, 5)->create();
         
-        Auth::attempt(
-            ['email' => $user->email, 'password' => 'password', 'state' => 'ACTIVATED']
-        );
         # act
-        $response = $this->get(route('dashboard.apps.index'));
-        $pageProps = $response->getOriginalContent()->getData()['page']['props'];
+        $this->actingAs($user);
+        $component  = Livewire::test(LivewireAppsList::class);
+        dd($component);
 
         # assert
-        $this->assertEquals(5, count($pageProps['apps']));
+        // $this->assertEquals(5, count($pageProps['apps']));
     }
 
     /** @test */

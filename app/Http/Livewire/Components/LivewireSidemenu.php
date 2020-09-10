@@ -18,7 +18,7 @@ class LivewireSidemenu extends Component
 
     public function mount()
     {
-        $this->selectedApp = request()->appId == null ? 0 : request()->appId;
+        $this->selectedApp = request()->appId;
     }
 
     public function render()

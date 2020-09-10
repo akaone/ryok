@@ -20,10 +20,6 @@ class LivewireAppsDropdown extends Component
 
         $appId = request()->appId;
         $this->currentApp = $appsRepo->getApp($appId);
-        
-        // This not emiting a thing
-        // $this->emit('appSelected', $this->currentApp->id);
-
     }
 
 

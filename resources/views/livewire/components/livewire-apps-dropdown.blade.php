@@ -15,7 +15,7 @@
         class="bg-white shadow absolute w-full">
             @foreach($allApps as $app)
                 <a href="{{ route('dashboard.apps.index', ['appId' => $app->id ]) }}">
-                    <div x-on:click="toggle" .wire:click="$emit('appSelected', '{{$app->id}}')" class="py-2 px-6 flex border-b hover:bg-gray-200">
+                    <div x-on:click="toggle" class="py-2 px-6 flex border-b hover:bg-gray-200">
                         @if($app->id == request()->appId)
                             <span class="mr-2 underline text-pblue">{{ $app->name }}</span>
                         @endif

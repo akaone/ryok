@@ -2,6 +2,7 @@
     <!-- Statistiques -->
     <a class="block px-4 mt-4" href="{{ route('dashboard.apps.index', ['appId' => $selectedApp ]) }}">
         <div
+            :class="{ 'bg-gray-200': isActiveRoute('/dashboard/apps/{{$selectedApp}}', true) }"
             class="py-2 px-2 rounded flex items-center text-sm font-light cursor-pointer hover:bg-gray-200"
         >
             <x-heroicon-s-chart-pie class="w-4 h-4 mr-3 text-gray-500"/>
@@ -20,8 +21,9 @@
     </a>
 
     <!-- Members -->
-    <a class="block px-4" href="#">
+    <a class="block px-4" href="{{ route('dashboard.apps.users.index', ['appId' => $selectedApp ]) }}">
         <div
+            :class="{ 'bg-gray-200': isActiveRoute('/apps/{{$selectedApp}}/users') }"
             class="py-2 px-2 rounded flex items-center text-sm font-light cursor-pointer hover:bg-gray-200"
         >
             <x-heroicon-s-user-group class="w-4 h-4 mr-3 text-gray-500"/>
@@ -31,8 +33,9 @@
     </a>
 
     <!-- API -->
-    <a class="block px-4" href="#">
+    <a class="block px-4" href="{{ route('dashboard.apps.api.index', ['appId' => $selectedApp]) }}">
         <div
+            :class="{ 'bg-gray-200': isActiveRoute('/apps/{{$selectedApp}}/api') }"
             class="py-2 px-2 rounded flex items-center text-sm font-light cursor-pointer hover:bg-gray-200"
         >
             <x-heroicon-s-document class="w-4 h-4 mr-3 text-gray-500"/>
@@ -50,45 +53,4 @@
         </div>
     </a>
 
-
-    <!-- Apps -->
-    <a class="block px-4 mt-6" href="#">
-        <div
-            class="py-2 px-2 rounded flex items-center text-sm font-light cursor-pointer hover:bg-gray-200"
-        >
-            <x-heroicon-s-view-grid class="w-4 h-4 mr-3 text-gray-500"/>
-            <span>Apps</span>
-        </div>
-    </a>
-
-
-    <!-- Carriers -->
-    <a class="block px-4" href="#">
-        <div
-            class="py-2 px-2 rounded flex items-center text-sm font-light cursor-pointer hover:bg-gray-200"
-        >
-            <x-heroicon-s-status-online class="w-4 h-4 mr-3 text-gray-500"/>
-            <span>Carriers</span>
-        </div>
-    </a>
-
-    <!-- Clients -->
-    <a class="block px-4" href="#">
-        <div
-            class="py-2 px-2 rounded flex items-center text-sm font-light cursor-pointer hover:bg-gray-200"
-        >
-            <x-heroicon-s-briefcase class="w-4 h-4 mr-3 text-gray-500"/>
-            <span>Clients</span>
-        </div>
-    </a>
-    
-    <!-- Users -->
-    <a class="block px-4" href="#">
-        <div
-            class="py-2 px-2 rounded flex items-center text-sm font-light cursor-pointer hover:bg-gray-200"
-        >
-            <x-heroicon-s-user-group class="w-4 h-4 mr-3 text-gray-500"/>
-            <span>Users</span>
-        </div>
-    </a>
 </div>

@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\DB;
 use Webpatser\Uuid\Uuid;
 use App\Repositories\Web\AppKeysRepository;
 use Carbon\Carbon;
+use App\Models\AppUser;
+use Illuminate\Support\Facades\Storage;
 
 class AppsRepository
 {
@@ -80,18 +82,20 @@ class AppsRepository
     {
 
         $file = null;
-        if($image) {
-            $file = $image->store('images');
-        }
-        $fileCfeRecto = $cfeRecto->store('images');
-        $fileCfeVerso = $cfeVerso->store('images');
-        $appUuid = Uuid::generate()->string;
         $appendData = $data;
+        if($image) {
+            $file = $image->store('apps', 'global_albums');
+            $appendData['icon'] = Storage::disk('global_albums')->url($file);
+        }
+        $fileCfeRecto = $cfeRecto->store('apps', 'global_albums');
+        $appendData['cfe_recto'] = Storage::disk('global_albums')->url($fileCfeRecto);
+
+        $fileCfeVerso = $cfeVerso->store('apps', 'global_albums');
+        $appendData['cfe_verso'] = Storage::disk('global_albums')->url($fileCfeVerso);
+        
+        $appUuid = Uuid::generate()->string;
         $appendData['id'] = $appUuid;
         $appendData['state'] = 'PENDING';
-        $appendData['icon'] = $file;
-        $appendData['cfe_recto'] = $fileCfeRecto;
-        $appendData['cfe_verso'] = $fileCfeVerso;
         $appendData['created_at'] = Carbon::now();
         $appendData['updated_at'] = Carbon::now();
 
@@ -106,6 +110,9 @@ class AppsRepository
                 'user_id' => $userId,
             ])
         ;
+
+        $appAdminUser = AppUser::where([ 'app_id' => $appUuid, 'user_id' => $userId ])->first();
+        $appAdminUser->assignRole('admin');
 
         $appKeyRepository = new AppKeysRepository();
         $appKeyRepository->generateInitialKeysForApp($appUuid);

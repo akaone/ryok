@@ -17,7 +17,6 @@ class User extends Authenticatable
     protected $guard_name = 'web';
     public $incrementing = false;
     protected $primaryKey = 'id';
-    protected $guarded = [];
 
     /**
      * The attributes that should be hidden for arrays.

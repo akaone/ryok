@@ -18,7 +18,7 @@ class CreateAppUsersTable extends Migration
             $table->primary('id');
             $table->timestamps();
             
-            $table->enum('state', ['ACTIVATED', 'DEACTIVATED', 'DELETED'])->default('ACTIVATED');
+            $table->enum('state', ['INVITED', 'ACTIVATED', 'DEACTIVATED', 'DELETED'])->default('ACTIVATED');
             $table->text('state_reason')->nullable();
 
             $table->string('app_id');

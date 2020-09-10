@@ -32,16 +32,18 @@ Route::prefix("dashboard")->name('dashboard.')->middleware(['auth'])->group(func
 
         # apps/create (get) -> create a new app form
         Route::get("/create", "Web\AppsController@create")->name("create");
+
+        Route::get("/list", "Web\AppsController@list")->name("list");
         
-        # apps -> list of all apps
+        # apps -> list a specific app
         Route::get("/{appId}", "Web\AppsController@index")->name("index");
-        
-        # apps/{appId} (get) -> Show app details
-        // Route::get("/{appId}", "Web\AppsController@show")->name("show");
         
         # apps/{appId}/operations -> operations of sells & withdwal
         # apps/{appId}/operations/payouts -> payouts & settings
         
+        # apps/{appId}/api -> api key and documentation
+        Route::get("/{appId}/api", "Web\AppsApiController@index")->name("api.index");
+
         # apps/{appId}/keys -> api key settings
         # apps/{appId}/keys/edit -> edit bundle id | site url | webhook
         # apps/{appId}/keys/reset -> reset api key
@@ -50,10 +52,9 @@ Route::prefix("dashboard")->name('dashboard.')->middleware(['auth'])->group(func
         
         # apps/{appId}/users -> list of app users
         Route::get("/{appId}/users", "Web\AppsUsersController@index")->name("users.index");
+        
         # apps/{appId}/users/create (get) -> add a user to an app form
         Route::get("/{appId}/users/create", "Web\AppsUsersController@create")->name("users.create");
-        # apps/{appId}/users/store (post) -> add a user to an app
-        Route::get("/{appId}/users/store", "Web\AppsUsersController@store")->name("users.store");
         # apps/{appId}/users/{userId}/show
         # apps/{appId}/users/{userId}/edit
         # apps/{appId}/users/{userId}/state

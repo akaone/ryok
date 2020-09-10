@@ -16,14 +16,14 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->uuid('id')->unique();
             $table->primary('id');
-            $table->string('name');
+            $table->string('name')->nullable();
             $table->string('email')->unique();
             $table->string('email_link')->unique();
             $table->boolean('email_verified')->default(false);
             $table->timestamp('email_verified_at')->nullable();
             $table->enum('state', [
                 'INVITED', "EMAIL", "ACTIVATED", "DEACTIVATED", "DELETED"
-            ])->default('email');
+            ])->default('EMAIL');
             $table->enum('gender', ['M', 'F'])->default('M');
             $table->enum('type', ['staff', 'member'])->default('member');
             $table->string('password');

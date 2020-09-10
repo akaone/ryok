@@ -64,6 +64,12 @@ return [
             'url' => env('AWS_URL'),
         ],
 
+        'global_albums' => [
+            'driver' => 'local',
+            'root' => "./albums",
+            'url' =>  '/albums',
+        ],
+
     ],
 
 ];

@@ -1,4 +1,4 @@
-@extends('layouts.home')
+@extends('layouts.no-modal')
 
 @section('title', trans('apps.create.title'))
 

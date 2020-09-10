@@ -5,6 +5,7 @@ namespace App\Repositories\Web;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Webpatser\Uuid\Uuid;
+use Carbon\Carbon;
 
 class AppKeysRepository
 {
@@ -27,8 +28,27 @@ class AppKeysRepository
                     'public_key' => 'pk-' . Uuid::generate()->string,
                     'test_secret_key' => 'sk-test-' . Uuid::generate()->string,
                     'test_public_key' => 'pk-test-' . Uuid::generate()->string,
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
                 ])
             ;
         }
+    }
+
+
+    /**
+     * Generate app keys for an app
+     * @param $appId
+     */
+    public function appKeys($appId)
+    {
+        $key = DB::table('app_keys')
+            ->where('app_id', $appId)
+            ->orderBy('created_at', 'ASC')
+            ->select('secret_key', 'public_key', 'test_secret_key', 'test_public_key')
+            ->first()
+        ;
+
+        return $key;
     }
 }
