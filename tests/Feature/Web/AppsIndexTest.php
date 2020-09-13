@@ -32,10 +32,12 @@ class AppsIndexTest extends TestCase
         # act
         $this->actingAs($user);
         $component  = Livewire::test(LivewireAppsList::class);
-        dd($component);
+        $renderedView = $component->lastRenderedView;
+        # dd($component->lastRenderedView->getData()['appsList']);
+
 
         # assert
-        // $this->assertEquals(5, count($pageProps['apps']));
+        $this->assertEquals(5, count($renderedView->__get('appsList')));
     }
 
     /** @test */
@@ -59,16 +61,14 @@ class AppsIndexTest extends TestCase
                 'state' => 'ACTIVATED',
             ]);
         }
-        
-        Auth::attempt(
-            ['email' => $user->email, 'password' => 'password', 'state' => 'ACTIVATED']
-        );
+
         # act
-        $response = $this->get(route('dashboard.apps.index'));
-        $pageProps = $response->getOriginalContent()->getData()['page']['props'];
+        $this->actingAs($user);
+        $component  = Livewire::test(LivewireAppsList::class);
+        $renderedView = $component->lastRenderedView;
 
         # assert
-        $this->assertEquals(2, count($pageProps['apps']));
+        $this->assertEquals(2, count($renderedView->__get('appsList')));
     }
 
     /** @test */
@@ -92,16 +92,13 @@ class AppsIndexTest extends TestCase
             ]);
         }
         
-        Auth::attempt(
-            ['email' => $user->email, 'password' => 'password', 'state' => 'ACTIVATED']
-        );
-        # act
-        $response = $this->get(route('dashboard.apps.index'));
-        $pageProps = $response->getOriginalContent()->getData()['page']['props'];
+        
+        $this->actingAs($user);
+        $component  = Livewire::test(LivewireAppsList::class);
+        $renderedView = $component->lastRenderedView;
 
         # assert
-        $this->assertEquals(0, count($pageProps['apps']));
-
+        $this->assertEquals(0, count($renderedView->__get('appsList')));
     }
 
 }

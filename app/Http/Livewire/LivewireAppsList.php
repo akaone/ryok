@@ -7,17 +7,23 @@ use App\Repositories\Web\AppsRepository;
 
 class LivewireAppsList extends Component
 {
-    public $appsList;
+    private $appsList;
 
     public function mount(AppsRepository $appRep)
     {
         $user = auth()->user();
-        $this->appsList = $appRep->getUserApps($user->type, $user->id)->toArray();
+        $this->appsList = $appRep->getUserApps($user->type, $user->id);
     }
 
 
     public function render()
     {
-        return view('livewire.livewire-apps-list');
+        return view('livewire.livewire-apps-list', [
+            'appsList' => $this->appsList
+        ]);
+    }
+
+    public function hello(){
+        return 'hello';
     }
 }
