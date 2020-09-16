@@ -3,11 +3,13 @@
 
     <div class="mt-6 mb-1 flex justify-between">
         <input type="text" class="border bg-gray-200 rounded h-8 px-2 w-4/12" placeholder="{{trans('apps.apps-users.index.search')}}">
-        <a href="{{ route('dashboard.apps.users.create', ['appId' => $appId ]) }}">
-            <button class="flex items-center justify-center px-4 h-8 shadow bg-blue-500 rounded text-white font-light">
-                <span>{{trans('apps.apps-users.index.invite')}}</span>
-            </button>
-        </a>
+        <x-user-can acl="app-users-create" :id="$appId">
+            <a href="{{ route('dashboard.apps.users.create', ['appId' => $appId ]) }}">
+                <button class="flex items-center justify-center px-4 h-8 shadow bg-blue-500 rounded text-white font-light">
+                    <span>{{trans('apps.apps-users.index.invite')}}</span>
+                </button>
+            </a>
+        </x-user-can>
     </div>
 
     <table class="my-2 bg-gray-200 rounded border">

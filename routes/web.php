@@ -33,6 +33,7 @@ Route::prefix("dashboard")->name('dashboard.')->middleware(['auth'])->group(func
         # apps/create (get) -> create a new app form
         Route::get("/create", "Web\AppsController@create")->name("create");
 
+        # staff route - list all apps
         Route::get("/list", "Web\AppsController@list")->name("list");
         
         # apps -> list a specific app

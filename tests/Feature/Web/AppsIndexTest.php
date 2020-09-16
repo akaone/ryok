@@ -40,6 +40,30 @@ class AppsIndexTest extends TestCase
         $this->assertEquals(5, count($renderedView->__get('appsList')));
     }
 
+
+    /** @test */
+    # member user cannot see route apps list
+    public function member_user_cannot_see_route_apps_list()
+    {
+        # arrange
+        $user = factory(User::class)->create([
+            'type' => 'member',
+            'state' => 'ACTIVATED',
+            'email' => 'desouzakevinm@gmail.com',
+        ]);
+        
+        factory(App::class, 5)->create();
+        
+        # act
+        $this->actingAs($user);
+        $response = $this->get(
+            route('dashboard.apps.list'),
+        );
+
+
+    }
+
+
     /** @test */
     # a member user can only see app of which he is a app_user
     public function a_member_can_only_see_app_of_which_he_is_a_app_user()

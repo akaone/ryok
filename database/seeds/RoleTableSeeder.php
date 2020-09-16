@@ -36,6 +36,7 @@ class RoleTableSeeder extends Seeder
             ["name" => "app-state", "display" => "Can change app state"],
 
             # APP_USERS
+            ["name" => "app-users-create", "display" => "Can invite user to app"],
             ["name" => "app-users-read", "display" => "Can see app's users"],
             ["name" => "app-users-edit", "display" => "Can edit app's users"],
             ["name" => "app-users-state", "display" => "Can change app's users state"],
@@ -79,7 +80,7 @@ class RoleTableSeeder extends Seeder
 
         $staffAdmin->givePermissionTo([
             'app-read', 'app-create', 'app-state', 'app-edit',
-            'app-users-read', 'app-users-edit', 'app-users-state',
+            'app-users-create', 'app-users-read', 'app-users-edit', 'app-users-state',
             'app-keys-read', 'app-keys-reset',
             'app-kycs-validate',
             'accounts-read', 'accounts-create', 'accounts-edit', 'accounts-state',
@@ -91,7 +92,7 @@ class RoleTableSeeder extends Seeder
 
         $adminRole->givePermissionTo([
             'app-read', 'app-create', 'app-state', 'app-edit',
-            'app-users-read', 'app-users-edit', 'app-users-state',
+            'app-users-create', 'app-users-read', 'app-users-edit', 'app-users-state',
             'app-keys-read', 'app-keys-reset',
             'operations-read',
         ]);

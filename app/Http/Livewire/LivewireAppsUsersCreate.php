@@ -3,13 +3,23 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
+use App\Utils\FreshAppUser;
 
 class LivewireAppsUsersCreate extends Component
 {
     public $members = [
         ['email' => '', 'role' => ''],
     ];
+    private $appId;
+    private $freshUser;
 
+
+    public function mount()
+    {
+        $this->appId = request()->appId;
+        $this->freshUser = FreshAppUser::user(auth()->user()->id, $this->appId);
+
+    }
     
     public function addRow()
     {

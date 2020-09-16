@@ -3,10 +3,21 @@
 namespace App\Exceptions;
 
 use Exception;
+use Illuminate\Http\Response;
+use Livewire\Exceptions\BypassViewHandler;
 
 class UserAccessLevelException extends Exception
 {
+    use BypassViewHandler;
     protected $message = "USER_ACL_EXCEPTION";
+
+    
+    public function __construct($msg = null)
+    {
+        if($msg) {
+            $this->message = $msg;
+        }
+    }
 
 
     /**
@@ -37,6 +48,8 @@ class UserAccessLevelException extends Exception
             return response()->json($json, 401);
         }
 
-        return back()->withErrors("USER_ACL_EXCEPTION");
+        return view('acl.no-access', [
+            'title' => $this->message,
+        ]);
     }
 }
