@@ -10,7 +10,7 @@ class LivewireAppsUsersCreate extends Component
     public $members = [
         ['email' => '', 'role' => ''],
     ];
-    private $appId;
+    public $appId;
     private $freshUser;
 
 

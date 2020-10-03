@@ -79,7 +79,7 @@ return [
             'production-keys-title' => 'Production api keys',
 
             'doc-create-payment-title' => 'Create a payment request',
-            'doc-create-payment-description' => "To make a payment request to your user, you should request a payment link from us using your secret key. Do this from your backend to make sure that your secret key is keot secret and doesn't get accesed by your users or any malicious individual.",
+            'doc-create-payment-description' => "To make a payment request to your user, you should request a payment link from us using your secret key. Do this from your backend to make sure that your secret key is kept secret and doesn't get accesed by your users or any malicious individual.",
             'doc-create-payment-demo-title' => 'Here is a demo of how you can request the payment link:',
             
             'doc-create-payment-params' => 'Parameters',

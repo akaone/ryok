@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Web;
 
-use Inertia\Inertia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;

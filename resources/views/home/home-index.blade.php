@@ -3,46 +3,30 @@
 @section('title', 'Accueil')
 
 @section('body')
-    <div class="bg-white flex flex-col">
-        <!-- START NAVBAR -->
-        <div class="bg-white border-b w-full sticky top-0">
-            <div class="container py-4 flex flex-col md:flex-row md:items-center mx-4 md:mx-auto">
-            <div class="w-1/6">
-                <h3 class="font-ryok text-pblue text-2xl">Ryok</h3>
-            </div>
-            <div class="w-4/6 hidden md:block">
-                <a href="#" class="font-light hover:underline hover:text-pblue text-sm mr-3">Opérateurs</a>
-                <a href="#" class="font-light hover:underline hover:text-pblue text-sm mr-3">Fonctionnalités</a>
-                <a href="#" class="font-light hover:underline hover:text-pblue text-sm mr-3">Developpeurs & Entreprises</a>
-                <a href="#" class="font-light hover:underline hover:text-pblue text-sm mr-3">Faq</a>
-            </div>
-            <a href="{{ route('login') }}" class=" bg-pblue px-2 py-2 rounded-full shadow hover:shadow-lg">
-                <div class="font-medium text-white text-xs">
-                Accés marchand
-                </div>
-            </a>
-            </div>
-        </div>
-        <!-- END NAVBAR -->
-        <div class="bg-gray-200 w-full">
+    <div class="bg-teal-400 flex flex-col">
+        @include('partials.home.nav-bar')
 
-            <!-- START PRESENTATION -->
-            <div class="container mx-4 md:mx-auto flex flex-col md:flex-row">
-                <div class="w-full md:w-7/12 mt-16 mb-4">
-                <span class="font-lato text-2xl md:text-4xl italic font-bold leading-tight">
-                    Traquez tout votre historique de transfert mobile money et accepter les paiements de manière sécurisé et  retracable
-                </span>
-                <a href="#">
-                    <img src="/images/google_button.png" class="-ml-2 w-5/12 md:w-4/12">
-                </a>
-                </div>
-                <div class="flex flex-col w-5/12 items-center mt-8 mb-6 self-end">
-                <img src="/images/app_accueil.png" alt="app acceuil image" class="w-1/2 shadow-lg">
-                <div class="mt-2 h-5 w-12 bg-white rounded-full shadow-md"></div>
-                </div>
-            </div>
-            <!-- END PRESENTATION -->
+        @include('partials.home.presentation')
 
+        <div class="rounded-big border border-teal-400 absolute rounded-full"></div>
+        <div class="rounded-small border border-teal-400 absolute rounded-full"></div>
+
+        @include('partials.home.merchants')
+
+        <livewire:components.home-newsletter />
+
+        <div class="bg-white flex space-x-4 w-full pt-4 pb-4 mb-24">
+            <div class="w-1/12"></div>
+            <div class="flex leading-tight w-9/12 bg-yellow-400 rounded space-x-3">
+                <div class="w-6/12">
+                    <div class="border-b border-white mx-6 py-6 text-black text-lg">Payer chez tous les marchands partenaire en toute securite</div>
+                    <div class="border-b border-white mx-6 py-6 text-black text-lg">Garder l'historique complet de vos transactions</div>
+                    <div class="border-b border-white mx-6 py-6 text-black text-lg">Details de tous vos paiements avec des informations detaillees</div>
+                    <div class="border-b border-white mx-6 py-6 text-black text-lg">Ne subissez aucun frais de paiement</div>
+                </div>
+                <div class="w-6/12 border-l border-white p-4">right</div>
+            </div>
+            <div class="w-1/12"></div>
         </div>
 
     </div>

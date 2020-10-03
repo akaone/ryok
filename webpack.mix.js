@@ -6,8 +6,7 @@ const purgecss = require('@fullhuman/postcss-purgecss')
 const tailwindcss = require('tailwindcss')
 
 
-mix.js('resources/js/app.js', 'public/js')
-   .postCss('resources/css/app.css', 'public/css/app.css')
+mix.postCss('resources/css/app.css', 'public/css/app.css')
    .options({
       postCss: [
          cssImport(),
@@ -21,16 +20,6 @@ mix.js('resources/js/app.js', 'public/js')
             }),
          ] : [],
       ],
-   })
-   .webpackConfig({
-     output: { chunkFilename: 'js/[name].js?id=[chunkhash]' },
-     resolve: {
-       alias: {
-         'vue$': 'vue/dist/vue.runtime.esm.js',
-         '@': path.resolve('resources/js'),
-         'ziggy': path.resolve('vendor/tightenco/ziggy/dist/js/route.js'),
-       },
-     },
    })
    .version()
    .sourceMaps()

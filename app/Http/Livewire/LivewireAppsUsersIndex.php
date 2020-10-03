@@ -8,7 +8,7 @@ use App\Repositories\Web\AppsUsersRepository;
 class LivewireAppsUsersIndex extends Component
 {
     private $appsUsersList;
-    private $appId;
+    public $appId;
 
     public function mount(AppsUsersRepository $appUsersRep)
     {

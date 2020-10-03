@@ -7,3 +7,24 @@
 
 /* Utilities */
 @import "tailwindcss/utilities";
+
+
+
+.rounded-big {
+    width: 500px;
+    height: 500px;
+    margin-left: -160px;
+    margin-top: -160px;
+}
+
+.rounded-small {
+    width: 400px;
+    height: 400px;
+    margin-left: -160px;
+    margin-top: -160px;
+}
+
+.wh-20-rem {
+    width: 20rem;
+    height: 20rem;
+}
