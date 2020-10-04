@@ -8,10 +8,10 @@ module.exports = {
       'pyellow-light': '#F7D675',
       'pyellow-lighter': '#ECF1C9',
       'pgreen': '#2F7283',
-      'pindigo': '#1F1E41',
-      'pindigo-light': '#2F3845',
+      'pindigo': '#9B51E0',
+      'pindigo-dark': '#7039ab',
       'pindigo-lighter': '#08254B',
-      'pblue': '#2367B0',
+      'pblue': '#88bdff',
 
       'gray-ef': 'rgba(239, 239, 239, 0.94)',
       'gray-77': '#777777',
