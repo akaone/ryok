@@ -174,7 +174,7 @@
         <script>
             function HOME_INDEX_DATA() {
                 return {
-                    section: 'taux',
+                    section: 'create-app',
                     setSection(active) {
                         this.section = active;
                     },
