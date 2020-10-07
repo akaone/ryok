@@ -13,3 +13,8 @@ npm-debug.log
 yarn-error.log
 
 /public/albums
+
+# HOST FILES
+.cpanel/
+.well-known/
+cgi-bin/
