@@ -41,7 +41,7 @@ class UserAccessLevelException extends Exception
         if($request->ajax() || $request->wantsJson()) {
             $json = [
                 'success' => false,
-                'message' => 'USER_ACL_EXCEPTION',
+                'message' => $this->message,
                 'error' => [],
             ];
 

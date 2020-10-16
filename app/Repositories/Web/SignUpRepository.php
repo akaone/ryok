@@ -5,6 +5,7 @@ namespace App\Repositories\Web;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Webpatser\Uuid\Uuid;
+use Carbon\Carbon;
 
 class SignUpRepository
 {
@@ -14,9 +15,10 @@ class SignUpRepository
      * @param $email_link
      * @return \App\Models\User
      */
-    public function newMemberUser($data, $email_link)
+        public function newMemberUser($data, $email_link)
     {
         $id = Uuid::generate()->string;
+        $now = Carbon::now();
 
         DB::table('users')
             ->insert([
@@ -27,6 +29,8 @@ class SignUpRepository
                 'password' => bcrypt($data['password']),
                 'gender' => $data['gender'],
                 'state' => 'EMAIL',
+                'created_at' => $now,
+                'updated_at' => $now,
             ])
         ;
 
@@ -53,12 +57,15 @@ class SignUpRepository
      */
     public function verifyEmail($emailLink)
     {
+        $now = Carbon::now();
+        
         $operation = DB::table('users')
             ->where('email_link', $emailLink)
             ->update([
                 'email_verified' => true,
                 'state' => 'ACTIVATED',
                 'email_link' => Uuid::generate()->string,
+                'updated_at' => $now,
             ])
         ;
         return $operation;

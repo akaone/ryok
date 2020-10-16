@@ -1,6 +1,8 @@
 <div class="flex flex-col px-4">
     <div class="font-thin text-md text-blue-600 my-4">{{trans('apps.apps-users.index.section-title')}}</div>
 
+    @component('components.alert')@endcomponent
+
     <div class="mt-6 mb-1 flex justify-between">
         <input type="text" class="border bg-gray-200 rounded h-8 px-2 w-4/12" placeholder="{{trans('apps.apps-users.index.search')}}">
         <x-user-can acl="app-users-create" :id="$appId">

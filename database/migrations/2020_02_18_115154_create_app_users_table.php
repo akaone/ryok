@@ -27,11 +27,13 @@ class CreateAppUsersTable extends Migration
                 ->onDelete('no action')
                 ->onUpdate('no action');
 
-                $table->string('user_id');
-                $table->foreign('user_id')
-                    ->references('id')->on('users')
-                    ->onDelete('no action')
-                    ->onUpdate('no action');
+            $table->string('user_id');
+            $table->foreign('user_id')
+                ->references('id')->on('users')
+                ->onDelete('no action')
+                ->onUpdate('no action');
+            
+            $table->unique(['app_id', 'user_id']);
         });
     }
 

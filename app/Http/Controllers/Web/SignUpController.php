@@ -8,7 +8,7 @@ class SignUpController extends Controller
 {
     public function index()
     {
-        return view('signup/signup-index');
+        return view('signup.signup-index');
     }
 
     /**

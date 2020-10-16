@@ -60,7 +60,7 @@ return [
             'member-role' => "Pick a role",
             'role-admin' => "Admin",
             'role-operation' => "Operation",
-            'role-developer' => "Developer",
+            'role-developer' => "Developper",
             'role-support' => "Customer support",
 
             'add-member' => "Add another member",

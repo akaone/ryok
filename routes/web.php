@@ -2,7 +2,10 @@
 
 
 
-Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
+Route::group([
+    'prefix' => LaravelLocalization::setLocale(),
+    'middleware' => ['localize', 'localizationRedirect']
+], function () {
 
 
     Route::get("/", "Web\HomeController@index")->name("home.index");

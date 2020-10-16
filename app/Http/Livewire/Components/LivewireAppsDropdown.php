@@ -20,6 +20,10 @@ class LivewireAppsDropdown extends Component
 
         $appId = request()->appId;
         $this->currentApp = $appsRepo->getApp($appId);
+        # set current app if there no app id provided in the url
+        if(!$this->currentApp && count($this->allApps) > 0) {
+            $this->currentApp = $this->allApps[0];
+        }
     }
 
 

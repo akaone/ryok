@@ -3,5 +3,5 @@
 @section('title', trans('apps.apps-users.create.title'))
 
 @section('body')
-    <livewire:livewire-apps-users-create />
+    <livewire:livewire-apps-users-create :appId="request()->appId" />
 @endsection

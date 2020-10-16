@@ -21,7 +21,7 @@
                         <option value="">{{trans('apps.apps-users.create.member-role')}}</option>
                         <option value="admin">{{trans('apps.apps-users.create.role-admin')}}</option>
                         <option value="operation">{{trans('apps.apps-users.create.role-operation')}}</option>
-                        <option value="developer">{{trans('apps.apps-users.create.role-developer')}}</option>
+                        <option value="developper">{{trans('apps.apps-users.create.role-developer')}}</option>
                         <option value="support">{{trans('apps.apps-users.create.role-support')}}</option>
                     </select>
 
