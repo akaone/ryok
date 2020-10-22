@@ -25,9 +25,15 @@
                 @error('password') <span class="text-red-600 text-sm">{{ $message }}</span> @enderror
             </div>
 
-            <button wire:loading.remove wire:target="login" class="mt-6 p-4 bg-pblue text-white font-light text-sm italic" type="submit">{{ trans('login.login_btn') }}</button>
-
-            <button wire:loading wire:target="login" class="mt-6 p-4 text-black bg-gray-400 font-light text-sm italic cursor-not-allowed" type="submit">{{ trans('login.loading') }}</button>
+            <button
+                wire:loading.attr="disabled"
+                wire:loading.class="bg-gray-500 cursor-wait"
+                wire:loading.class.remove="bg-pblue"
+                wire:target="login"
+                class="mt-6 p-4 bg-pblue text-white font-light text-sm italic"
+                type="submit">
+                {{ trans('login.login_btn') }}
+            </button>
 
         </form>
     </div>

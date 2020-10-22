@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Repositories\Web\AppsRepository;
+use Ramsey\Uuid\Uuid;
+use PascalDeVink\ShortUuid\ShortUuid;
 
 class StatsController extends Controller
 {
@@ -22,6 +24,9 @@ class StatsController extends Controller
             return redirect()->route('dashboard.apps.create');
         }
 
-        return redirect()->route('dashboard.apps.index', ['appId' => $firstApp->id]);
+        $short = new ShortUuid();
+        $encodedAppId = $short->encode(Uuid::fromString($firstApp->id));
+
+        return redirect()->route('dashboard.apps.index', ['appId' => $encodedAppId]);
     }
 }

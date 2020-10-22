@@ -2,27 +2,27 @@
 
     <div class="bg-white border px-8 mx-auto w-full md:w-8/12 m-4 rounded">
         <div class='pt-6 pb-2'>
-            <span class="text-lg text-pblue">{{trans('apps.apps-users.create.section-title')}}</span>
+            <span class="text-lg text-pblue">@lang('apps.apps-users.create.section-title')</span>
         </div>
 
         <div class="my-6">
 
             <div class="flex flex-col border-b mt-4 mb-4">
-                <span>{{trans('apps.apps-users.create.section-desc-line-one')}}</span>
-                <span>{{trans('apps.apps-users.create.section-desc-line-two')}}</span>
+                <span>@lang('apps.apps-users.create.section-desc-line-one')</span>
+                <span>@lang('apps.apps-users.create.section-desc-line-two')</span>
             </div>
             
             @foreach($members as $key => $member)
                 <div class="flex flex-wrap mt-4 items-center">
                     <input 
                         wire:model="members.{{$key}}.email" type="text" class="border rounded h-8 px-2 w-full md:w-6/12" 
-                        placeholder="{{trans('apps.apps-users.create.email-placeholder')}}">
+                        placeholder="@lang('apps.apps-users.create.email-placeholder')">
                     <select wire:model="members.{{$key}}.role" class="mt-2 md:mt-0 md:ml-2 border rounded h-8 px-2 w-6/12 md:w-3/12">
-                        <option value="">{{trans('apps.apps-users.create.member-role')}}</option>
-                        <option value="admin">{{trans('apps.apps-users.create.role-admin')}}</option>
-                        <option value="operation">{{trans('apps.apps-users.create.role-operation')}}</option>
-                        <option value="developper">{{trans('apps.apps-users.create.role-developer')}}</option>
-                        <option value="support">{{trans('apps.apps-users.create.role-support')}}</option>
+                        <option value="">@lang('apps.apps-users.create.member-role')</option>
+                        <option value="admin">@lang('apps.apps-users.create.role-admin')</option>
+                        <option value="operation">@lang('apps.apps-users.create.role-operation')</option>
+                        <option value="developper">@lang('apps.apps-users.create.role-developer')</option>
+                        <option value="support">@lang('apps.apps-users.create.role-support')</option>
                     </select>
 
                     @if($key > 0)
@@ -35,10 +35,20 @@
                 </div>
             @endforeach
 
-            <button wire:click="addRow" class="mt-4 bg-gray-200 text-gray-600 rounded font-light px-4 h-8">{{trans('apps.apps-users.create.add-member')}}</button>
+            <button wire:click="addRow" class="mt-4 bg-gray-200 text-gray-600 rounded font-light px-4 h-8">
+                @lang('apps.apps-users.create.add-member')
+            </button>
 
             <div class="flex flex-col border-t mt-4 mb-4 items-end">
-                <button wire:click="sendInvites" class="mt-4 shadow bg-blue-500 text-white rounded font-light px-6 h-8">{{trans('apps.apps-users.create.submit-invite')}}</button>
+                <!-- wire:loading.class="bg-gray-500" wire:loading.class.remove="bg-blue-500" -->
+                <button
+                    wire:loading.attr="disabled"
+                    wire:loading.class="cursor-wait"
+                    wire:target="addRow, sendInvites"
+                    wire:click="sendInvites"
+                    class="mt-4 shadow bg-blue-500 text-white rounded font-light px-6 h-8">
+                    @lang('apps.apps-users.create.submit-invite')
+                </button>
             </div>
 
         </div>

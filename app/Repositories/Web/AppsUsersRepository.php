@@ -26,7 +26,7 @@ class AppsUsersRepository
             ->join('roles', 'mhr.role_id', '=', 'roles.id')
             ->where('app_users.app_id', $appId)
             ->select('app_users.state as apps_users_state', 'roles.name as role_name',
-                'app_users.created_at as apps_users_created_at', 'users.name', 'users.email', 'users.state')
+                'app_users.created_at as apps_users_created_at', 'users.name', 'users.email', 'users.state', 'app_users.id as app_users_id')
             ->orderBy('app_users.created_at', 'DESC')
             ->get()
         ;

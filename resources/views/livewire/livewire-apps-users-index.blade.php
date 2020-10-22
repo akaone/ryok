@@ -27,7 +27,7 @@
         @foreach($appsUsersList as $key => $user)
             <tr class="border-b hover:bg-gray-100 cursor-default bg-white text-gray-600">
                 <td class="py-3 flex items-center px-2 text-sm">{{ $user->name }}</td>
-                <td class="py-3 px-2 text-sm">{{ $user->role_name }}</td>
+                <td class="py-3 px-2 text-sm font-medium">{{ $user->role_name }}</td>
                 <td class="py-3 px-2 text-sm">{{ $user->apps_users_created_at }}</td>
                 <td class="py-3 px-2 text-sm">
                     <span class="lowercase border rounded py-1 px-2 lowercase">{{ $user->state }}</span>
@@ -36,9 +36,11 @@
                     <span class="lowercase border rounded py-1 px-2 lowercase">{{ $user->apps_users_state }}</span>
                 </td>
                 <td class="py-3 px-2 text-sm">
-                    <button class="w-full bg-gray-200 text-black px-2 py-1 rounded font-light">
-                        {{trans('apps.apps-users.index.user-details')}}
-                    </button>
+                    <a href="{{ route('dashboard.apps.users.show', ['userId' => $user->app_users_id, 'appId' => $appId ]) }}">
+                        <button class="w-full bg-gray-200 text-black px-2 py-1 rounded font-light">
+                            {{trans('apps.apps-users.index.user-details')}}
+                        </button>
+                    </a>
                 </td>
             </tr>
         @endforeach()

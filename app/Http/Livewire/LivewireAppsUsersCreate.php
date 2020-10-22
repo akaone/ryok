@@ -6,7 +6,7 @@ use Livewire\Component;
 use App\Utils\FreshAppUser;
 use App\Repositories\Web\AppsUsersRepository;
 use App\Rules\IsMemberAlreadyAppUser;
-
+use PascalDeVink\ShortUuid\ShortUuid;
 class LivewireAppsUsersCreate extends Component
 {
     public $members = [
@@ -24,8 +24,10 @@ class LivewireAppsUsersCreate extends Component
     
     public function addRow()
     {
+        $short = new ShortUuid();
+        $decodedAppId = $short->decode($this->appId);
         $this->validate([
-            'members.*.email' => ['required', 'email', new IsMemberAlreadyAppUser($this->appId)],
+            'members.*.email' => ['required', 'email', new IsMemberAlreadyAppUser($decodedAppId)],
             'members.*.role' => 'required|in:support,admin,operation,developer',
         ]);
 
@@ -45,16 +47,18 @@ class LivewireAppsUsersCreate extends Component
 
     public function sendInvites(AppsUsersRepository $appsUsersRep)
     {
+        $short = new ShortUuid();
+        $decodedAppId = $short->decode($this->appId);
         $this->validate([
-            'members.*.email' => ['required', 'email', new IsMemberAlreadyAppUser($this->appId)],
+            'members.*.email' => ['required', 'email', new IsMemberAlreadyAppUser($decodedAppId)],
             'members.*.role' => 'required|in:support,admin,operation,developper',
         ]);
 
-        $appsUsersRep->registerInvitedMembers($this->members, $this->appId);
+        $appsUsersRep->registerInvitedMembers($this->members, $decodedAppId);
 
         # todo: send email to users
 
-        session()->flash('success', trans('apps.users.create.success'));
+        session()->flash('success', trans('apps.apps-users.create.success'));
 
         return redirect()->to(route('dashboard.apps.users.index', ['appId' => $this->appId]));
     }

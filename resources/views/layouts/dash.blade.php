@@ -14,14 +14,14 @@
         <div class="w-1/5 border-r h-screen bg-gray-100 overflow-y-scroll">
             
             @if(auth()->user()->type == 'member')
-                <div  x-data="LIMKS_DATA()">
+                <div x-cloak x-data="LIMKS_DATA()">
                     <livewire:components.livewire-apps-dropdown />
                     <livewire:components.livewire-sidemenu />
                 </div>
             @endif
             
             @if(auth()->user()->type == 'staff')
-                <div  x-data="LIMKS_DATA()">
+                <div x-cloak x-data="LIMKS_DATA()">
                     <!-- Apps -->
                     <a class="block px-4 mt-12" href="{{ route('dashboard.apps.list') }}">
                         <div

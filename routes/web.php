@@ -64,7 +64,10 @@ Route::group([
             
             # apps/{appId}/users/create (get) -> add a user to an app form
             Route::get("/{appId}/users/create", "Web\AppsUsersController@create")->name("users.create");
-            # apps/{appId}/users/{userId}/show
+            
+            # apps/{appId}/users/{userId}/show -> show a app_users
+            Route::get("/{appId}/users/{userId}/show", "Web\AppsUsersController@show")->name("users.show");
+            
             # apps/{appId}/users/{userId}/edit
             # apps/{appId}/users/{userId}/state
         

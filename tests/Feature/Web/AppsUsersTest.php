@@ -7,6 +7,8 @@ use App\Models\AppUser;
 use App\Http\Livewire\LivewireAppsUsersCreate;
 use Livewire\Livewire;
 use App\Rules\IsMemberAlreadyAppUser;
+use PascalDeVink\ShortUuid\ShortUuid;
+use Ramsey\Uuid\Uuid;
 
 test('admin app_user can invite people to an app', function () {
     # arrange
@@ -28,9 +30,12 @@ test('admin app_user can invite people to an app', function () {
     ]);
     $appUser->assignRole('admin');
 
+    $short = new ShortUuid();
+    $encodedAppId = $short->encode(Uuid::fromString($app->id));
+
     # act
     $this->actingAs($admin);
-    $component  = livewire(LivewireAppsUsersCreate::class, ['appId' => $app->id]);
+    $component  = livewire(LivewireAppsUsersCreate::class, ['appId' => $encodedAppId]);
     $component->set('members', [
         ['email' => 'alvin@gmail.com', 'role' => 'admin'],
         ['email' => 'kevin@gmail.com', 'role' => 'operation']
@@ -72,9 +77,12 @@ test('cannot invite the same member twice on the same app', function () {
     ]);
     $existingAppUser->assignRole('operation');
 
+    $short = new ShortUuid();
+    $encodedAppId = $short->encode(Uuid::fromString($app->id));
+
     # act
     $this->actingAs($admin);
-    $component  = livewire(LivewireAppsUsersCreate::class, ['appId' => $app->id]);
+    $component  = livewire(LivewireAppsUsersCreate::class, ['appId' => $encodedAppId]);
     $component->set('members', [
         ['email' => 'kevin@gmail.com', 'role' => 'operation']
     ]);

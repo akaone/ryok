@@ -3,6 +3,7 @@
 namespace App\Utils;
 use App\Models\AppUser;
 use App\Exceptions\UserAccessLevelException;
+use PascalDeVink\ShortUuid\ShortUuid;
 
 
 class FreshAppUser
@@ -12,7 +13,11 @@ class FreshAppUser
      */
     public static function user($userId, $appId)
     {
-        $appUser = AppUser::where(['app_id' => $appId, 'user_id' => $userId ])->first();
+
+        $short = new ShortUuid();
+        $decodedAppId = $short->decode($appId);
+
+        $appUser = AppUser::where(['app_id' => $decodedAppId, 'user_id' => $userId ])->first();
         
         if(!$appUser) { throw new UserAccessLevelException(trans('acl.exception.cannot-get-app-user')); }
         return $appUser->fresh();

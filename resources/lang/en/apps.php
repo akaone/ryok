@@ -65,6 +65,8 @@ return [
 
             'add-member' => "Add another member",
             'submit-invite' => "Invite member(s)",
+
+            'success' => 'Invitation were successfully sent'
         ],
     ],
 

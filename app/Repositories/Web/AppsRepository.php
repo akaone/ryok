@@ -80,6 +80,7 @@ class AppsRepository
      */
     public function storePendingApp($data, $image, $cfeRecto, $cfeVerso, $userId)
     {
+        $now = Carbon::now();
 
         $file = null;
         $appendData = $data;
@@ -96,8 +97,8 @@ class AppsRepository
         $appUuid = Uuid::generate()->string;
         $appendData['id'] = $appUuid;
         $appendData['state'] = 'PENDING';
-        $appendData['created_at'] = Carbon::now();
-        $appendData['updated_at'] = Carbon::now();
+        $appendData['created_at'] = $now;
+        $appendData['updated_at'] = $now;
 
         $app = DB::table('apps')
             ->insert($appendData)
@@ -108,6 +109,8 @@ class AppsRepository
                 'id' => Uuid::generate()->string,
                 'app_id' => $appUuid,
                 'user_id' => $userId,
+                'created_at' => $now,
+                'updated_at' => $now,
             ])
         ;
 

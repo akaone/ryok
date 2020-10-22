@@ -38,9 +38,12 @@ class AppsUsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($appId, $userId)
     {
-        //
+        return view('apps-users.apps-users-show', [
+            'userId' => $appId,
+            'appId' => $userId
+        ]);
     }
 
     /**

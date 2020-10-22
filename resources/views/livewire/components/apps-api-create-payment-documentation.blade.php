@@ -21,21 +21,27 @@
             <tr class="border text-black">
                 <td class="text-sm py-3 px-2 font-light text-left w-4/12 border-r">secret_key</td>
                 <td class="text-sm py-3 px-2 font-light text-left w-2/12 border-r">
-                    <span class="border px-2 rounded-full">{{trans('apps.apps-api.index.doc-create-payment-params-required')}}</span>
+                    <span class="border border-red-400 px-2 rounded-full text-red-400 font-medium">
+                        {{trans('apps.apps-api.index.doc-create-payment-params-required')}}
+                    </span>
                 </td>
                 <td class="text-sm py-3 px-2 font-light text-left w-6/12">{{trans('apps.apps-api.index.doc-create-payment-params-secret-description')}}</td>
             </tr>
             <tr class="border text-black">
                 <td class="text-sm py-3 px-2 font-light text-left w-4/12 border-r">amount</td>
                 <td class="text-sm py-3 px-2 font-light text-left w-2/12 border-r">
-                    <span class="border px-2 rounded-full">{{trans('apps.apps-api.index.doc-create-payment-params-required')}}</span>
+                    <span class="border border-red-400 px-2 rounded-full text-red-400 font-medium">
+                        {{trans('apps.apps-api.index.doc-create-payment-params-required')}}
+                    </span>
                 </td>
                 <td class="text-sm py-3 px-2 font-light text-left w-6/12">{{trans('apps.apps-api.index.doc-create-payment-params-amount-description')}}</td>
             </tr>
             <tr class="border text-black">
                 <td class="text-sm py-3 px-2 font-light text-left w-4/12 border-r">currency (XOF USD EUR)</td>
                 <td class="text-sm py-3 px-2 font-light text-left w-2/12 border-r">
-                    <span class="border px-2 rounded-full">{{trans('apps.apps-api.index.doc-create-payment-params-required')}}</span>
+                    <span class="border border-red-400 px-2 rounded-full text-red-400 font-medium">
+                        {{trans('apps.apps-api.index.doc-create-payment-params-required')}}
+                    </span>
                 </td>
                 <td class="text-sm py-3 px-2 font-light text-left w-6/12">{{trans('apps.apps-api.index.doc-create-payment-params-currency-description')}}</td>
             </tr>
@@ -48,7 +54,18 @@
             <tr class="border text-black">
                 <td class="text-sm py-3 px-2 font-light text-left w-2/12 border-r">status 200</td>
                 <td class="text-sm py-3 px-2 font-light text-left w-4/12 border-r">Everything went well</td>
-                <td class="text-sm py-3 px-2 font-light text-left w-6/12">[]</td>
+                <td class="text-sm py-3 px-2 font-light text-left w-6/12">
+                    <code>
+                        [
+                            'success' => true,
+                            'errorCode' => '',
+                            'data' => [
+                                'qr_code' => 'url to display qr code',
+                                'mobile_link' => 'url for mobile app',
+                            ]
+                        ]
+                    </code>
+                </td>
             </tr>
         </table>
     </div>

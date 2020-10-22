@@ -62,8 +62,16 @@
             </div>
 
 
-            <button wire:loading.remove wire:target="createAccount" class="mt-6 p-4 bg-pblue text-white font-light text-sm italic" type="submit">{{ trans('signup.signup_btn') }}</button>
-            <button wire:loading wire:target="createAccount" class="mt-6 p-4 text-black bg-gray-400 font-light text-sm italic cursor-not-allowed" type="submit">{{ trans('signup.loading') }}</button>
+            <button
+                wire:loading.attr="disabled"
+                wire:loading.class="bg-gray-500 cursor-wait"
+                wire:loading.class.remove="bg-pblue"
+                wire:target="createAccount"
+                class="mt-6 p-4 bg-pblue text-white font-light text-sm italic"
+                type="submit">
+                {{ trans('signup.signup_btn') }}
+            </button>
+            
         </form>
     </div>
 
