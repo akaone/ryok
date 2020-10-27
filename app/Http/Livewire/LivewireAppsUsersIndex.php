@@ -19,7 +19,7 @@ class LivewireAppsUsersIndex extends Component
         $appUsersRep = new AppsUsersRepository();
 
         $this->appId = request()->appId;
-        $this->appsUsersList = $appUsersRep->appUsersList($short->decode($this->appId));
+        $this->appsUsersList = $appUsersRep->appUsersList($short->decode($this->appId), auth()->user()->id);
 
         
         $this->appsUsersList->each(function($item, $key) use ($short) {

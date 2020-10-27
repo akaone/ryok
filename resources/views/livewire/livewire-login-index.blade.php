@@ -30,9 +30,10 @@
                 wire:loading.class="bg-gray-500 cursor-wait"
                 wire:loading.class.remove="bg-pblue"
                 wire:target="login"
-                class="mt-6 p-4 bg-pblue text-white font-light text-sm italic"
+                class="flex items-center justify-center mt-6 p-4 bg-pblue text-white font-light text-sm italic"
                 type="submit">
-                {{ trans('login.login_btn') }}
+                <x-icon-spinner wire:loading wire:target="login" class="animate-spin w-4 h-4 mr-3 text-white" />
+                <span>@lang('login.login_btn')</span>
             </button>
 
         </form>

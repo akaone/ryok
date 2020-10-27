@@ -21,19 +21,19 @@ class AppsRepository
     public function getUserApps($userType, $userId)
     {
         if ($userType == 'staff') {
-            $request = DB::table('apps');
+            $request = DB::table('apps')
+                ->select('apps.*')
+            ;
         } else {
             $request = DB::table('apps')
                 ->join('app_users', 'apps.id', '=', 'app_users.app_id')
                 ->where('app_users.user_id', $userId)
                 ->where('app_users.state', 'ACTIVATED')
+                ->select('apps.id', 'apps.name', 'apps.state')
             ;
         }
 
-        $apps = $request
-            ->select('apps.*')
-            ->get()
-        ;
+        $apps = $request ->get();
 
         return $apps;
     }

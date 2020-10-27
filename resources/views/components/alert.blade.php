@@ -3,7 +3,7 @@
         {{ session('success') }}
     </div>
 @elseif (session()->has('error'))
-    <div class="bg-red-400 text-red-800 p-4 rounded shadow mt-4 font-light">
+    <div class="bg-red-400 text-white p-4 rounded shadow mt-4 font-light">
         {{ session('error') }}
     </div>
 @endif

@@ -28,7 +28,7 @@ class LivewireAppsUsersCreate extends Component
         $decodedAppId = $short->decode($this->appId);
         $this->validate([
             'members.*.email' => ['required', 'email', new IsMemberAlreadyAppUser($decodedAppId)],
-            'members.*.role' => 'required|in:support,admin,operation,developer',
+            'members.*.role' => 'required|in:support,admin,operation,developper',
         ]);
 
        $this->members [] = ['email' => '', 'role' => '']; 

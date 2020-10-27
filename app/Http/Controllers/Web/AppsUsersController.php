@@ -41,8 +41,8 @@ class AppsUsersController extends Controller
     public function show($appId, $userId)
     {
         return view('apps-users.apps-users-show', [
-            'userId' => $appId,
-            'appId' => $userId
+            'appId' => $appId,
+            'userId' => $userId
         ]);
     }
 
