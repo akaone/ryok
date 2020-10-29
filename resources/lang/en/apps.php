@@ -34,6 +34,38 @@ return [
         'app-create-submit' => 'Create the application',
     ],
 
+    'app' => [
+        'list' => [
+            'title' => "Applications list",
+            'section' => "Applications list",
+            'table-app-name' => "App name",
+            'table-members' => "Members",
+            'table-date' => "Created at",
+            'table-state' => "State",
+            'table-action' => "Action",
+            'table-details' => "Details",
+        ],
+
+        'show' => [
+            'title' => "Application's details",
+            'section' => "Application's details",
+
+            'tab-infos' => "Infos",
+            'tab-members' => "Members",
+            'tab-payments' => "Payments",
+
+            'infos-field' => "Field",
+            'infos-details' => "Value",
+            'infos-app-name' => "Applications's name",
+            'infos-app-icon' => "App icon",
+            'infos-website' => "Website",
+            'infos-webhook' => "Webhook url",
+            'infos-organization' => "Organization",
+            'infos-cfe' => "Cfe Document",
+            'infos-nif' => "N.I.F",
+        ],
+    ],
+
     'apps-users' => [
         'index' => [
             'title' => 'Members',

@@ -15,6 +15,7 @@ test('staff user can see all created apps by users', function () {
         'state' => 'ACTIVATED',
         'email' => 'desouzakevinm@gmail.com',
     ]);
+    $user->assignRole('staff-admin');
     
     factory(App::class, 5)->create();
     
@@ -41,7 +42,7 @@ test('member user cannot see route apps list', function () {
 
     # act
     $this->actingAs($user);
-    $response = $this->get(route('dashboard.apps.list'));
+    $response = $this->get(route('dashboard.list'));
 
     # assert
     $response->assertViewIs('acl.no-access');

@@ -23,7 +23,7 @@
             @if(auth()->user()->type == 'staff')
                 <div x-cloak x-data="LIMKS_DATA()">
                     <!-- Apps -->
-                    <a class="block px-4 mt-12" href="{{ route('dashboard.apps.list') }}">
+                    <a class="block px-4 mt-12" href="{{ route('dashboard.list') }}">
                         <div
                             :class="{ 'bg-gray-200': isActiveRoute('/apps/list') }"
                             class="py-2 px-2 rounded flex items-center text-sm font-light cursor-pointer hover:bg-gray-200"
