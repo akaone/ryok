@@ -9,7 +9,7 @@ use Livewire\Exceptions\BypassViewHandler;
 class UserAccessLevelException extends Exception
 {
     use BypassViewHandler;
-    protected $message = "USER_ACL_EXCEPTION";
+    protected $message = "user.acl.exception";
 
     
     public function __construct($msg = null)

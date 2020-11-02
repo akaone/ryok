@@ -16,7 +16,7 @@
             @if(auth()->user()->type == 'member')
                 <div x-cloak x-data="LIMKS_DATA()">
                     <livewire:components.livewire-apps-dropdown />
-                    <livewire:components.livewire-sidemenu />
+                    <livewire:components.livewire-apps-dropdown  />
                 </div>
             @endif
             
@@ -25,7 +25,7 @@
                     <!-- Apps -->
                     <a class="block px-4 mt-12" href="{{ route('dashboard.list') }}">
                         <div
-                            :class="{ 'bg-gray-200': isActiveRoute('/apps/list') }"
+                            :class="{ 'bg-gray-200': isActiveRoute('/list') }"
                             class="py-2 px-2 rounded flex items-center text-sm font-light cursor-pointer hover:bg-gray-200"
                         >
                             <x-heroicon-s-view-grid class="w-4 h-4 mr-3 text-gray-500"/>

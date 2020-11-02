@@ -50,8 +50,13 @@ return [
             'title' => "Application's details",
             'section' => "Application's details",
 
+            'app-deactivated' => "The apllication is now deactivated",
+            'app-activated' => "The apllication is now activated",
+            'app-rejected' => "The apllication is now rejected",
+
             'tab-infos' => "Infos",
             'tab-members' => "Members",
+            'tab-carriers' => "Carriers",
             'tab-payments' => "Payments",
 
             'infos-field' => "Field",
@@ -63,6 +68,11 @@ return [
             'infos-organization' => "Organization",
             'infos-cfe' => "Cfe Document",
             'infos-nif' => "N.I.F",
+
+            'infos-activate-btn' => "Activate",
+            'infos-deactivate-btn' => "Deactivate",
+            'infos-reject-btn' => "Reject",
+
         ],
     ],
 

@@ -1,29 +1,41 @@
 <div x-cloak x-data="LIVEWIRE_APP_SHOW()" class="flex flex-col px-4 pb-16">
 
-    <div class="font-thin text-md text-blue-600 my-4">@lang('apps.app.show.section')</div>
+    <div class="font-thin text-md text-blue-600 mt-4">@lang('apps.app.show.section')</div>
+
+    @component('components.alert')@endcomponent
 
     <div class="flex w-full px-4 pt-2 mb-4 font-light text-gray-600 border-b sticky top-0 bg-white">
         <div
             x-on:click="changeTab('infos')"
             x-bind:class="{'border-t-8 border-green-600': activeTab == 'infos' }"
-            class="cursor-pointer bg-white py-2 border-l border-t-2 border-r flex justify-center w-24 border-t-8 border-green-600">
+            class="cursor-pointer bg-white py-2 px-6 border-l border-t-2 border-r flex justify-center border-t-8 border-green-600">
             @lang('apps.app.show.tab-infos')
         </div>
         <div
             x-on:click="changeTab('members')"
             x-bind:class="{'border-t-8 border-green-600': activeTab == 'members' }"
-            class="cursor-pointer bg-white py-2 border-l border-t-2 border-r flex justify-center w-24 border-t-8 border-green-600">
+            class="cursor-pointer bg-white py-2 px-6 border-l border-t-2 border-r flex justify-center border-t-8 border-green-600">
             @lang('apps.app.show.tab-members')
+        </div>
+        <div
+            x-on:click="changeTab('carriers')"
+            x-bind:class="{'border-t-8 border-green-600': activeTab == 'carriers' }"
+            class="cursor-pointer bg-white py-2 px-6 border-l border-t-2 border-r flex justify-center border-t-8 border-green-600">
+            @lang('apps.app.show.tab-carriers')
         </div>
         <div
             x-on:click="changeTab('payments')"
             x-bind:class="{'border-t-8 border-green-600': activeTab == 'payments' }"
-            class="cursor-pointer bg-white py-2 border-l border-t-2 border-r flex justify-center w-24 border-t-8 border-green-600">
+            class="cursor-pointer bg-white py-2 px-6 border-l border-t-2 border-r flex justify-center border-t-8 border-green-600">
             @lang('apps.app.show.tab-payments')
         </div>
     </div>
 
-    <div x-show="activeTab == 'infos'" class="flex flex-col px-4">
+    <!-- APP INFOS -->
+    <div x-show="activeTab == 'infos'" class="flex flex-col items-start px-4">
+        <div class="border border-green-400 rounded px-4 py-1 text-center">
+            <span class="lowercase">{{ $infos['state'] }}</span>
+        </div>
         <table class="my-2 rounded border">
             <tr class="border-b  bg-gray-200 text-black">
                 <th class="text-sm py-3 px-2 font-light text-left w-3/12">@lang('apps.app.show.infos-field')</th>
@@ -64,6 +76,102 @@
             </tr>
         </table>
         
+        <div class="flex py-4 px-4 space-x-2 bg-gray-100 rounded w-full">
+            @switch($infos['state'])
+                @case('PENDING')
+                    <button
+                        wire:loading.attr="disabled"
+                        wire:loading.class="bg-gray-500 cursor-wait"
+                        wire:loading.class.remove="bg-blue-600"
+                        wire:target="activateApp"
+                        wire:click="activateApp"
+                        class="shadow rounded py-1 px-6 text-white bg-blue-600">
+                        @lang('apps.app.show.infos-activate-btn')
+                    </button>
+                    <button
+                        wire:loading.attr="disabled"
+                        wire:loading.class="bg-gray-500 cursor-wait"
+                        wire:loading.class.remove="bg-red-600"
+                        wire:target="rejectApp"
+                        wire:click="rejectApp"
+                        class="shadow rounded py-1 px-6 text-white bg-red-600">
+                        @lang('apps.app.show.infos-reject-btn')
+                    </button>
+                    @break
+
+                @case('ACTIVATED')
+                    <button
+                        wire:loading.attr="disabled"
+                        wire:loading.class="bg-gray-500 cursor-wait"
+                        wire:loading.class.remove="bg-yellow-600"
+                        wire:target="deactivateApp"
+                        wire:click="deactivateApp"
+                        class="shadow rounded py-1 px-6 text-white bg-yellow-600">
+                        @lang('apps.app.show.infos-deactivate-btn')
+                    </button>
+                    @break
+
+                @case('DEACTIVATED')
+                    <button
+                        wire:loading.attr="disabled"
+                        wire:loading.class="bg-gray-500 cursor-wait"
+                        wire:loading.class.remove="bg-blue-600"
+                        wire:target="activateApp"
+                        wire:click="activateApp"
+                        class="shadow rounded py-1 px-6 text-white bg-blue-600">
+                        @lang('apps.app.show.infos-activate-btn')
+                    </button>
+                    @break
+
+                @case('REJECTED')
+                    <button
+                        wire:loading.attr="disabled"
+                        wire:loading.class="bg-gray-500 cursor-wait"
+                        wire:loading.class.remove="bg-blue-600"
+                        wire:target="activateApp"
+                        wire:click="activateApp"
+                        class="shadow rounded py-1 px-6 text-white bg-blue-600">
+                        @lang('apps.app.show.infos-activate-btn')
+                    </button>
+                    @break
+            @endswitch
+        </div>
+    </div>
+    
+    <!-- APP MEMBERS -->
+    <div x-show="activeTab == 'members'" class="flex flex-col px-4">
+        <table class="my-2 bg-gray-200 rounded border">
+            <tr class="border-b text-black">
+                <th class="text-sm py-3 px-2 font-light text-left w-3/12">{{trans('apps.apps-users.index.user-name')}}</th>
+                <th class="text-sm py-3 px-2 font-light text-left w-1/12">{{trans('apps.apps-users.index.user-role')}}</th>
+                <th class="text-sm py-3 px-2 font-light text-left w-2/12">{{trans('apps.apps-users.index.user-added')}}</th>
+                <th class="text-sm py-3 px-2 font-light text-left w-2/12">{{trans('apps.apps-users.index.user-state')}}</th>
+                <th class="text-sm py-3 px-2 font-light text-left w-2/12">{{trans('apps.apps-users.index.user-app-state')}}</th>
+                <th class="text-sm py-3 px-2 font-light text-left w-2/12">{{trans('apps.apps-users.index.user-action')}}</th>
+            </tr>
+            
+            @foreach($members as $key => $user)
+                <tr class="border-b hover:bg-gray-100 cursor-default bg-white text-gray-600">
+                    <td class="py-3 flex items-center px-2 text-sm">{{ $user->name }}</td>
+                    <td class="py-3 px-2 text-sm font-medium">{{ $user->role_name }}</td>
+                    <td class="py-3 px-2 text-sm">{{ $user->apps_users_created_at }}</td>
+                    <td class="py-3 px-2 text-sm">
+                        <span class="lowercase border rounded py-1 px-2 lowercase">{{ $user->state }}</span>
+                    </td>
+                    <td class="py-3 px-2 text-sm">
+                        <span class="lowercase border rounded py-1 px-2 lowercase">{{ $user->apps_users_state }}</span>
+                    </td>
+                    <td class="py-3 px-2 text-sm">
+                        <a href="{{ route('dashboard.apps.users.show', ['userId' => $user->app_users_id, 'appId' => $appId ]) }}">
+                            <button class="w-full bg-gray-200 text-black px-2 py-1 rounded font-light">
+                                {{trans('apps.apps-users.index.user-details')}}
+                            </button>
+                        </a>
+                    </td>
+                </tr>
+            @endforeach()
+
+        </table>
     </div>
 
 </div>

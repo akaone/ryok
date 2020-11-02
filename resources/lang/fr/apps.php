@@ -50,8 +50,13 @@ return [
             'title' => "Details de l'application",
             'section' => "Details de l'application",
 
+            'app-deactivated' => "L'apllication a ete desactive",
+            'app-activated' => "L'apllication a ete active",
+            'app-rejected' => "L'apllication a ete rejete",
+
             'tab-infos' => "Infos",
             'tab-members' => "Membres",
+            'tab-carriers' => "Operateurs",
             'tab-payments' => "Paiements",
 
             'infos-field' => "Champ",
@@ -63,6 +68,10 @@ return [
             'infos-organization' => "Organisation",
             'infos-cfe' => "Document CFE",
             'infos-nif' => "N.I.F",
+
+            'infos-activate-btn' => "Activer",
+            'infos-deactivate-btn' => "Deactiver",
+            'infos-reject-btn' => "Rejeter",
         ],
     ],
 

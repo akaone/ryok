@@ -38,6 +38,7 @@ class AppsRepository
         return $apps;
     }
 
+
     /**
      * Get an app
      * @param $appId
@@ -52,6 +53,7 @@ class AppsRepository
 
         return $app;
     }
+
 
     /**
      * Get first created app
@@ -123,6 +125,7 @@ class AppsRepository
         return $appUuid;
     }
 
+
     /**
      * Create a marchand account for the app
      * @param $appUuid
@@ -134,6 +137,24 @@ class AppsRepository
                 'id' => Uuid::generate()->string,
                 'app_id' => $appUuid,
                 'type'=> 'APP'
+            ])
+        ;
+    }
+
+
+    /**
+     * activate, reject or deactivate an app
+     * @param $appId
+     * @param $action 'PENDING' | 'ACTIVATED' | 'DEACTIVATED' | 'REJECTED' | 'DELETED'
+     */
+    public function validationAction($appId, $action)
+    {
+        $now = Carbon::now();
+        DB::table('apps')
+            ->where('id', $appId)
+            ->update([
+                'state' => $action,
+                'updated_at' => $now,
             ])
         ;
     }
