@@ -23,7 +23,7 @@
             @if(auth()->user()->type == 'staff')
                 <div x-cloak x-data="LIMKS_DATA()">
                     <!-- Apps -->
-                    <a class="block px-4 mt-12" href="{{ route('dashboard.list') }}">
+                    <a class="block px-4 mt-12" href="{{ route('dashboard.app.list') }}">
                         <div
                             :class="{ 'bg-gray-200': isActiveRoute('/list') }"
                             class="py-2 px-2 rounded flex items-center text-sm font-light cursor-pointer hover:bg-gray-200"
@@ -35,8 +35,9 @@
 
 
                     <!-- Carriers -->
-                    <a class="block px-4" href="#">
+                    <a class="block px-4" href="{{ route('dashboard.carriers.index') }}">
                         <div
+                            :class="{ 'bg-gray-200': isActiveRoute('/carriers') }"
                             class="py-2 px-2 rounded flex items-center text-sm font-light cursor-pointer hover:bg-gray-200"
                         >
                             <x-heroicon-s-status-online class="w-4 h-4 mr-3 text-gray-500"/>

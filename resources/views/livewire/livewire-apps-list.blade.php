@@ -23,7 +23,7 @@
                     <span class="lowercase border rounded py-1 px-2">{{ $app->state }}</span>
                 </td>
                 <td class="py-3 px-2 text-sm">
-                    <a href="{{ route('dashboard.app-show', ['appId' => $app->id ]) }}">
+                    <a href="{{ route('dashboard.app.show', ['appId' => $app->id ]) }}">
                         <button class="w-full bg-gray-200 text-black px-2 py-1 rounded font-light">
                             @lang('apps.app.list.table-details')
                         </button>

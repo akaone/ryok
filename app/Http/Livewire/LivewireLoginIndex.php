@@ -23,7 +23,7 @@ class LivewireLoginIndex extends Component
             if(auth()->user()->type == 'member') {
                 return redirect()->route('dashboard.stats.index');
             }
-            return redirect()->route('dashboard.list');
+            return redirect()->route('dashboard.app.list');
         }
         session()->flash('error', trans('login.error_email'));
         $this->password = "";

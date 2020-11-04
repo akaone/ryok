@@ -31,7 +31,8 @@ class CreateOperationsTable extends Migration
 
             $table->string('country_prefix')->nullable();
             $table->string('phone_number')->nullable();
-            $table->longText('carrier_response')->nullable();
+            $table->longText('carrier_response_ussd')->nullable();
+            $table->longText('carrier_response_sms')->nullable();
 
             $table->string('app_id');
             $table->foreign('app_id')

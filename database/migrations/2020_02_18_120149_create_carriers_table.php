@@ -21,8 +21,12 @@ class CreateCarriersTable extends Migration
             $table->string('name');
             $table->string('ibm')->unique();
             $table->string('country');
+
+            $table->string('phone_regex');
+
+            $table->boolean('is_api')->default(false);
             
-            $table->enum('state', ['ACTIVATED', 'DEACTIVATED', 'DELETED'])->default('ACTIVATED');
+            $table->enum('state', ['NOTVISIBLE', 'ACTIVATED', 'DEACTIVATED', 'DELETED'])->default('NOTVISIBLE');
             $table->text('state_reason')->nullable();
         });
     }
