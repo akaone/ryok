@@ -2,7 +2,10 @@
 
 namespace App\Repositories\Web;
 
-use Illuminate\Support\Collection;
+use App\Models\User;
+use Exception;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\DB;
 use Webpatser\Uuid\Uuid;
 use Carbon\Carbon;
@@ -13,7 +16,8 @@ class SignUpRepository
      * Sign up a new user
      * @param $data
      * @param $email_link
-     * @return \App\Models\User
+     * @return User|Model|Builder|object
+     * @throws Exception
      */
         public function newMemberUser($data, $email_link)
     {
@@ -44,8 +48,6 @@ class SignUpRepository
      */
     public function getEmailFromId($userId)
     {
-        $id = Uuid::generate()->string;
-
         $user = DB::table('users')->where([ 'id' => $userId ])->select('email')->first();
         return $user->email;
     }
@@ -54,20 +56,19 @@ class SignUpRepository
      * Verify email
      * @param $emailLink
      * @return bool
+     * @throws Exception
      */
     public function verifyEmail($emailLink)
     {
         $now = Carbon::now();
-        
-        $operation = DB::table('users')
+
+        return DB::table('users')
             ->where('email_link', $emailLink)
             ->update([
                 'email_verified' => true,
                 'state' => 'ACTIVATED',
                 'email_link' => Uuid::generate()->string,
                 'updated_at' => $now,
-            ])
-        ;
-        return $operation;
+            ]);
     }
 }
