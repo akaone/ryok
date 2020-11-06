@@ -16,7 +16,7 @@
             @if(auth()->user()->type == 'member')
                 <div x-cloak x-data="LIMKS_DATA()">
                     <livewire:components.livewire-apps-dropdown />
-                    <livewire:components.livewire-apps-dropdown  />
+                    <livewire:components.livewire-sidemenu  />
                 </div>
             @endif
             

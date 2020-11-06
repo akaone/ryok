@@ -7,31 +7,34 @@ return [
     ],
     
     'create' => [
-        'title' => 'New app',
-        'section-title' => 'New application',
-        'app-infos' => 'Application Informations',
-        'loading' => 'Loading...',
+        'title' => 'Nouvelle app',
+        'section-title' => 'Nouvelle application',
+        'app-infos' => "Informations de l'application",
+        'loading' => 'Chargement...',
         
-        'app-name' => 'Application name:',
-        'app-name-desc' => 'This the name of your application it will be shown to user. Make sure that you type it correctly.',
+        'app-name' => "Nom de l'application:",
+        'app-name-desc' => "Ceci est le nom de votre application qui serra affiche a vos clients. Assurez-vous de le saisir correctement.",
         
-        'app-siteweb' => 'Website url:',
-        'app-siteweb-desc' => 'This is your website url it will be provided to the user to check your identity.',
+        'app-siteweb' => 'Lien site web:',
+        'app-siteweb-desc' => "Il s'agit de l'URL de votre site Web, elle sera fournie à vos clients pour vérifier votre identité.",
         
-        'app-webhook' => 'Webhook url:',
-        'app-webhook-desc' => 'This the webhook to witch we will send the result of your paiement requests.',
+        'app-webhook' => "L'url callback",
+        'app-webhook-desc' => "C'est l'url au lequel nous vous enverrons le résultat de vos demandes de paiement.",
 
-        'app-legal-infos' => 'Legal Documents',
+        'app-legal-infos' => 'Documents legaux',
         
-        'app-organisation-name' => 'Organisation name:',
-        'app-organisation-name-desc' => 'This is the organisation name',
+        'app-organisation-name' => 'Le nom de votre organuisation:',
+        'app-organisation-name-desc' => "Il s'agit du nom de votre organisation",
 
-        'app-organisation-nif' => 'Organisation NIF:',
-        'app-organisation-nif-desc' => 'This is the NIF of your organisation. Make sure that you type it correctly.',
+        'app-organisation-nif' => 'Le NIF de votre organisation:',
+        'app-organisation-nif-desc' => "Il s'agit du numero NIF de votre organisation. Assurez-vous de le saisir correctement.",
 
         'app-organisation-cfe-recto' => 'Photo CFE recto:',
         'app-organisation-cfe-verso' => 'Photo CFE verso:',
-        'app-create-submit' => 'Create the application',
+        'app-create-submit' => "Creer l'application",
+
+        'app-carriers' => "Operateurs mobile money",
+        'app-carriers-description' => "Veuillez choisir la liste des operateurs mobile money d'on vous souhaiterais recevoir des paiements.",
     ],
 
     'app' => [

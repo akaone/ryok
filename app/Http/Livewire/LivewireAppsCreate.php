@@ -3,7 +3,10 @@
 namespace App\Http\Livewire;
 use Livewire\WithFileUploads;
 use App\Repositories\Web\AppsRepository;
+use App\Repositories\Web\StaffCarriersRepository;
 use Illuminate\Support\Facades\Storage;
+use Ramsey\Uuid\Uuid;
+use PascalDeVink\ShortUuid\ShortUuid;
 
 use Livewire\Component;
 
@@ -21,6 +24,9 @@ class LivewireAppsCreate extends Component
     public $cfe_verso;
     public $appIcon;
 
+    public $carriersList;
+    public $pickedCarriers = [];
+
     public function save(AppsRepository $appRep)
     {
 
@@ -33,6 +39,8 @@ class LivewireAppsCreate extends Component
             'cfe_recto' => 'image|max:2048',
             'cfe_verso' => 'image|max:2048',
             'appIcon' => 'image|max:2048',
+            'appIcon' => 'image|max:2048',
+            'pickedCarriers' => 'required|array|distinct|exists:carriers,ibm',
         ]);
 
         $user = auth()->user();
@@ -50,13 +58,29 @@ class LivewireAppsCreate extends Component
 
         $appRep->createAccountForApp($storedAppUuid);
 
+
+        $appRep->linkInitialCarriers($storedAppUuid, $this->pickedCarriers);
+
+        $short = new ShortUuid();
+
         session()->flash('success', 'Application crée avec succés');
-        return redirect()->route('dashboard.apps.index', ['appId' => $storedAppUuid]);
+        return redirect()->route('dashboard.apps.index', ['appId' => $short->encode(Uuid::fromString($storedAppUuid))]);
         
     }
 
+
     public function render()
     {
+        $staffCarriersRep = new StaffCarriersRepository();
+        $short = new ShortUuid();
+
+        $carriersList = $staffCarriersRep->activeCarriersList();
+        $carriersList->each(function($item, $key) use ($short, $carriersList) {
+            $carriersList[$key]->id = $short->encode(Uuid::fromString($item->id));
+        });
+        $this->carriersList = $carriersList;
+
+
         return view('livewire.livewire-apps-create');
     }
 }

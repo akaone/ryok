@@ -96,7 +96,39 @@
                         @error('cfe_verso') <span class="text-red-600 text-sm">{{ $message }}</span> @enderror
                     </label>
 
-                    <button class="bg-pblue rounded text-white p-2 w-full md:w-6/12 mt-4">{{trans('apps.create.app-create-submit')}}</button>
+                </div>
+            </div>
+
+            <h3 class="border-b mt-4 mb-2">{{trans('apps.create.app-carriers')}}</h3>
+            <div class='flex'>
+                <div class="w-24 h-24 bg-white rounded hidden md:block"></div>
+
+                <div class="md:ml-6 flex-1">
+                    <div class="font-thin md:w-8/12">{{trans('apps.create.app-carriers-description')}}</div>
+                    <div class="flex flex-wrap">
+                        @foreach($carriersList as $key => $item)
+                            <div wire:key="{{$item->id}}" class="flex w-4/12">
+                                <label class="pr-6 py-2" for="">
+                                    <input
+                                        wire:model="pickedCarriers"
+                                        type="checkbox"
+                                        value="{{ $item->ibm }}">
+                                        {{ $item->name }} ({{ $item->country }})
+                                </label>
+                            </div>
+                        @endforeach
+                        @error('pickedCarriers') <div class="text-red-600 text-sm w-full">{{ $message }}</div> @enderror
+                    </div>
+
+                    <button
+                        wire:loading.attr="disabled"
+                        wire:loading.class="bg-gray-500 cursor-wait"
+                        wire:loading.class.remove="bg-pblue"
+                        wire:target="save"
+                        class="flex items-center justify-center  bg-pblue rounded text-white p-2 w-full md:w-6/12 mt-4 shadow">
+                        <x-icon-spinner wire:loading wire:target="save" class="animate-spin w-4 h-4 mr-3 text-white" />
+                        <span>{{trans('apps.create.app-create-submit')}}</span>
+                    </button>
                 
                 </div>
             </div>

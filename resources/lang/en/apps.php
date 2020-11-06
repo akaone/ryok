@@ -13,13 +13,13 @@ return [
         'loading' => 'Loading...',
         
         'app-name' => 'Application name:',
-        'app-name-desc' => 'This the name of your application it will be shown to user. Make sure that you type it correctly.',
+        'app-name-desc' => 'This the name of your application it will be shown to your clients. Make sure that you type it correctly.',
         
         'app-siteweb' => 'Website url:',
-        'app-siteweb-desc' => 'This is your website url it will be provided to the user to check your identity.',
+        'app-siteweb-desc' => 'This is your website url it will be provided to your clients to check your identity.',
         
         'app-webhook' => 'Webhook url:',
-        'app-webhook-desc' => 'This the webhook to witch we will send the result of your paiement requests.',
+        'app-webhook-desc' => 'This is the url to witch we will send the result of your paiement requests.',
 
         'app-legal-infos' => 'Legal Documents',
         
@@ -32,6 +32,9 @@ return [
         'app-organisation-cfe-recto' => 'Photo CFE recto:',
         'app-organisation-cfe-verso' => 'Photo CFE verso:',
         'app-create-submit' => 'Create the application',
+
+        'app-carriers' => "Gsm mobile money",
+        'app-carriers-description' => "Pick the mobile money carriers from which you'd like to accept payments from.",
     ],
 
     'app' => [

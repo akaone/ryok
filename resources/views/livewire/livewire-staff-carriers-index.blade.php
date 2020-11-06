@@ -2,6 +2,8 @@
 
     <div class="font-thin text-md text-blue-600 my-4">@lang('carriers.staff-carriers-index.title')</div>
 
+    @component('components.alert')@endcomponent
+
     <div class="mb-1 flex justify-between">
         @can('carriers-create')
             <a href="{{ route('dashboard.carriers.create') }}">

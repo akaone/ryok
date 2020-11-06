@@ -11,6 +11,7 @@
         "php": "^7.3",
         "blade-ui-kit/blade-heroicons": "^0.2.1",
         "blade-ui-kit/blade-icons": "^0.4.4",
+        "calebporzio/sushi": "^2.1",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^1.0",
         "guzzlehttp/guzzle": "^7.0.1",
@@ -29,6 +30,7 @@
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.4",
+        "barryvdh/laravel-ide-helper": "^2.8",
         "facade/ignition": "^2.3.6",
         "fzaninotto/faker": "^1.9.1",
         "laravel/dusk": "^6.8",
@@ -75,6 +77,11 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
+        ],
+        "post-update-cmd": [
+            "Illuminate\\Foundation\\ComposerScripts::postUpdate",
+            "@php artisan ide-helper:generate",
+            "@php artisan ide-helper:meta"
         ]
     }
 }

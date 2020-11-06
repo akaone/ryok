@@ -71,7 +71,7 @@ class LivewireAppShow extends Component
         $infos->id = $short->encode(Uuid::fromString($infos->id));
         $this->infos = (array)$infos;
 
-        $this->members = $appsUsersRep->appUsersList($decodedAppId, auth()->user()->id);
+        $this->members = $appsUsersRep->appUsersList($decodedAppId, null);
         
         $this->members->each(function($item, $key) use ($short) {
             $this->members[$key]->app_users_id = $short->encode(Uuid::fromString($item->app_users_id));

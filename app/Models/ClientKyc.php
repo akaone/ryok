@@ -4,6 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @mixin IdeHelperClientKyc
+ */
 class ClientKyc extends Model
 {
     use \App\Uuids;

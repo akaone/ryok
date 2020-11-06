@@ -1,3 +1,4 @@
+.idea
 /node_modules
 /public/hot
 /public/storage
@@ -12,10 +13,14 @@ Homestead.yaml
 npm-debug.log
 yarn-error.log
 
-/public/albums$
+/public/albums
 albums/
 
 # HOST FILES
 .cpanel/
 .well-known/
 cgi-bin/
+
+_ide_helper.php
+_ide_helper_models.php
+.phpstorm.meta.php

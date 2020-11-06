@@ -8,6 +8,8 @@ use Webpatser\Uuid\Uuid;
 use App\Repositories\Web\AppKeysRepository;
 use Carbon\Carbon;
 use App\Models\AppUser;
+use App\Models\Carrier;
+use App\Models\AppCarrier;
 use Illuminate\Support\Facades\Storage;
 
 class AppsRepository
@@ -157,5 +159,24 @@ class AppsRepository
                 'updated_at' => $now,
             ])
         ;
+    }
+
+
+    /**
+     * Link carriers to app
+     */
+    public function linkInitialCarriers($appId, $pickedCarriers)
+    {
+        $now = Carbon::now();
+        foreach ($pickedCarriers as $key => $value) {
+            $carrier = Carrier::whereIbm($value)->select('id')->first();
+            AppCarrier::updateOrCreate(
+                ['app_id' => $appId, 'carrier_id' => $carrier->id],
+                [
+                    'activated' => true,
+                    'updated_at' => $now,
+                ]
+            );
+        }
     }
 }
