@@ -2,12 +2,6 @@
 
 use Illuminate\Http\Request;
 
-
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-
 # user/signup -> sign up user
 # user/password/change # demande de modification mot de passe while connected
 # user/password/reset # demande de modification mot de passe not connected

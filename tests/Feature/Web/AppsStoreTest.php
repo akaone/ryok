@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Web;
 
+use App\Models\Carrier;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\UploadedFile;
@@ -16,7 +17,7 @@ use App\Http\Livewire\LivewireAppsCreate;
 class AppsStoreTest extends TestCase
 {
     use RefreshDatabase;
-    
+
     /** @test  */
     public function a_user_can_submit_an_app_request_with_icon()
     {
@@ -32,6 +33,9 @@ class AppsStoreTest extends TestCase
         $recto = UploadedFile::fake()->image('cfe_recto.jpg');
         $verso = UploadedFile::fake()->image('cfe_verso.jpg');
 
+        // Create carrier
+        $carrier = Carrier::create(['name' => 'Togocom', 'ibm' => '605-01', 'country' => 'TG', 'phone_regex' => '^91|90']);
+
         # action
         $this->actingAs($user);
         Livewire::test(LivewireAppsCreate::class)
@@ -43,6 +47,7 @@ class AppsStoreTest extends TestCase
             ->set('appIcon', $file)
             ->set('cfe_recto', $recto)
             ->set('cfe_verso', $verso)
+            ->set('pickedCarriers', [$carrier->ibm])
             ->call('save')
         ;
 
@@ -59,7 +64,7 @@ class AppsStoreTest extends TestCase
         // Storage::disk('images')->assertExists($file->hashName());
     }
 
-    
+
     /** @test  */
     # created app should be create with app key
     public function created_app_should_be_created_with_app_key()
@@ -75,6 +80,9 @@ class AppsStoreTest extends TestCase
         $recto = UploadedFile::fake()->image('cfe_recto.jpg');
         $verso = UploadedFile::fake()->image('cfe_verso.jpg');
 
+        // Create carrier
+        $carrier = Carrier::create(['name' => 'Togocom', 'ibm' => '605-01', 'country' => 'TG', 'phone_regex' => '^91|90']);
+
         # action
         $this->actingAs($user);
         Livewire::test(LivewireAppsCreate::class)
@@ -86,6 +94,7 @@ class AppsStoreTest extends TestCase
             ->set('appIcon', $file)
             ->set('cfe_recto', $recto)
             ->set('cfe_verso', $verso)
+            ->set('pickedCarriers', [$carrier->ibm])
             ->call('save')
         ;
 
@@ -100,7 +109,7 @@ class AppsStoreTest extends TestCase
         ]);
         $this->assertEquals(1, AppKey::count());
     }
-    
+
     /** @test  */
     # created app should have a default account
     public function created_app_should_have_a_default_account()
@@ -116,6 +125,9 @@ class AppsStoreTest extends TestCase
         $recto = UploadedFile::fake()->image('cfe_recto.jpg');
         $verso = UploadedFile::fake()->image('cfe_verso.jpg');
 
+        // Create carrier
+        $carrier = Carrier::create(['name' => 'Togocom', 'ibm' => '605-01', 'country' => 'TG', 'phone_regex' => '^91|90']);
+
         # action
         $this->actingAs($user);
         Livewire::test(LivewireAppsCreate::class)
@@ -127,6 +139,7 @@ class AppsStoreTest extends TestCase
             ->set('appIcon', $file)
             ->set('cfe_recto', $recto)
             ->set('cfe_verso', $verso)
+            ->set('pickedCarriers', [$carrier->ibm])
             ->call('save')
         ;
 
@@ -139,7 +152,7 @@ class AppsStoreTest extends TestCase
         $this->assertDatabaseHas('app_users', [
             'user_id' => $user->id,
         ]);
-        
+
         $app = App::where('name', 'my first app')->first();
         $this->assertDatabaseHas('accounts', [
             'app_id' => $app->id,

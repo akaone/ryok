@@ -13,12 +13,13 @@ class CreateClientsTable extends Migration
             $table->primary('id');
             $table->timestamps();
 
-            $table->string('email')->unique()->nullable();
-            $table->string('email_slug')->unique()->nullable();
-            $table->boolean('email_confirmed')->default(false);
-            $table->string('password')->nullable();
-            
-            $table->enum('state', ['EMAIL', 'ACTIVATED', 'DEACTIVATED'])->default('EMAIL');
+            $table->string('calling_code')->nullable();
+            $table->string('phone_number')->nullable();
+
+            $table->string('fcm')->nullable();
+            $table->string('jwt');
+
+            $table->enum('state', ['SMS', 'ACTIVATED', 'DEACTIVATED'])->default('SMS');
             $table->text('state_reason')->nullable();
         });
     }
