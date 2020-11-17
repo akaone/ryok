@@ -21,10 +21,14 @@
             {!! QrCode::size(198)->generate($operation->deep_link_url); !!}
         </div>
         <span class="text-center text-sm " style="width: 200px;">
-            Veuillez scanner le Qr code et proceder au paiement.
+            @lang('links.merchant-qr-code.scan-and-pay')
         </span>
 
-        <span class="text-sm text-gray-600 font-thin underline">Powered by Ryok.</span>
+        <a href="{{ route("home.index") }}">
+            <span class="text-sm text-gray-600 font-thin underline">
+                @lang('links.merchant-qr-code.powered-by')
+            </span>
+        </a>
 
     </div>
 

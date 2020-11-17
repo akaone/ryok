@@ -30,7 +30,7 @@ class PaymentRequestRepository
             $operationId = Uuid::generate()->string;
             $qrImagePath = "/albums/qr-code/{$operationId}.png";
 
-            $deepLink = "wwwwwwwww";
+            $deepLink = url(route('operation-qr-code', ['id' => $operationId, 'browser' => "yes"]));
 
             Operation::create([
                 'id' => $operationId,
