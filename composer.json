@@ -24,6 +24,8 @@
         "monarobase/country-list": "^2.1",
         "pascaldevink/shortuuid": "^2.3",
         "ramsey/uuid": "^4.1",
+        "simplesoftwareio/simple-qrcode": "^4.1",
+        "spatie/browsershot": "^3.40",
         "spatie/laravel-permission": "^3.6",
         "tightenco/ziggy": "^0.9.0",
         "webpatser/laravel-uuid": "^3.0"
@@ -81,7 +83,8 @@
         "post-update-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postUpdate",
             "@php artisan ide-helper:generate",
-            "@php artisan ide-helper:meta"
+            "@php artisan ide-helper:meta",
+            "@php artisan ide-helper:models --write-mixin"
         ]
     }
 }

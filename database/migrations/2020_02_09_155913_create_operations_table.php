@@ -21,11 +21,15 @@ class CreateOperationsTable extends Migration
             $table->longText('deep_link_url')->nullable();
             $table->longText('qr_code')->nullable();
             $table->string('product_description')->nullable();
-            
+
             $table->string('amount_requested');
             $table->string('curerncy_requested');
-            $table->string('amount_used');
-            $table->string('curerncy_used');
+            $table->string('amount_used')->nullable();;
+            $table->string('curerncy_used')->nullable();
+
+            $table->string('exchange_rate')->nullable();
+
+            $table->boolean('live')->default(false);
 
             $table->enum('state', ['CREATED', 'PAID', 'FAILLED', 'EXPIRED'])->default('CREATED');
 
@@ -37,6 +41,12 @@ class CreateOperationsTable extends Migration
             $table->string('app_id');
             $table->foreign('app_id')
                 ->references('id')->on('apps')
+                ->onDelete('no action')
+                ->onUpdate('no action');
+
+            $table->string('client_id')->nullable();
+            $table->foreign('client_id')
+                ->references('id')->on('clients')
                 ->onDelete('no action')
                 ->onUpdate('no action');
         });

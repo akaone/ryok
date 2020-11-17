@@ -12,7 +12,7 @@
     </head>
     <body class="flex flex-col min-h-screen">
         @yield('body')
-        
+
         <script src="{{ asset('js/alpine.js') }}"></script>
         <livewire:scripts />
     </body>

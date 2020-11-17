@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Uuids;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -9,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class App extends Model
 {
-    use \App\Uuids;
+    use Uuids;
 
     public $incrementing = false;
     protected $primaryKey = 'id';

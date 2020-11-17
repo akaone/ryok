@@ -24,8 +24,8 @@ class AppKeysRepository
                 ->insert([
                     'id' => Uuid::generate()->string,
                     'app_id' => $appId,
-                    'secret_key' => 'sk-' . Uuid::generate()->string,
-                    'public_key' => 'pk-' . Uuid::generate()->string,
+                    'secret_key' => 'sk-live-' . Uuid::generate()->string,
+                    'public_key' => 'pk-live-' . Uuid::generate()->string,
                     'test_secret_key' => 'sk-test-' . Uuid::generate()->string,
                     'test_public_key' => 'pk-test-' . Uuid::generate()->string,
                     'created_at' => Carbon::now(),

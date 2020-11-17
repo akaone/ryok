@@ -16,6 +16,6 @@ trait Uuids
         static::creating(function ($model) {
             $model->{$model->getKeyName()} = Uuid::generate()->string;
         });
-        
+
     }
 }

@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Uuids;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -9,9 +11,10 @@ use Illuminate\Database\Eloquent\Model;
  */
 class CarrierUssd extends Model
 {
-    use \App\Uuids;
+    use Uuids;
+    use HasFactory;
 
-    
+
     public $incrementing = false;
     protected $primaryKey = 'id';
     protected $guarded = [];

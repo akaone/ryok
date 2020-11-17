@@ -2,6 +2,8 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
 use Throwable;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
@@ -43,26 +45,22 @@ class Handler extends ExceptionHandler
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Throwable  $exception
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse|Response
      */
     public function render($request, Throwable $exception)
     {
-        
+
 
         if (env('APP_ENV') == 'testing') {
             if($request->ajax() || $request->wantsJson()) {
                 $json = [
                     'success' => false,
-                    'error' => [
-                        'code' => $exception->getCode(),
-                        'message' => $exception->getMessage(),
-                        'location' => $exception->getFile() . ":" . $exception->getLine(),
-                    ]
+                    'error_code' => $exception->getMessage(),
+                    'location' => $exception->getFile() . ":" . $exception->getLine(),
                 ];
-    
+
                 return response()->json($json, 401);
             }
-            #throw $exception;
         }
         return parent::render($request, $exception);
     }

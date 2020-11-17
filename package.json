@@ -31,6 +31,7 @@
         "portal-vue": "^2.1.7",
         "postcss-import": "^12.0.1",
         "postcss-nesting": "^7.0.0",
+        "puppeteer": "^5.5.0",
         "tailwindcss": "^1.8.10",
         "vuelidate": "^0.7.5"
     }

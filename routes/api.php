@@ -15,6 +15,8 @@ use Illuminate\Http\Request;
 
 
 # creer une operation (marchand)
+Route::post("payment-request", "Server\PaymentRequestController@index")->name('api.payment-request')->middleware('merchant.api.auth');
+
 # etat d'une operation (marchand)
 # scanner une operation (client)
 # payer une operation (client)
