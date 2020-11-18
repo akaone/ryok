@@ -1,6 +1,5 @@
 <?php
 
-use App\Exceptions\MerchantApiAuthlException;
 use App\Models\App;
 use App\Models\AppKey;
 use App\Models\AppUser;

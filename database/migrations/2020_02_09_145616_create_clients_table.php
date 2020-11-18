@@ -13,11 +13,14 @@ class CreateClientsTable extends Migration
             $table->primary('id');
             $table->timestamps();
 
-            $table->string('calling_code')->nullable();
+            $table->string('country_code', 8)->nullable();
             $table->string('phone_number')->nullable();
+            $table->string('password');
 
-            $table->string('fcm')->nullable();
-            $table->string('jwt');
+            $table->string('sms_code', 20)->nullable();
+
+            $table->longText('fcm')->nullable();
+            $table->longText('jwt');
 
             $table->enum('state', ['SMS', 'ACTIVATED', 'DEACTIVATED'])->default('SMS');
             $table->text('state_reason')->nullable();
