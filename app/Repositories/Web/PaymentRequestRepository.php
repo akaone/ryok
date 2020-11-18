@@ -44,6 +44,7 @@ class PaymentRequestRepository
 
 
             Browsershot::url(route('operation-qr-code', ['id' => $operationId]))
+                ->setNodeBinary(env("NODE_BINARY_PATH"))
                 ->setNodeModulePath(base_path() ."/node_modules/")
                 ->select('#container')
                 ->save(public_path() . $qrImagePath);
@@ -54,6 +55,7 @@ class PaymentRequestRepository
             $infos->live = $live;
 
         } catch (\Exception $exception) {
+            dd($exception->getMessage());
             $infos->created = false;
         }
 
