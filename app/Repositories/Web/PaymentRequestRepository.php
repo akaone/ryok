@@ -27,6 +27,9 @@ class PaymentRequestRepository
         $infos = new \stdClass();
 
         try {
+
+            DB::beginTransaction();
+
             $operationId = Uuid::generate()->string;
             $qrImagePath = "/albums/qr-code/{$operationId}.png";
 
@@ -44,7 +47,6 @@ class PaymentRequestRepository
 
 
             Browsershot::url(route('operation-qr-code', ['id' => $operationId]))
-                ->setNodeBinary(env("NODE_BINARY_PATH"))
                 ->setNodeModulePath(base_path() ."/node_modules/")
                 ->select('#container')
                 ->save(public_path() . $qrImagePath);
@@ -54,9 +56,12 @@ class PaymentRequestRepository
             $infos->deepLinkUrl = $deepLink;
             $infos->live = $live;
 
+            DB::commit();
+
         } catch (\Exception $exception) {
             dd($exception->getMessage());
             $infos->created = false;
+            DB::rollBack();
         }
 
         return $infos;
