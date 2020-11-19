@@ -5,7 +5,8 @@ namespace App\Responses;
 
 class ApiErrorCode
 {
-    const NONE = '';
+    const NONE = "";
+    const INVALID_INPUT = "INVALID_INPUT";
 
     # you must provide the missing app's secret key (api key)
     const MERCHANT_API_AUTH_PROVIDE_SECRET_KEY = "MERCHANT_API_AUTH_PROVIDE_SECRET_KEY";

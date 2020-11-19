@@ -12,6 +12,24 @@ use libphonenumber\PhoneNumberUtil;
 
 class ClientAuthController extends Controller
 {
+    /**
+     *
+     * @OA\Post(
+     *     path="/client/signup",
+     *     tags={"auth"},
+     *     summary="Creation d'un compte client etape 1 []",
+     *     @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/x-www-form-urlencoded",
+     *             @OA\Schema(
+     *                  @OA\Property(property="country_code", description="Client's country calling code", enum={"228", "229"}),
+     *                  @OA\Property(property="phone number", description="Client's phone number"),
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(response=200, description="Success"),
+     * )
+     */
     public function store(ApiClientSignUpRequest $request, ApiClientAuthRepository $clientAuthRepository)
     {
 
