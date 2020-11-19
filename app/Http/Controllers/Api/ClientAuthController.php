@@ -1,0 +1,51 @@
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\ApiClientSignUpRequest;
+use App\Repositories\Api\ApiClientAuthRepository;
+use App\Responses\ApiErrorCode;
+use App\Responses\ApiResponse;
+use Illuminate\Http\Request;
+use libphonenumber\PhoneNumberUtil;
+
+class ClientAuthController extends Controller
+{
+    public function store(ApiClientSignUpRequest $request, ApiClientAuthRepository $clientAuthRepository)
+    {
+
+        $countryCode = $request->input('country_code');
+        $phoneNumber = $request->input('phone_number');
+
+        $phoneUtil = PhoneNumberUtil::getInstance();
+        $parsedPhoneNumber = $phoneUtil->parse("+{$countryCode}{$phoneNumber}");
+        $isValid = $phoneUtil->isValidNumber($parsedPhoneNumber);
+
+        if(false == $isValid) {
+            return ApiResponse::create(
+                false,
+                ApiErrorCode::CLIENT_AUTH_PHONE_NUMBER_NOT_VALID
+            );
+        }
+
+        /** @noinspection LaravelFunctionsInspection */
+        $smsCode = env("APP_ENV") == "production" ? ApiClientAuthRepository::quickRandom() : env('DEV_SMS_CODE');
+
+        $client = $clientAuthRepository->saveClientPhoneNumber($countryCode, $phoneNumber, $smsCode);
+
+        if (null == $client) {
+            return ApiResponse::create(
+                false,
+                ApiErrorCode::CLIENT_AUTH_PHONE_NUMBER_ALREADY_EXIST
+            );
+        }
+
+        # todo: send the sms
+
+        return ApiResponse::create(
+            true,
+
+        );
+    }
+}
