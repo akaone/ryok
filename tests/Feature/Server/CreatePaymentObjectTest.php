@@ -61,3 +61,9 @@ test("member can get an api payment object", function () {
 
 
 });
+
+
+# member can not get payment object with a deactivated secret key
+
+
+# member can not get payment object for a deactivated app

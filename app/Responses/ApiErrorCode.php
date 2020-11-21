@@ -18,4 +18,6 @@ class ApiErrorCode
     const CLIENT_AUTH_PHONE_NUMBER_NOT_VALID = "CLIENT_AUTH_PHONE_NUMBER_NOT_VALID";
     # the provided phone number to signup is already signed up
     const CLIENT_AUTH_PHONE_NUMBER_ALREADY_EXIST = "CLIENT_AUTH_PHONE_NUMBER_ALREADY_EXIST";
+    # the sms code is incorrect
+    const CLIENT_AUTH_INVALID_SMS_CODE = "CLIENT_AUTH_INVALID_SMS_CODE";
 }

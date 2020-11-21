@@ -59,6 +59,7 @@ class Handler extends ExceptionHandler
                 $json = [
                     'success' => false,
                     'error_code' => $exception->getMessage(),
+                    # 'errors' => $exception->errors(),
                     'location' => $exception->getFile() . ":" . $exception->getLine(),
                 ];
 

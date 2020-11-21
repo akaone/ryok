@@ -4,8 +4,10 @@ use App\Http\Controllers\Api\ClientAuthController;
 use App\Http\Controllers\Server\PaymentRequestController;
 use Illuminate\Http\Request;
 
-# user/signup -> sign up user
+# sign up client step 1
 Route::post('client/signup', [ClientAuthController::class, 'store'])->name('api.client.auth.store');
+# sign up client step 2
+Route::post('client/pass', [ClientAuthController::class, 'pass'])->name('api.client.auth.pass');
 
 # user/password/change # demande de modification mot de passe while connected
 # user/password/reset # demande de modification mot de passe not connected
