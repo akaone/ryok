@@ -31,7 +31,7 @@ class LivewireAppsUsersShow extends Component
             return;
         }
 
-        $appUser = $appUsersRep->updateAppUserRole($short->decode($this->userId), $this->newRole);
+        $appUsersRep->updateAppUserRole($short->decode($this->userId), $this->newRole);
 
         session()->flash('success', trans('apps.apps-users.show.change-role-success'));
     }
@@ -39,7 +39,7 @@ class LivewireAppsUsersShow extends Component
 
     public function mount()
     {
-        
+
     }
 
     public function render()

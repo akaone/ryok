@@ -20,4 +20,6 @@ class ApiErrorCode
     const CLIENT_AUTH_PHONE_NUMBER_ALREADY_EXIST = "CLIENT_AUTH_PHONE_NUMBER_ALREADY_EXIST";
     # the sms code is incorrect
     const CLIENT_AUTH_INVALID_SMS_CODE = "CLIENT_AUTH_INVALID_SMS_CODE";
+    # wrong credentials provided for login
+    const CLIENT_AUTH_WRONG_CREDENTIALS = "CLIENT_AUTH_WRONG_CREDENTIALS";
 }

@@ -8,11 +8,12 @@ use Illuminate\Http\Request;
 Route::post('client/signup', [ClientAuthController::class, 'store'])->name('api.client.auth.store');
 # sign up client step 2
 Route::post('client/pass', [ClientAuthController::class, 'pass'])->name('api.client.auth.pass');
+# user/login # connecter un client
+Route::post('client/login', [ClientAuthController::class, 'index'])->name('api.client.auth.login');
 
 # user/password/change # demande de modification mot de passe while connected
 # user/password/reset # demande de modification mot de passe not connected
 # user/password/confirm # confirmation de mot de passe apres reset
-# user/login # connecter un client
 
 # historiques de transactions
 # details d'une transactions
