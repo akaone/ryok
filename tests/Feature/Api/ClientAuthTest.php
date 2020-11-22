@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Client;
+use Illuminate\Support\Facades\Hash;
 
 test("client can signup", function () {
     # action
@@ -68,7 +69,11 @@ test("client with sms state can complete signup", function () {
     $data = $response->getData();
     $this->assertTrue($data->success);
     $response->assertJsonStructure(["success", "error_code", "errors", "data" => ["token"]]);
-    $this->assertDatabaseHas('clients', ['state' => Client::$STATE_ACTIVATED, 'phone_number' => $client->phone_number ]);
+    $this->assertDatabaseHas('clients', [
+        'state' => Client::$STATE_ACTIVATED,
+        'phone_number' => $client->phone_number,
+        'jwt' => $data->data->token
+    ]);
     $this->assertDatabaseMissing('clients', ['state' => Client::$STATE_ACTIVATED, 'code_sms' => $client->sms_code ]);
 
 });
@@ -78,3 +83,30 @@ test("client with sms state can complete signup", function () {
 # existing phone_number cannot sign up twice
 
 # deactivate phone_number cannot sign up
+
+
+test("client can login", function () {
+    # assert
+    /** Client $client */
+    $client = Client::factory()->create([
+        'country_code' => 228,
+        'phone_number' => 91973610,
+        'state' => Client::$STATE_ACTIVATED,
+        'sms_code' => "568024",
+        'password' => Hash::make("secret")
+    ]);
+
+    # action
+    $response = $this->json('POST', route('api.client.auth.login'), [
+        'country_code' => $client->country_code,
+        'phone_number' => $client->phone_number,
+        'password' => "secret",
+    ]);
+
+    # assert
+    # dd($response->getData());
+    $data = $response->getData();
+    $this->assertTrue($data->success);
+    $response->assertJsonStructure(["success", "error_code", "errors", "data" => ["token"]]);
+    $this->assertDatabaseHas('clients', ['jwt' => $data->data->token ]);
+});

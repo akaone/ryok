@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ApiClientLoginRequest;
 use App\Http\Requests\ApiClientPassRequest;
 use App\Http\Requests\ApiClientSignUpRequest;
 use App\Repositories\Api\ApiClientAuthRepository;
@@ -96,6 +97,7 @@ class ClientAuthController extends Controller
      *         )
      *     ),
      *     @OA\Response(response=200, description="SUCCESS"),
+     *     @OA\Response(response=201, description="CLIENT_AUTH_INVALID_SMS_CODE"),
      *
      * )
      * @param ApiClientPassRequest $request
@@ -109,7 +111,7 @@ class ClientAuthController extends Controller
         $fcm = $request->input('token_fcm');
         $smsCode = $request->input('sms_code');
 
-        $token = $clientAuthRepository->saveClientPassword($countryCode, $phoneNumber, $smsCode, $password, $smsCode);
+        $token = $clientAuthRepository->saveClientPassword($countryCode, $phoneNumber, $smsCode, $password, $fcm);
 
         if(null == $token) {
             return ApiResponse::create(
@@ -122,6 +124,54 @@ class ClientAuthController extends Controller
             true,
             ApiErrorCode::NONE,
             [ 'token' => $token ]
+        );
+    }
+
+
+    /**
+     *
+     * @OA\Post(
+     *     path="/client/login",
+     *     tags={"auth"},
+     *     summary="Connecter un client",
+     *     @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/x-www-form-urlencoded",
+     *             @OA\Schema(
+     *                  @OA\Property(property="country_code", description="Client's country calling code", enum={"228", "229"}),
+     *                  @OA\Property(property="phone number", description="Client's phone number"),
+     *                  @OA\Property(property="password", description="Password"),
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(response=200, description="SUCCESS"),
+     *     @OA\Response(response=201, description="CLIENT_AUTH_WRONG_CREDENTIALS"),
+     *
+     * )
+     * @param ApiClientLoginRequest $request
+     * @param ApiClientAuthRepository $clientAuthRepository
+     */
+    public function index(ApiClientLoginRequest $request, ApiClientAuthRepository $clientAuthRepository)
+    {
+        $countryCode = $request->input('country_code');
+        $phoneNumber = $request->input('phone_number');
+        $password = $request->input('password');
+
+        $token = $clientAuthRepository->loginClient($countryCode, $phoneNumber, $password);
+
+        if(null == $token) {
+            return ApiResponse::create(
+                false,
+                ApiErrorCode::CLIENT_AUTH_WRONG_CREDENTIALS
+            );
+        }
+
+        return ApiResponse::create(
+            true,
+            ApiErrorCode::NONE,
+            [
+                "token" => $token
+            ]
         );
     }
 }
