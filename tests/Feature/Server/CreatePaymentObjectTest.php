@@ -1,9 +1,11 @@
 <?php
 
+use App\Models\Account;
 use App\Models\App;
 use App\Models\AppKey;
 use App\Models\AppUser;
 use App\Models\User;
+use Webpatser\Uuid\Uuid;
 
 
 test("member cannot get payment object without secret key", function () {
@@ -48,6 +50,7 @@ test("member can get an api payment object", function () {
         'test_public_key' => 'pk-test-random-public-shit',
         'state' => AppKey::$STATE_ACTIVATED,
     ]);
+    $account = Account::factory()->create(['app_id' => $app->id, 'id' => Uuid::generate()->string, 'type' => 'APP' ]);
 
     $response = $this->json('POST', route('api.payment-request'), [
         'amount' => 1500,
@@ -57,7 +60,7 @@ test("member can get an api payment object", function () {
     # dd($response->getData());
     $data = $response->getData();
     $this->assertTrue($data->success);
-    $this->assertDatabaseHas('operations', ['app_id' => $app->id]);
+    $this->assertDatabaseHas('operations', ['account_id' => $account->id]);
 
 
 });

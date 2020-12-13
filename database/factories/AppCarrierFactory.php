@@ -2,18 +2,17 @@
 
 namespace Database\Factories;
 
-use App\Models\CarrierUssd;
+use App\Models\AppCarrier;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Webpatser\Uuid\Uuid;
 
-class CarrierUssdFactory extends Factory
+class AppCarrierFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = CarrierUssd::class;
+    protected $model = AppCarrier::class;
 
     /**
      * Define the model's default state.
@@ -23,7 +22,7 @@ class CarrierUssdFactory extends Factory
     public function definition()
     {
         return [
-            'id' => Uuid::generate()->string,
+            //
         ];
     }
 }

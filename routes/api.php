@@ -1,8 +1,8 @@
 <?php
 
 use App\Http\Controllers\Api\ClientAuthController;
+use App\Http\Controllers\Api\QrCodeScanController;
 use App\Http\Controllers\Server\PaymentRequestController;
-use Illuminate\Http\Request;
 
 # sign up client step 1
 Route::post('client/signup', [ClientAuthController::class, 'store'])->name('api.client.auth.store');
@@ -15,15 +15,22 @@ Route::post('client/login', [ClientAuthController::class, 'index'])->name('api.c
 # user/password/reset # demande de modification mot de passe not connected
 # user/password/confirm # confirmation de mot de passe apres reset
 
-# historiques de transactions
-# details d'une transactions
+Route::prefix("client")->name('api.client.')->middleware(['client.api.auth'])->group(function() {
 
-# liste des numeros utilises par ce compte
+    # historiques de transactions (client)
+
+    # scan qr code (client)
+    Route::post("qr-code", [QrCodeScanController::class, 'index'])->name("qr-code.index");
+
+    # envoie de la reponse ussd (client)
+    Route::patch("qr-code", [QrCodeScanController::class, 'update'])->name("qr-code.update");
+
+});
 
 
 # creer une operation (marchand)
 Route::post("payment-request", [PaymentRequestController::class, 'index'])->name('api.payment-request')->middleware('merchant.api.auth');
 
 # etat d'une operation (marchand)
-# scanner une operation (client)
-# payer une operation (client)
+
+# envoi des sms de transaction au server (watcher app)

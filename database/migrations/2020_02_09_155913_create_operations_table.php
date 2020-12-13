@@ -23,32 +23,58 @@ class CreateOperationsTable extends Migration
             $table->string('product_description')->nullable();
 
             $table->string('amount_requested');
-            $table->string('curerncy_requested');
-            $table->string('amount_used')->nullable();;
-            $table->string('curerncy_used')->nullable();
+            $table->string('currency_requested');
+
+            $table->string('amount_used')->nullable();
+            $table->string('currency_used')->nullable();
 
             $table->string('exchange_rate')->nullable();
 
             $table->boolean('live')->default(false);
 
-            $table->enum('state', ['CREATED', 'PAID', 'FAILLED', 'EXPIRED'])->default('CREATED');
+            $table->enum('state', ['CREATED', 'PENDING', 'PAID', 'FAILED', 'EXPIRED'])->default('CREATED');
 
-            $table->string('country_prefix')->nullable();
-            $table->string('phone_number')->nullable();
-            $table->longText('carrier_response_ussd')->nullable();
-            $table->longText('carrier_response_sms')->nullable();
+            $table->longText('ussd_response')->nullable();
+            $table->longText('ussd_amount')->nullable();
+            $table->longText('ussd_reference')->nullable();
 
-            $table->string('app_id');
-            $table->foreign('app_id')
-                ->references('id')->on('apps')
-                ->onDelete('no action')
-                ->onUpdate('no action');
+            $table->longText('sms_response')->nullable();
+            $table->longText('sms_amount')->nullable();
+            $table->longText('sms_reference')->nullable();
 
-            $table->string('client_id')->nullable();
-            $table->foreign('client_id')
-                ->references('id')->on('clients')
-                ->onDelete('no action')
-                ->onUpdate('no action');
+            $table->string('previous_balance')->nullable();
+            $table->string('balance')->nullable();
+
+
+            $table->string('code')->nullable();
+
+            $table->string('account_id')->nullable();
+            $table->string('for_operation')->nullable();
+            $table->string('from')->nullable(); # phone number | account id
+            $table->string('to')->nullable();
+
+            /**
+             * FROM_CLIENT_MOBILE_MONEY_ACCOUNT
+             * STEPS:
+             *     1. from mobile money to client account
+             *     2. from client account to app account
+             *     3. from app account to ryok account (???)
+             */
+
+            /**
+             * FROM_ACCOUNT_TO_MOBILE_MONEY
+             * STEPS:
+             *     1. from app account to mobile money number
+             *     2. from app account to ryok account (???)
+             */
+
+            /**
+             * MOBILE_MONEY_WITHDRAW_FROM_ACCOUNT
+             * STEPS:
+             *     1. from app account to mobile money number
+             *     2. from app account to ryok account (???)
+             */
+
         });
     }
 

@@ -13,7 +13,7 @@ class MerchantApiAuth
     /**
      * Handle an incoming request.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @param \Closure $next
      * @return mixed
      * @throws MerchantApiAuthlException
@@ -31,8 +31,11 @@ class MerchantApiAuth
             throw new MerchantApiAuthlException(ApiErrorCode::MERCHANT_API_AUTH_INVALID);
         }
 
+        $appAccount = $merchantApiAuthRepository->appAccount($checks['app_id']);
+
         $request['live'] = $checks['live'];
         $request['app_id'] = $checks['app_id'];
+        $request['app_account'] = $appAccount->id;
         return $next($request);
     }
 }

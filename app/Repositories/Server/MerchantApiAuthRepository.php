@@ -4,8 +4,11 @@
 namespace App\Repositories\Server;
 
 
+use App\Models\Account;
 use App\Models\App;
 use App\Models\AppKey;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
 class MerchantApiAuthRepository
@@ -21,6 +24,7 @@ class MerchantApiAuthRepository
         $exist = false;
         $live = false;
         $app_id = null;
+        $appAccount = null;
 
         $app_key_select = AppKey::where(['secret_key' => $secret_key, 'state' => AppKey::$STATE_ACTIVATED])
             ->orWhere(function($query) use ($secret_key){
@@ -51,6 +55,17 @@ class MerchantApiAuthRepository
             'live' => $live,
             'app_id' => $app_id,
         ];
+    }
+
+
+    /**
+     * Get the account of an app
+     * @param $appId
+     * @return Account|null
+     */
+    public function appAccount($appId)
+    {
+        return Account::where(['app_id' => $appId])->first();
     }
 
 }

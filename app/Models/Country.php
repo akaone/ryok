@@ -3,13 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Sushi\Sushi;
 
 /**
  * @mixin IdeHelperCountry
  */
 class Country extends Model
 {
-    use \Sushi\Sushi;
+    use Sushi;
 
     protected $rows = [
         ['code' => 'TG', 'code3' => 'TGO', 'name' => 'Togo', 'number' => '768', 'calling_code' => 228],

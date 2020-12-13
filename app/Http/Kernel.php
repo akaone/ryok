@@ -69,6 +69,7 @@ class Kernel extends HttpKernel
 
         /**** OTHER MIDDLEWARE ****/
         'merchant.api.auth' => \App\Http\Middleware\MerchantApiAuth::class,
+        'client.api.auth' => \App\Http\Middleware\ClientApiAuth::class,
 
         'localize'                => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRoutes::class,
         'localizationRedirect'    => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRedirectFilter::class,

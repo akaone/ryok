@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Client;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Hash;
 
 class ClientFactory extends Factory
 {
@@ -23,7 +24,9 @@ class ClientFactory extends Factory
     {
         return [
             'state' => $this->faker->randomElement([
-                Client::$STATE_SMS, Client::$STATE_ACTIVATED, Client::$STATE_DEACTIVATED])
+                Client::$STATE_SMS, Client::$STATE_ACTIVATED, Client::$STATE_DEACTIVATED]),
+            'sms_code' => env("DEV_SMS_CODE"),
+            'password' => Hash::make("secret")
         ];
     }
 }
