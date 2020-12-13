@@ -51,17 +51,20 @@ class ApiQrCodeScanRepository
         return $carriers;
     }
 
-    public function updateWithClientResponse($mobileOperationId, $ussdContent, $smsContent)
+    public function updateWithClientResponse($mobileOperationId, $ussdContent, $smsContent, $phoneNumber)
     {
         $operation = Operation::where('id', $mobileOperationId)->first();
 
         $operation->ussd_response = $ussdContent;
         $operation->sms_response = $smsContent;
         $operation->state = Operation::$PENDING;
+        $operation->from = $phoneNumber;
         $operation->save();
 
         $sellerOperation = Operation::where('id', $operation->for_operation)->first();
         $sellerOperation->state = Operation::$PENDING;
+        $sellerOperation->amount_used = $operation->amount_used;
+        $sellerOperation->currency_used = $operation->currency_used;
         $sellerOperation->save();
 
         return true;

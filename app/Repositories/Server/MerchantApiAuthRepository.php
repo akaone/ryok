@@ -25,6 +25,7 @@ class MerchantApiAuthRepository
         $live = false;
         $app_id = null;
         $appAccount = null;
+        $appState = App::$DEACTIVATED;
 
         $app_key_select = AppKey::where(['secret_key' => $secret_key, 'state' => AppKey::$STATE_ACTIVATED])
             ->orWhere(function($query) use ($secret_key){
@@ -38,6 +39,7 @@ class MerchantApiAuthRepository
                 'exists' => $exist,
                 'live' => $live,
                 'app_id' => $app_id,
+                'appState' => $appState,
             ];
         }
         $exist = true;
@@ -49,11 +51,13 @@ class MerchantApiAuthRepository
 
         $app = App::find($app_key_select->app_id);
         $app_id = $app->id;
+        $appState = $app->state;
 
         return [
             'exists' => $exist,
             'live' => $live,
             'app_id' => $app_id,
+            'appState' => $appState,
         ];
     }
 

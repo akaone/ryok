@@ -21,6 +21,7 @@ beforeEach(function () use (&$paymentOrderId, &$carrier) {
     $app = factory(App::class)->create();
     $appUser = AppUser::factory()->create(['app_id' => $app->id, 'user_id' => $merchant->id]);
     $appUser->assignRole('admin');
+    /** @var AppKey $appKey */
     $appKey = AppKey::factory()->create([
         'app_id' => $app->id,
         'secret_key' => 'sk-live-random-secret-shit',
@@ -49,9 +50,9 @@ beforeEach(function () use (&$paymentOrderId, &$carrier) {
     $response = $this->json('POST', route('api.payment-request'), [
         'amount' => 1500,
         'currency' => "XOF"
-    ], ['api_key' => $appKey->secret_key]);
+    ], ['api_key' => $appKey->test_secret_key]);
 
-    dd($response->getData());
+    # dd($response->getData());
     $data = $response->getData();
     $this->assertTrue($data->success);
     $this->assertDatabaseHas('operations', ['account_id' => $account->id]);
@@ -105,6 +106,16 @@ test("client can pay a merchant with scan using mobile money", function () use (
 
 
     # watcher app send the carrier sms to the server
+    $watcherSmsResponse = $this->json('POST', route('api.carriers-sms.store'), [
+        'sender' => "TMONEY",
+        'body' => "VOUS AVEZ RECU...",
+        'carrier_id' => $carrier->id,
+    ]);
+
+    # dd($watcherSmsResponse->getData());
+    $this->assertDatabaseHas('carrier_messages', ['sender' => "TMONEY", 'carrier_id' => $carrier->id]);
+
+    # init component
 
     # cron task checks if the operation is successful using the messages_table and the operations_table
 
@@ -116,8 +127,6 @@ test("client can pay a merchant with scan using mobile money", function () use (
 
     # if successful call vendor webhook
     # notify user
-
-    # action
 
     # assert
 

@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Exceptions\MerchantApiAuthlException;
+use App\Models\App;
 use App\Repositories\Server\MerchantApiAuthRepository;
 use App\Responses\ApiErrorCode;
 use Closure;
@@ -29,6 +30,10 @@ class MerchantApiAuth
 
         if(false == $checks['exists']) {
             throw new MerchantApiAuthlException(ApiErrorCode::MERCHANT_API_AUTH_INVALID);
+        }
+
+        if(true == $checks['live'] && App::$ACTIVATED != $checks['appState']) {
+            throw new MerchantApiAuthlException(ApiErrorCode::MERCHANT_APP_IS_NOT_ACTIVATED);
         }
 
         $appAccount = $merchantApiAuthRepository->appAccount($checks['app_id']);

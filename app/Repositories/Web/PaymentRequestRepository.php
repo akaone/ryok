@@ -46,10 +46,11 @@ class PaymentRequestRepository
             ]);
 
 
-            Browsershot::url(route('operation-qr-code', ['id' => $operationId]))
+            # todo: make browsershot works or find a better solution
+            /** Browsershot::url(route('operation-qr-code', ['id' => $operationId]))
                 ->setNodeModulePath(base_path() ."/node_modules/")
                 ->select('#container')
-                ->save(public_path() . $qrImagePath);
+                ->save(public_path() . $qrImagePath); */
 
             $infos->created = true;
             $infos->qrCode = asset($qrImagePath);

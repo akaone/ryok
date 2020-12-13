@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\ClientAuthController;
 use App\Http\Controllers\Api\QrCodeScanController;
+use App\Http\Controllers\Server\CarriersSmsController;
 use App\Http\Controllers\Server\PaymentRequestController;
 
 # sign up client step 1
@@ -34,3 +35,4 @@ Route::post("payment-request", [PaymentRequestController::class, 'index'])->name
 # etat d'une operation (marchand)
 
 # envoi des sms de transaction au server (watcher app)
+Route::post("carriers/sms", [CarriersSmsController::class, 'store'])->name('api.carriers-sms.store');

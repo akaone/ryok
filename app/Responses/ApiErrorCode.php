@@ -19,6 +19,8 @@ class ApiErrorCode
     const MERCHANT_API_AUTH_PROVIDE_SECRET_KEY = "MERCHANT_API_AUTH_PROVIDE_SECRET_KEY";
     # the provided secret key (api key) is invalid
     const MERCHANT_API_AUTH_INVALID = "MERCHANT_API_AUTH_INVALID";
+    # merchant cannot generate live payment request when the app is not activated
+    const MERCHANT_APP_IS_NOT_ACTIVATED = "MERCHANT_APP_IS_NOT_ACTIVATED";
 
     # CLIENT
     # the provided phone number check against libphonenumber is not valid

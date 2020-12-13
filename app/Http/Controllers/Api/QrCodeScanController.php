@@ -102,6 +102,7 @@ class QrCodeScanController extends Controller
         $mobileOperationId = $request->input('mobile_id');
         $carrierId = $request->input('carrier_id');
         $clientId = $request->input('client_id');
+        $phoneNumber = $request->input('phone_number');
         $smsContent = $request->input('sms_content');
         $ussdContent = $request->input('ussd_content');
 
@@ -109,7 +110,7 @@ class QrCodeScanController extends Controller
 
         #todo: check if carrier id matches apps (account) allowed carriers
 
-        $operation = $codeScanRepository->updateWithClientResponse($mobileOperationId, $ussdContent, $smsContent);
+        $operation = $codeScanRepository->updateWithClientResponse($mobileOperationId, $ussdContent, $smsContent, $phoneNumber);
 
         return ApiResponse::create(
             true,
