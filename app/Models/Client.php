@@ -5,11 +5,12 @@ namespace App\Models;
 use App\Uuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
  * @mixin IdeHelperClient
  */
-class Client extends Model
+class Client extends Authenticatable
 {
     use Uuids;
     use HasFactory;
@@ -21,4 +22,17 @@ class Client extends Model
     public $incrementing = false;
     protected $primaryKey = 'id';
     protected $guarded = [];
+
+
+    public function getPrimaryAccountAttribute($value)
+    {
+        return $this->accounts()->oldest()->first();
+    }
+
+
+    public function accounts()
+    {
+        return $this->hasMany(Account::class);
+    }
+
 }

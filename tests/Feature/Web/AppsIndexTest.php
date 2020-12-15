@@ -42,7 +42,7 @@ test('member user cannot see route apps list', function () {
 
     # act
     $this->actingAs($user);
-    $response = $this->get(route('dashboard.app.list'));
+    $response = $this->get(route('dashboard.staff.apps.list'));
 
     # assert
     $response->assertViewIs('acl.no-access');

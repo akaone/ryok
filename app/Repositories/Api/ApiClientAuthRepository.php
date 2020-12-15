@@ -3,12 +3,14 @@
 
 namespace App\Repositories\Api;
 
+use App\Models\Account;
 use App\Models\Client;
 use Carbon\Carbon;
 use Firebase\JWT\JWT;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Hash;
+use Webpatser\Uuid\Uuid;
 
 
 class ApiClientAuthRepository
@@ -51,7 +53,7 @@ class ApiClientAuthRepository
      */
     public function saveClientPassword($countryCode, $phoneNumber, $smsCode, $password, $tokenFcm)
     {
-        $searchData =  ['country_code' => $countryCode, 'phone_number' => $phoneNumber, 'sms_code' => $smsCode];
+        $searchData =  ['country_code' => $countryCode, 'phone_number' => $phoneNumber, 'sms_code' => $smsCode, 'state' => Client::$STATE_SMS];
         $client = Client::where($searchData)
             ->update(['password' => Hash::make($password), 'fcm' => $tokenFcm ]);
 
@@ -71,6 +73,11 @@ class ApiClientAuthRepository
             $client->jwt = $token;
             $client->save();
 
+            Account::create([
+                'id' => Uuid::generate()->string,
+                'client_id' => $client->id,
+                'type' => Account::$ACCOUNT_TYPE_CLIENT
+            ]);
 
             return $token;
         }
@@ -89,8 +96,8 @@ class ApiClientAuthRepository
 
         $now = Carbon::now();
         $token = JWT::encode([
-            'iat' => $now,
-            'exp' => $now->addHours(1),
+            'iat' => $now->timestamp,
+            'exp' => $now->addHours(1)->timestamp,
             'sub' => $client->id,
             'phone_number' => "{$client->country_code} {$client->phone_number}",
         ], env("JWT_SECRET"));

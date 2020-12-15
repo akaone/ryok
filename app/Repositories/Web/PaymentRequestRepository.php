@@ -15,13 +15,13 @@ use Spatie\Browsershot\Browsershot;
 class PaymentRequestRepository
 {
     /**
-     * @param $app_id
+     * @param $accountId
      * @param $amount
      * @param $currency
      * @param $live
      * @return \stdClass
      */
-    public function createPayment($app_id, $amount, $currency, $live)
+    public function createPayment($accountId, $amount, $currency, $live)
     {
 
         $infos = new \stdClass();
@@ -39,17 +39,18 @@ class PaymentRequestRepository
                 'id' => $operationId,
                 'qr_code' => $qrImagePath,
                 'deep_link_url' => $deepLink,
-                'app_id' => $app_id,
+                'account_id' => $accountId,
                 'amount_requested' => $amount,
-                'curerncy_requested' => $currency,
+                'currency_requested' => $currency,
                 'live' => $live,
             ]);
 
 
-            Browsershot::url(route('operation-qr-code', ['id' => $operationId]))
+            # todo: make browsershot works or find a better solution
+            /** Browsershot::url(route('operation-qr-code', ['id' => $operationId]))
                 ->setNodeModulePath(base_path() ."/node_modules/")
                 ->select('#container')
-                ->save(public_path() . $qrImagePath);
+                ->save(public_path() . $qrImagePath); */
 
             $infos->created = true;
             $infos->qrCode = asset($qrImagePath);
@@ -59,7 +60,6 @@ class PaymentRequestRepository
             DB::commit();
 
         } catch (\Exception $exception) {
-            dd($exception->getMessage());
             $infos->created = false;
             DB::rollBack();
         }
@@ -76,8 +76,9 @@ class PaymentRequestRepository
     {
         return DB::table('operations as op')
             ->where('op.id', $operationId)
-            ->join('apps as ap', 'ap.id', '=', 'op.app_id')
-            ->select(['op.amount_requested', 'op.curerncy_requested', 'deep_link_url', 'ap.name', 'ap.icon'])
+            ->join('accounts as ac', 'ac.id', '=', 'op.account_id')
+            ->join('apps as app', 'app.id', '=', 'ac.app_id')
+            ->select(['op.amount_requested', 'op.currency_requested', 'deep_link_url', 'app.name', 'app.icon'])
             ->first();
     }
 }

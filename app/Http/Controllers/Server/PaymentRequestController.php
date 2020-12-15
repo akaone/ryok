@@ -14,12 +14,12 @@ class PaymentRequestController extends Controller
 
     public function index(ApiPaymentRequest $request, PaymentRequestRepository $paymentRequestRepository)
     {
-        $app_id = $request->input('app_id');
+        $appAccount = $request->input('app_account');
         $live = $request->input('live');
         $amount = $request->input('amount');
         $currency = $request->input('currency');
 
-        $paymentInfos = $paymentRequestRepository->createPayment($app_id, $amount, $currency, $live);
+        $paymentInfos = $paymentRequestRepository->createPayment($appAccount, $amount, $currency, $live);
 
         if( $paymentInfos->created ) {
             return ApiResponse::create(

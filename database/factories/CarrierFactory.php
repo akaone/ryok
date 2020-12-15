@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Carrier;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Webpatser\Uuid\Uuid;
 
 class CarrierFactory extends Factory
 {
@@ -22,7 +23,7 @@ class CarrierFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'id' => Uuid::generate()->string,
         ];
     }
 }

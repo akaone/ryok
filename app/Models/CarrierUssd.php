@@ -14,6 +14,8 @@ class CarrierUssd extends Model
     use Uuids;
     use HasFactory;
 
+    public static $ACTIVATED = "ACTIVATED";
+    public static $DEACTIVATED = "DEACTIVATED";
 
     public $incrementing = false;
     protected $primaryKey = 'id';

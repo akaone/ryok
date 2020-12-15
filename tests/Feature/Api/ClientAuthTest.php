@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Account;
 use App\Models\Client;
 use Illuminate\Support\Facades\Hash;
 
@@ -46,7 +47,7 @@ test("client with sms state can still signup", function () {
 
 test("client with sms state can complete signup", function () {
     # assert
-    /** Client $client */
+    /** @var Client $client */
     $client = Client::factory()->create([
         'country_code' => 228,
         'phone_number' => 91973610,
@@ -75,6 +76,7 @@ test("client with sms state can complete signup", function () {
         'jwt' => $data->data->token
     ]);
     $this->assertDatabaseMissing('clients', ['state' => Client::$STATE_ACTIVATED, 'code_sms' => $client->sms_code ]);
+    $this->assertDatabaseHas('accounts', ['client_id' => $client->id, 'type' => Account::$ACCOUNT_TYPE_CLIENT ]);
 
 });
 

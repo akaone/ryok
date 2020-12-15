@@ -18,6 +18,8 @@ class CreateAccountsTable extends Migration
             $table->primary('id');
             $table->timestamps();
 
+            $table->string('name')->nullable();
+
             $table->string('client_id')->nullable();
             $table->string('app_id')->nullable();
 

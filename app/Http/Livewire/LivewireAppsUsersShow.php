@@ -4,7 +4,7 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use App\Utils\FreshAppUser;
-use App\Repositories\Web\AppsUsersRepository;
+use App\Repositories\Web\AppsPaymentsRepository;
 use Ramsey\Uuid\Uuid;
 use PascalDeVink\ShortUuid\ShortUuid;
 
@@ -17,7 +17,7 @@ class LivewireAppsUsersShow extends Component
 
     public $newRole;
 
-    public function updateUserRole(AppsUsersRepository $appUsersRep)
+    public function updateUserRole(AppsPaymentsRepository $appUsersRep)
     {
         $this->validate([
             'newRole' => 'required|in:support,admin,operation,developper',
@@ -45,7 +45,7 @@ class LivewireAppsUsersShow extends Component
     public function render()
     {
         $this->freshUser = FreshAppUser::user(auth()->user()->id, $this->appId);
-        $appUsersRep = new AppsUsersRepository();
+        $appUsersRep = new AppsPaymentsRepository();
 
         $short = new ShortUuid();
         $appUser = $appUsersRep->appUserDetails($short->decode($this->userId));
