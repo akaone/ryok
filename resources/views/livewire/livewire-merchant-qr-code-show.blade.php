@@ -13,7 +13,7 @@
             <span class="text-xl font-light">{{ $operation->name }}</span>
             <span class="text-3xl font-light -mt-2">
                 {{ $operation->amount_requested }}
-                <span class="lowercase">{{ $operation->curerncy_requested }}</span>
+                <span class="lowercase">{{ $operation->currency_requested }}</span>
             </span>
         </div>
 

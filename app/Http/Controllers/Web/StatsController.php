@@ -14,7 +14,7 @@ class StatsController extends Controller
         $user = auth()->user();
 
         if(auth()->user()->type != 'member') {
-            return redirect()->route('dashboard.app.list');
+            return redirect()->route('dashboard.staff.apps.list');
         }
 
         $appsRepo = new AppsRepository();

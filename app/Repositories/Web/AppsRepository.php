@@ -2,6 +2,9 @@
 
 namespace App\Repositories\Web;
 
+use App\Models\App;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Webpatser\Uuid\Uuid;
@@ -44,16 +47,11 @@ class AppsRepository
     /**
      * Get an app
      * @param $appId
-     * @return Collection
+     * @return App|Builder|Model|Collection|object
      */
     public function getApp($appId)
     {
-        $app = DB::table('apps')
-            ->where('id', $appId)
-            ->first()
-        ;
-
-        return $app;
+        return App::where('id', $appId)->first();
     }
 
 
@@ -97,7 +95,7 @@ class AppsRepository
 
         $fileCfeVerso = $cfeVerso->store('apps', 'global_albums');
         $appendData['cfe_verso'] = Storage::disk('global_albums')->url($fileCfeVerso);
-        
+
         $appUuid = Uuid::generate()->string;
         $appendData['id'] = $appUuid;
         $appendData['state'] = 'PENDING';

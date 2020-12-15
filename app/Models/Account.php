@@ -20,4 +20,15 @@ class Account extends Model
     public $incrementing = false;
     protected $primaryKey = 'id';
     protected $guarded = [];
+
+    public function creditOperations()
+    {
+        return $this->hasMany(Operation::class);
+    }
+
+    public function debitOperations()
+    {
+        return $this->hasMany(Operation::class, 'from');
+    }
+
 }

@@ -4,7 +4,7 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use App\Utils\FreshAppUser;
-use App\Repositories\Web\AppsUsersRepository;
+use App\Repositories\Web\AppsPaymentsRepository;
 use App\Rules\IsMemberAlreadyAppUser;
 use PascalDeVink\ShortUuid\ShortUuid;
 class LivewireAppsUsersCreate extends Component
@@ -21,7 +21,7 @@ class LivewireAppsUsersCreate extends Component
         $this->appId = $appId;
         $this->freshUser = FreshAppUser::user(auth()->user()->id, $this->appId);
     }
-    
+
     public function addRow()
     {
         $short = new ShortUuid();
@@ -31,21 +31,21 @@ class LivewireAppsUsersCreate extends Component
             'members.*.role' => 'required|in:support,admin,operation,developper',
         ]);
 
-       $this->members [] = ['email' => '', 'role' => '']; 
+       $this->members [] = ['email' => '', 'role' => ''];
     }
 
     public function removeRow($index)
     {
         if(count($this->members) == 1) {
             unset($this->members[$index]);
-            $this->members [] = ['email' => '', 'role' => '']; 
+            $this->members [] = ['email' => '', 'role' => ''];
         } else {
             unset($this->members[$index]);
         }
     }
 
 
-    public function sendInvites(AppsUsersRepository $appsUsersRep)
+    public function sendInvites(AppsPaymentsRepository $appsUsersRep)
     {
         $short = new ShortUuid();
         $decodedAppId = $short->decode($this->appId);
@@ -62,7 +62,7 @@ class LivewireAppsUsersCreate extends Component
 
         return redirect()->to(route('dashboard.apps.users.index', ['appId' => $this->appId]));
     }
-    
+
 
     public function render()
     {

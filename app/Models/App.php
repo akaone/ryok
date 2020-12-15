@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @mixin IdeHelperApp
+ * @property Account primaryAccount
  */
 class App extends Model
 {
@@ -21,4 +22,15 @@ class App extends Model
     public $incrementing = false;
     protected $primaryKey = 'id';
     protected $guarded = [];
+
+
+    public function getPrimaryAccountAttribute($value)
+    {
+        return $this->accounts()->oldest()->first();
+    }
+
+    public function accounts()
+    {
+        return $this->hasMany(Account::class);
+    }
 }
