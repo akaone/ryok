@@ -19,7 +19,7 @@ class LivewireLoginIndex extends Component
             'password' => ['required', 'string', 'min:6']
         ]);
 
-        if(Auth::attempt(['email' => $this->email, 'password' => $this->password, 'state' => 'ACTIVATED'])) {
+        if(auth()->attempt(['email' => $this->email, 'password' => $this->password, 'state' => 'ACTIVATED'])) {
             if(auth()->user()->type == 'member') {
                 return redirect()->route('dashboard.stats.index');
             }

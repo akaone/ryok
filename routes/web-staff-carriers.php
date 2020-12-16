@@ -1,14 +1,15 @@
 <?php
 
 
+use App\Http\Controllers\Web\StaffCarriersController;
 
 Route::prefix("carriers")->name('carriers.')->group(function () {
 
     # carriers -> List of supported carriers on the platform
-    Route::get("/", "Web\StaffCarriersController@index")->name("index");
+    Route::get("/", [StaffCarriersController::class, "index"])->name("index");
 
     # carriers/create -> Form to add a new carrier
-    Route::get("/create", "Web\StaffCarriersController@create")->name("create");
+    Route::get("/create", [StaffCarriersController::class, "create"])->name("create");
 
 
     # carriers/store (post) -> Add the new carrier

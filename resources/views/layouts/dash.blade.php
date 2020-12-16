@@ -12,14 +12,14 @@
     </head>
     <body class="flex flex-row min-h-screen" style="min-width: 930px !important;">
         <div class="w-1/5 border-r h-screen bg-gray-100 overflow-y-scroll">
-            
+
             @if(auth()->user()->type == 'member')
                 <div x-cloak x-data="LIMKS_DATA()">
                     <livewire:components.livewire-apps-dropdown />
                     <livewire:components.livewire-sidemenu  />
                 </div>
             @endif
-            
+
             @if(auth()->user()->type == 'staff')
                 <div x-cloak x-data="LIMKS_DATA()">
                     <!-- Apps -->
@@ -54,7 +54,29 @@
                             <span>Clients</span>
                         </div>
                     </a>
-                    
+
+                    <!-- Operations -->
+                    <a class="block px-4" href="{{ route('dashboard.staff.operations.index') }}">
+                        <div
+                            :class="{ 'bg-gray-200': isActiveRoute('/staff/operations') }"
+                            class="py-2 px-2 rounded flex items-center text-sm font-light cursor-pointer hover:bg-gray-200"
+                        >
+                            <x-heroicon-s-view-boards class="w-4 h-4 mr-3 text-gray-500"/>
+                            <span>Operations</span>
+                        </div>
+                    </a>
+
+                    <!-- Messages -->
+                    <a class="block px-4" href="{{ route('dashboard.staff.messages.index') }}">
+                        <div
+                            :class="{ 'bg-gray-200': isActiveRoute('/staff/messages') }"
+                            class="py-2 px-2 rounded flex items-center text-sm font-light cursor-pointer hover:bg-gray-200"
+                        >
+                            <x-heroicon-s-beaker class="w-4 h-4 mr-3 text-gray-500"/>
+                            <span>Messages</span>
+                        </div>
+                    </a>
+
                     <!-- Users -->
                     <a class="block px-4" href="#">
                         <div
@@ -66,7 +88,7 @@
                     </a>
                 </div>
             @endif
-            
+
         </div>
         <div class="flex flex-col flex-1 h-screen overflow-y-scroll relative">
             <livewire:components.livewire-top />
@@ -74,9 +96,9 @@
                 @yield('body')
             </div>
         </div>
-        
-        <script src="{{ asset('js/alpine.js') }}"></script>
+
         <livewire:scripts />
+        <script src="{{ asset('js/alpine.js') }}"></script>
     </body>
 </html>
 

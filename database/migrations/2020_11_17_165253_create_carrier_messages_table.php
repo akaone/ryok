@@ -23,6 +23,8 @@ class CreateCarrierMessagesTable extends Migration
             $table->string('transaction_ref')->nullable();
             $table->string('transaction_amount')->nullable();
 
+            $table->enum('state', ["PENDING", "TREATED"])->default("PENDING");
+
             $table->string('carrier_id');
             $table->foreign('carrier_id')
                 ->references('id')->on('carriers')

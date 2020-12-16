@@ -12,5 +12,8 @@ class CarrierMessage extends Model
 {
     use HasFactory;
 
+    public static $TREATED = "TREATED";
+    public static $PENDING = "PENDING";
+
     protected $guarded = [];
 }

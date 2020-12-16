@@ -32,15 +32,13 @@
                 <td class="py-3 px-2 text-sm">{{ $carrier->created_at }}</td>
                 <td class="py-3 px-2 text-sm lowercase">{{ $carrier->state }}</td>
                 <td class="py-3 px-2 text-sm">
-                    <a href="#">
-                        <button class="w-full bg-gray-200 text-black px-2 py-1 rounded font-light">
+                    <a class="block flex justify-center bg-gray-200 text-black px-2 py-1 rounded font-light" href="#">
                         @lang('carriers.staff-carriers-index.table-details')
-                        </button>
                     </a>
                 </td>
             </tr>
         @endforeach
-    
+
     </table>
 
 
