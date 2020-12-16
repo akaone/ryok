@@ -1,36 +1,40 @@
 <?php
 
+use App\Http\Controllers\Web\AppsApiController;
+use App\Http\Controllers\Web\AppsController;
 use App\Http\Controllers\Web\AppsSettingsController;
+use App\Http\Controllers\Web\AppsStateController;
+use App\Http\Controllers\Web\AppsUsersController;
 
 Route::prefix("apps")->name('apps.')->group(function () {
 
     # apps/create (get) -> create a new app form
-    Route::get("/create", "Web\AppsController@create")->name("create");
+    Route::get("/create", [AppsController::class, "create"])->name("create");
 
     # apps -> list a specific app
-    Route::get("/{appId}", "Web\AppsController@index")->name("index");
+    Route::get("/{appId}", [AppsController::class, "index"])->name("index");
 
-    # apps/{appId}/operations -> operations of sells & withdwal
+    # apps/{appId}/operations -> operations of sells & withdrawal
     # apps/{appId}/operations/payouts -> payouts & settings
 
     # apps/{appId}/api -> api key and documentation
-    Route::get("/{appId}/api", "Web\AppsApiController@index")->name("api.index");
+    Route::get("/{appId}/api", [AppsApiController::class, "index"])->name("api.index");
 
     # apps/{appId}/users -> list of app users
-    Route::get("/{appId}/users", "Web\AppsUsersController@index")->name("users.index");
+    Route::get("/{appId}/users", [AppsUsersController::class, "index"])->name("users.index");
 
     # apps/{appId}/users/create (get) -> add a user to an app form
-    Route::get("/{appId}/users/create", "Web\AppsUsersController@create")->name("users.create");
+    Route::get("/{appId}/users/create", [AppsUsersController::class, "create"])->name("users.create");
 
     # apps/{appId}/users/{userId}/show -> show a app_users
-    Route::get("/{appId}/users/{userId}/show", "Web\AppsUsersController@show")->name("users.show");
+    Route::get("/{appId}/users/{userId}/show", [AppsUsersController::class, "show"])->name("users.show");
 
     # apps/{appId}/users/{userId}/edit
     # apps/{appId}/users/{userId}/state
 
 
     # apps/{appId}/state -> give a state to an app ['ACTIVATED', 'DEACTIVATED', 'REJECTED']
-    Route::patch("/{appId}/state", "Web\AppsStateController@update")->name("state.update");
+    Route::patch("/{appId}/state", [AppsStateController::class, "update"])->name("state.update");
 
     # apps/{appId}/settings
     Route::get("/{appId}/settings", [AppsSettingsController::class, 'index'])->name('settings.index');

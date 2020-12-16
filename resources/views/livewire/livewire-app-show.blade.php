@@ -238,7 +238,7 @@
 <script>
     function LIVEWIRE_APP_SHOW() {
         return {
-            activeTab: "payments",
+            activeTab: "infos",
             changeTab(tab) {
                 this.activeTab = tab
             },
