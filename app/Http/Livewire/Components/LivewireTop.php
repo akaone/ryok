@@ -10,16 +10,9 @@ class LivewireTop extends Component
 
     protected $user = [];
 
-
-    public function mount(AppsRepository $appsRepo)
-    {
-        $this->user = auth()->user();
-
-    }
-
-
     public function render()
     {
+        $this->user = auth()->user();
         return view('livewire.components.livewire-top', [
             'user' => $this->user,
         ]);
