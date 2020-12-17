@@ -1,28 +1,28 @@
 <?php
 
 return [
-    
+
     'index' => [
         'title' => 'Stats',
     ],
-    
+
     'create' => [
         'title' => 'Nouvelle app',
         'section-title' => 'Nouvelle application',
         'app-infos' => "Informations de l'application",
         'loading' => 'Chargement...',
-        
+
         'app-name' => "Nom de l'application:",
         'app-name-desc' => "Ceci est le nom de votre application qui serra affiche a vos clients. Assurez-vous de le saisir correctement.",
-        
+
         'app-siteweb' => 'Lien site web:',
         'app-siteweb-desc' => "Il s'agit de l'URL de votre site Web, elle sera fournie à vos clients pour vérifier votre identité.",
-        
+
         'app-webhook' => "L'url callback",
         'app-webhook-desc' => "C'est l'url au lequel nous vous enverrons le résultat de vos demandes de paiement.",
 
         'app-legal-infos' => 'Documents legaux',
-        
+
         'app-organisation-name' => 'Le nom de votre organuisation:',
         'app-organisation-name-desc' => "Il s'agit du nom de votre organisation",
 
@@ -75,6 +75,14 @@ return [
             'infos-activate-btn' => "Activer",
             'infos-deactivate-btn' => "Deactiver",
             'infos-reject-btn' => "Rejeter",
+
+            'payments-credit-operation-title' => "Operations de credit",
+            'payments-debit-operation-title' => "Operations de debit",
+            'payments-operation-amount' => "Montant",
+            'payments-operation-created-at' => "Date creation",
+            'payments-operation-state' => "Etat",
+            'payments-operation-details' => "Details",
+
         ],
     ],
 
@@ -93,7 +101,7 @@ return [
             'user-action' => 'Action',
             'user-details' => 'Details',
         ],
-        
+
         'create' => [
             'title' => 'Invite Members',
             'section-title' => 'Invite Members',
@@ -155,13 +163,13 @@ return [
             'doc-create-payment-title' => 'Create a payment request',
             'doc-create-payment-description' => "To make a payment request to your user, you should request a payment link from us using your secret key. Do this from your backend to make sure that your secret key is kept secret and doesn't get accesed by your users or any malicious individual.",
             'doc-create-payment-demo-title' => 'Here is a demo of how you can request the payment link:',
-            
+
             'doc-create-payment-params' => 'Parameters',
             'doc-create-payment-params-required' => 'required',
             'doc-create-payment-params-secret-description' => "Your app's secret key",
             'doc-create-payment-params-amount-description' => "The amount you want your users to pay",
             'doc-create-payment-params-currency-description' => "The currency you wish your users to pay in",
-            
+
             'doc-create-payment-responses' => 'Responses',
 
             'doc-create-payment-code' => 'Code samples',
