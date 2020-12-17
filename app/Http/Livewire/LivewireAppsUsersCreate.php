@@ -2,9 +2,9 @@
 
 namespace App\Http\Livewire;
 
+use App\Repositories\Web\AppsUsersRepository;
 use Livewire\Component;
 use App\Utils\FreshAppUser;
-use App\Repositories\Web\AppsPaymentsRepository;
 use App\Rules\IsMemberAlreadyAppUser;
 use PascalDeVink\ShortUuid\ShortUuid;
 class LivewireAppsUsersCreate extends Component
@@ -45,7 +45,7 @@ class LivewireAppsUsersCreate extends Component
     }
 
 
-    public function sendInvites(AppsPaymentsRepository $appsUsersRep)
+    public function sendInvites(AppsUsersRepository $appsUsersRep)
     {
         $short = new ShortUuid();
         $decodedAppId = $short->decode($this->appId);

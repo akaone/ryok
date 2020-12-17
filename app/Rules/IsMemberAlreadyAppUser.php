@@ -2,9 +2,9 @@
 
 namespace App\Rules;
 
+use App\Repositories\Web\AppsUsersRepository;
 use App\Utils\FreshAppUser;
 use Illuminate\Contracts\Validation\Rule;
-use App\Repositories\Web\AppsPaymentsRepository;
 
 class IsMemberAlreadyAppUser implements Rule
 {
@@ -31,7 +31,7 @@ class IsMemberAlreadyAppUser implements Rule
      */
     public function passes($attribute, $value)
     {
-        $appsUsersRep = new AppsPaymentsRepository();
+        $appsUsersRep = new AppsUsersRepository();
         $isMember = $appsUsersRep->isMemberAlreadyAppUser($value, $this->appId);
 
         if($isMember) {

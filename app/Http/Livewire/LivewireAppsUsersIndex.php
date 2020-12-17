@@ -2,8 +2,8 @@
 
 namespace App\Http\Livewire;
 
+use App\Repositories\Web\AppsUsersRepository;
 use Livewire\Component;
-use App\Repositories\Web\AppsPaymentsRepository;
 use Ramsey\Uuid\Uuid;
 use PascalDeVink\ShortUuid\ShortUuid;
 
@@ -16,7 +16,7 @@ class LivewireAppsUsersIndex extends Component
     public function render()
     {
         $short = new ShortUuid();
-        $appUsersRep = new AppsPaymentsRepository();
+        $appUsersRep = new AppsUsersRepository();
 
         $this->appId = request()->appId;
         $this->appsUsersList = $appUsersRep->appUsersList($short->decode($this->appId), auth()->user()->id);
