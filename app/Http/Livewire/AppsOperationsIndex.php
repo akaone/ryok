@@ -12,6 +12,7 @@ class AppsOperationsIndex extends Component
 {
     use WithPagination;
 
+    public $appId;
     protected $operations = [];
 
     public function findAppAccountId($appId)
@@ -21,12 +22,13 @@ class AppsOperationsIndex extends Component
 
     public function operations(AppsOperationsRepository $operationsRepository)
     {
-        $accountId = $this->findAppAccountId(request()->appId);
+        $accountId = $this->findAppAccountId($this->appId);
         $this->operations = $operationsRepository->operationsList($accountId)->paginate(10);
     }
 
     public function mount()
     {
+        $this->appId = request()->appId;
         # todo: check if user / member has access to this app
     }
 

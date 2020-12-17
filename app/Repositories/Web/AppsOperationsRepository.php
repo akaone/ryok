@@ -14,6 +14,7 @@ class AppsOperationsRepository
             ->where([
                 'account_id' => $accountId,
                 'from' => $accountId,
-            ], null, null, 'or');
+            ], null, null, 'or')
+            ->orderBy('created_at', 'desc');
     }
 }
