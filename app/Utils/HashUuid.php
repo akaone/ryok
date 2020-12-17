@@ -37,4 +37,10 @@ class HashUuid
 
         return $temp;
     }
+
+    public static function decode($uid)
+    {
+        $short = new ShortUuid();
+        return strval($short->decode($uid));
+    }
 }

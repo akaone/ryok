@@ -5,6 +5,7 @@ use App\Http\Controllers\Web\AppsController;
 use App\Http\Controllers\Web\AppsSettingsController;
 use App\Http\Controllers\Web\AppsStateController;
 use App\Http\Controllers\Web\AppsUsersController;
+use App\Http\Livewire\AppsOperationsIndex;
 
 Route::prefix("apps")->name('apps.')->group(function () {
 
@@ -15,6 +16,7 @@ Route::prefix("apps")->name('apps.')->group(function () {
     Route::get("/{appId}", [AppsController::class, "index"])->name("index");
 
     # apps/{appId}/operations -> operations of sells & withdrawal
+    Route::get('/{appId}/operations', AppsOperationsIndex::class)->name('operations.index');
     # apps/{appId}/operations/payouts -> payouts & settings
 
     # apps/{appId}/api -> api key and documentation

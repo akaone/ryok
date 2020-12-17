@@ -35,4 +35,4 @@ Route::post("payment-request", [PaymentRequestController::class, 'index'])->name
 # etat d'une operation (marchand)
 
 # envoi des sms de transaction au server (watcher app)
-Route::post("carriers/sms", [CarriersSmsController::class, 'store'])->name('api.carriers-sms.store');
+    Route::post("carriers/sms", [CarriersSmsController::class, 'store'])->name('api.carriers-sms.store');

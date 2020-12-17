@@ -11,8 +11,9 @@
     </a>
 
     <!-- Payments -->
-    <a class="block px-4" href="#">
+    <a class="block px-4" href="{{ route('dashboard.apps.operations.index', ['appId' => $selectedApp ]) }}">
         <div
+            :class="{ 'bg-gray-200': isActiveRoute('/apps/{{$selectedApp}}/operations') }"
             class="py-2 px-2 rounded flex items-center text-sm font-light cursor-pointer hover:bg-gray-200"
         >
             <x-heroicon-s-currency-dollar class="w-4 h-4 mr-3 text-gray-500"/>
