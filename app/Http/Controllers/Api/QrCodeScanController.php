@@ -76,6 +76,7 @@ class QrCodeScanController extends Controller
 
         $mobileOperation = $codeScanRepository->initMobileOperation(
             $operationInfos->id,
+            $operationInfos->live,
             $operationInfos->amount_requested,
             $operationInfos->currency_requested,
             auth()->user()->primaryAccount->id

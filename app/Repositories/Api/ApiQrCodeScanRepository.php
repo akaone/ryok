@@ -5,7 +5,6 @@ namespace App\Repositories\Api;
 
 
 use App\Models\Account;
-use App\Models\AppCarrier;
 use App\Models\Carrier;
 use App\Models\CarrierUssd;
 use App\Models\Operation;
@@ -65,12 +64,13 @@ class ApiQrCodeScanRepository
         $sellerOperation->state = Operation::$PENDING;
         $sellerOperation->amount_used = $operation->amount_used;
         $sellerOperation->currency_used = $operation->currency_used;
+        $sellerOperation->from = $operation->account_id;
         $sellerOperation->save();
 
         return true;
     }
 
-    public function initMobileOperation($forOperationId, $amount, $currency, $userAccountId)
+    public function initMobileOperation($forOperationId, $live, $amount, $currency, $userAccountId)
     {
         return Operation::create([
             'id' => Uuid::generate()->string,
@@ -79,6 +79,7 @@ class ApiQrCodeScanRepository
             'for_operation' => $forOperationId,
             'account_id' => $userAccountId,
             'state' => Operation::$CREATED,
+            'live' => $live
         ]);
     }
 

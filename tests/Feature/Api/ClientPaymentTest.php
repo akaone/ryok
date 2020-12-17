@@ -18,7 +18,7 @@ $carrier = null;
 
 beforeEach(function () use (&$paymentOrderId, &$carrier) {
     $merchant = factory(User::class)->create(['state' => 'ACTIVATED']);
-    $app = factory(App::class)->create();
+    $app = factory(App::class)->create(['state' => App::$ACTIVATED]);
     $appUser = AppUser::factory()->create(['app_id' => $app->id, 'user_id' => $merchant->id]);
     $appUser->assignRole('admin');
     /** @var AppKey $appKey */
@@ -50,12 +50,12 @@ beforeEach(function () use (&$paymentOrderId, &$carrier) {
     $response = $this->json('POST', route('api.payment-request'), [
         'amount' => 1500,
         'currency' => "XOF"
-    ], ['api_key' => $appKey->test_secret_key]);
+    ], ['api_key' => $appKey->secret_key]);
 
     # dd($response->getData());
     $data = $response->getData();
     $this->assertTrue($data->success);
-    $this->assertDatabaseHas('operations', ['account_id' => $account->id]);
+    $this->assertDatabaseHas('operations', ['account_id' => $account->id, 'live' => true]);
     $paymentOrderId = $data->data->url;
     $paymentOrderId = explode("?", explode("/", $paymentOrderId)[5])[0];
 });
@@ -83,8 +83,8 @@ test("client can pay a merchant with scan using mobile money", function () use (
     # dd($clientScanResponse->getData());
     $clientScanData = $clientScanResponse->getData();
     $this->assertTrue($clientScanData->success);
-    $this->assertDatabaseHas('operations', ['id' => $paymentOrderId, 'state' => Operation::$CREATED]);
-    $this->assertDatabaseHas('operations', ['id' =>  $clientScanData->data->mobile_id, 'state' => Operation::$CREATED]);
+    $this->assertDatabaseHas('operations', ['id' => $paymentOrderId, 'state' => Operation::$CREATED, 'live' => true]);
+    $this->assertDatabaseHas('operations', ['id' =>  $clientScanData->data->mobile_id, 'state' => Operation::$CREATED, 'live' => true]);
 
     # user send the ussd response and the sms response to the server
     $clientUssdResponse = $this->json('PATCH', route('api.client.qr-code.update'), [
@@ -97,11 +97,12 @@ test("client can pay a merchant with scan using mobile money", function () use (
     ], ['authorization' => "Bearer: {$token}"]);
     # dd($clientUssdResponse->getData());
 
-    $this->assertDatabaseHas('operations', ['id' => $paymentOrderId, 'state' => Operation::$PENDING]);
+    $this->assertDatabaseHas('operations', ['id' => $paymentOrderId, 'state' => Operation::$PENDING, 'live' => true]);
     $this->assertDatabaseHas('operations', [
         'id' =>  $clientScanData->data->mobile_id,
         'state' => Operation::$PENDING,
-        'account_id' => $clientPrimaryAccount->id
+        'account_id' => $clientPrimaryAccount->id,
+        'live' => true
     ]);
 
 

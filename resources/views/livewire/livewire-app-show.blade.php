@@ -4,6 +4,7 @@
 
     @component('components.alert')@endcomponent
 
+    <!-- TABS -->
     <div class="flex w-full px-4 pt-2 mb-4 font-light text-gray-600 border-b sticky top-0 bg-white">
         <div
             x-on:click="changeTab('infos')"
@@ -176,13 +177,13 @@
 
     <!-- APP PAYMENTS -->
     <div x-show="activeTab == 'payments'" class="flex flex-col px-4">
-        <span class="font-light text-green-600 underline">Credit operations</span>
+        <span class="font-light text-green-600 underline">{{ __('apps.app.show.payments-credit-operation-title') }}</span>
         <table class="my-2 bg-gray-200 rounded border">
             <tr class="border-b text-black">
-                <th class="text-sm py-3 px-2 font-light text-left w-3/12">Amount</th>
-                <th class="text-sm py-3 px-2 font-light text-left w-3/12">Created at</th>
-                <th class="text-sm py-3 px-2 font-light text-left w-3/12">State</th>
-                <th class="text-sm py-3 px-2 font-light text-left w-3/12">Details</th>
+                <th class="text-sm py-3 px-2 font-light text-left w-3/12">{{ __('apps.app.show.payments-operation-amount') }}</th>
+                <th class="text-sm py-3 px-2 font-light text-left w-3/12">{{ __('apps.app.show.payments-operation-created-at') }}</th>
+                <th class="text-sm py-3 px-2 font-light text-left w-3/12">{{ __('apps.app.show.payments-operation-state') }}</th>
+                <th class="text-sm py-3 px-2 font-light text-left w-3/12">{{ __('apps.app.show.payments-operation-details') }}</th>
             </tr>
 
             @foreach($creditOperations as $key => $operation)
@@ -196,7 +197,7 @@
                         <a
                             href="{{ route('dashboard.staff.apps.payments.show', ['appId' => $infos->id, 'paymentId' => $operation->id ]) }}"
                             class="w-full bg-gray-200 text-black px-2 py-1 rounded font-light">
-                            Details
+                            {{ __('apps.app.show.payments-operation-details') }}
                         </a>
                     </td>
                 </tr>
@@ -204,13 +205,13 @@
 
         </table>
 
-        <span class="font-light text-green-600 underline mt-6">Debit operations</span>
+        <span class="font-light text-green-600 underline mt-6">{{ __('apps.app.show.payments-debit-operation-title') }}</span>
         <table class="my-2 bg-gray-200 rounded border">
             <tr class="border-b text-black">
-                <th class="text-sm py-3 px-2 font-light text-left w-3/12">Amount</th>
-                <th class="text-sm py-3 px-2 font-light text-left w-3/12">Created at</th>
-                <th class="text-sm py-3 px-2 font-light text-left w-3/12">State</th>
-                <th class="text-sm py-3 px-2 font-light text-left w-3/12">Details</th>
+                <th class="text-sm py-3 px-2 font-light text-left w-3/12">{{ __('apps.app.show.payments-operation-amount') }}</th>
+                <th class="text-sm py-3 px-2 font-light text-left w-3/12">{{ __('apps.app.show.payments-operation-created-at') }}</th>
+                <th class="text-sm py-3 px-2 font-light text-left w-3/12">{{ __('apps.app.show.payments-operation-state') }}</th>
+                <th class="text-sm py-3 px-2 font-light text-left w-3/12">{{ __('apps.app.show.payments-operation-details') }}</th>
             </tr>
 
             @foreach($debitOperations as $key => $operation)
@@ -224,7 +225,7 @@
                         <a
                             href="{{ route('dashboard.staff.apps.payments.show', ['appId' => $infos->id, 'paymentId' => $operation->id ]) }}"
                             class="w-full bg-gray-200 text-black px-2 py-1 rounded font-light">
-                            Details
+                            {{ __('apps.app.show.payments-operation-details') }}
                         </a>
                     </td>
                 </tr>
