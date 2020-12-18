@@ -50,7 +50,8 @@ class MerchantApiAuthlException extends Exception
                 false,
                 $this->message,
                 null,
-                401,
+                null,
+                401
             );
         }
 
