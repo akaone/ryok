@@ -46,12 +46,23 @@
                     </a>
 
                     <!-- Clients -->
-                    <a class="block px-4" href="#">
+                    <a class="block px-4" href="{{ route('dashboard.staff.clients.index') }}">
                         <div
+                            :class="{ 'bg-gray-200 dark:bg-blue-400': isActiveRoute('/staff/clients') }"
                             class="py-2 px-2 rounded flex items-center text-sm font-light cursor-pointer dark:hover:bg-blue-400 hover:bg-gray-200"
                         >
                             <x-heroicon-s-briefcase class="w-4 h-4 mr-3 dark:text-white text-gray-500"/>
                             <span class="dark:text-white text-black">Clients</span>
+                        </div>
+                    </a>
+
+                    <!-- Merchants -->
+                    <a class="block px-4" href="#">
+                        <div
+                            class="py-2 px-2 rounded flex items-center text-sm font-light cursor-pointer dark:hover:bg-blue-400 hover:bg-gray-200"
+                        >
+                            <x-heroicon-s-collection class="w-4 h-4 mr-3 dark:text-white text-gray-500"/>
+                            <span class="dark:text-white text-black">Merchants</span>
                         </div>
                     </a>
 
@@ -78,8 +89,9 @@
                     </a>
 
                     <!-- Users -->
-                    <a class="block px-4" href="#">
+                    <a class="block px-4" href="{{ route('dashboard.staff.users.index') }}">
                         <div
+                            :class="{ 'bg-gray-200 dark:bg-blue-400': isActiveRoute('/staff/users') }"
                             class="py-2 px-2 rounded flex items-center text-sm font-light cursor-pointer dark:hover:bg-blue-400 hover:bg-gray-200"
                         >
                             <x-heroicon-s-user-group class="w-4 h-4 mr-3 dark:text-white text-gray-500"/>

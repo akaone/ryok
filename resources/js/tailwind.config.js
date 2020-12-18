@@ -1,7 +1,10 @@
 const { colors } = require('tailwindcss/defaultTheme');
 
 module.exports = {
-    purge: [],
+    purge: [
+        './resources/views/**/*.blade.php',
+        './resources/js/**/*.vue'
+    ],
     darkMode: "class",
     theme: {
         extend: {},

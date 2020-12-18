@@ -28,8 +28,11 @@ Route::group([
         Route::group([], base_path("routes/web-staff-messages.php"));
 
         # clients
+        Route::group([], base_path("routes/web-staff-clients.php"));
 
         # staff
+        Route::group([], base_path("routes/web-staff-users.php"));
+
     });
 
 });
