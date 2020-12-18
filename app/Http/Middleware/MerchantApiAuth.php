@@ -21,12 +21,12 @@ class MerchantApiAuth
      */
     public function handle(Request $request, Closure $next)
     {
-        if(false == $request->hasHeader('api_key')) {
+        if(false == $request->hasHeader('apikey')) {
             throw new MerchantApiAuthlException(ApiErrorCode::MERCHANT_API_AUTH_PROVIDE_SECRET_KEY);
         }
 
         $merchantApiAuthRepository = new MerchantApiAuthRepository();
-        $checks = $merchantApiAuthRepository->checkSecretKey($request->header('api_key'));
+        $checks = $merchantApiAuthRepository->checkSecretKey($request->header('apikey'));
 
         if(false == $checks['exists']) {
             throw new MerchantApiAuthlException(ApiErrorCode::MERCHANT_API_AUTH_INVALID);

@@ -27,7 +27,7 @@ test("member cannot be auth with fake secret key", function () {
     $response = $this->json('POST', route('api.payment-request'), [
         'amount' => 1000,
         'currency' => "XOF"
-    ], ['api_key' => 'sk-live-fake-some-secret']);
+    ], ['apikey' => 'sk-live-fake-some-secret']);
 
     # dd($response->getData());
     $data = $response->getData();
@@ -55,7 +55,7 @@ test("member can get an api payment object", function () {
     $response = $this->json('POST', route('api.payment-request'), [
         'amount' => 1500,
         'currency' => "XOF"
-    ], ['api_key' => $appKey->secret_key]);
+    ], ['apikey' => $appKey->secret_key]);
 
     # dd($response->getData());
     $data = $response->getData();

@@ -50,7 +50,7 @@ beforeEach(function () use (&$paymentOrderId, &$carrier) {
     $response = $this->json('POST', route('api.payment-request'), [
         'amount' => 1500,
         'currency' => "XOF"
-    ], ['api_key' => $appKey->secret_key]);
+    ], ['apikey' => $appKey->secret_key]);
 
     # dd($response->getData());
     $data = $response->getData();
