@@ -83,7 +83,7 @@ class ClientAuthController extends Controller
      * @OA\Post(
      *     path="/client/pass",
      *     tags={"auth"},
-     *     summary="Creation d'un compte client etape 1 []",
+     *     summary="Creation d'un compte client etape 2 []",
      *     @OA\RequestBody(
      *         @OA\MediaType(
      *             mediaType="application/x-www-form-urlencoded",
@@ -91,6 +91,7 @@ class ClientAuthController extends Controller
      *                  @OA\Property(property="country_code", description="Client's country calling code", enum={"228", "229"}),
      *                  @OA\Property(property="phone number", description="Client's phone number"),
      *                  @OA\Property(property="token_fcm", description="Fcm token"),
+     *                  @OA\Property(property="sms_code", description="Verification code"),
      *                  @OA\Property(property="password", description="Password"),
      *                  @OA\Property(property="confirm_password", description="Confirm assword"),
      *             )
