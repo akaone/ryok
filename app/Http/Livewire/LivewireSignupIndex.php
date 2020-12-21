@@ -34,6 +34,7 @@ class LivewireSignupIndex extends Component
         ];
 
         $createdUser = $signUpRepository->newMemberUser($data, Uuid::generate()->string);
+
         // todo: send email
 
         return redirect()->route('sign-up.done', ['userId' => $createdUser->id]);

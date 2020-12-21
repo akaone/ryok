@@ -9,6 +9,14 @@ Route::group([
     'middleware' => ['localize', 'localizationRedirect']
 ], function () {
 
+    Route::get('/mailable', function () {
+        $user = App\Models\User::where('email', '=', 'desouzakevinm@gmail.com')->first();
+        \Illuminate\Support\Facades\Mail::to($user->email)
+        ->send(new App\Mail\SignupConfirm($user));
+
+        return new App\Mail\SignupConfirm($user);
+    });
+
     Route::get('links/operation-qr-code/{id}', [MerchantQrCodeController::class, "show"])->name("operation-qr-code");
 
     Route::group([], base_path("routes/web-login-signup.php"));
@@ -27,11 +35,11 @@ Route::group([
 
         Route::group([], base_path("routes/web-staff-messages.php"));
 
-        # clients
         Route::group([], base_path("routes/web-staff-clients.php"));
 
-        # staff
         Route::group([], base_path("routes/web-staff-users.php"));
+
+        Route::group([], base_path("routes/web-staff-merchants.php"));
 
     });
 

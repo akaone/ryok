@@ -6,8 +6,8 @@ use App\Uuids;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * @mixin IdeHelperApp
  * @property Account primaryAccount
+ * @mixin IdeHelperApp
  */
 class App extends Model
 {

@@ -17,7 +17,7 @@
             </span>
         </div>
 
-        <div class="flex items-center justify-center bg-bacl border-black border-4 mb-2 rounded " style="height: 200px; width: 200px;">
+        <div class="flex items-center justify-center border-black border-4 mb-2 rounded " style="height: 220px; width: 220px;">
             {!! QrCode::size(198)->generate($operation->deep_link_url); !!}
         </div>
         <span class="text-center text-sm " style="width: 200px;">

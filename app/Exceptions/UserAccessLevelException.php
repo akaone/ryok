@@ -2,7 +2,13 @@
 
 namespace App\Exceptions;
 
+use App\Responses\ApiResponse;
 use Exception;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Livewire\Exceptions\BypassViewHandler;
 
@@ -11,7 +17,7 @@ class UserAccessLevelException extends Exception
     use BypassViewHandler;
     protected $message = "user.acl.exception";
 
-    
+
     public function __construct($msg = null)
     {
         if($msg) {
@@ -33,19 +39,19 @@ class UserAccessLevelException extends Exception
     /**
      * Render the exception into an HTTP response.
      *
-     * @param  \Illuminate\Http\Request
-     * @return \Illuminate\Http\Response
+     * @param  Request
+     * @return Application|Factory|View|JsonResponse|Response
      */
     public function render($request)
     {
         if($request->ajax() || $request->wantsJson()) {
-            $json = [
-                'success' => false,
-                'message' => $this->message,
-                'error' => [],
-            ];
-
-            return response()->json($json, 401);
+            return ApiResponse::create(
+                false,
+                $this->message,
+                null,
+                null,
+                401
+            );
         }
 
         return view('acl.no-access', [

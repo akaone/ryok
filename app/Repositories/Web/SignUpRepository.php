@@ -15,30 +15,26 @@ class SignUpRepository
     /**
      * Sign up a new user
      * @param $data
-     * @param $email_link
+     * @param $emailLink
      * @return User|Model|Builder|object
      * @throws Exception
      */
-        public function newMemberUser($data, $email_link)
+        public function newMemberUser($data, $emailLink)
     {
         $id = Uuid::generate()->string;
         $now = Carbon::now();
 
-        DB::table('users')
-            ->insert([
-                'id' => $id,
-                'email' => $data['email'],
-                'email_link' => $email_link,
-                'name' => $data['name'],
-                'password' => bcrypt($data['password']),
-                'gender' => $data['gender'],
-                'state' => 'EMAIL',
-                'created_at' => $now,
-                'updated_at' => $now,
-            ])
-        ;
-
-        return DB::table('users')->where('id', $id)->first();
+        return User::create([
+            'id' => $id,
+            'email' => $data['email'],
+            'email_link' => $emailLink,
+            'name' => $data['name'],
+            'password' => bcrypt($data['password']),
+            'gender' => $data['gender'],
+            'state' => 'EMAIL',
+            'created_at' => $now,
+            'updated_at' => $now,
+        ]);
     }
 
     /**

@@ -2131,23 +2131,23 @@
         },
         {
             "name": "livewire/livewire",
-            "version": "v2.3.0",
+            "version": "v2.3.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/livewire/livewire.git",
-                "reference": "0674d4cb8e598ce67df00fb95472c73e668b1416"
+                "reference": "781a1250dc8eab9121fd856ff0b6efca8c32756f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/livewire/livewire/zipball/0674d4cb8e598ce67df00fb95472c73e668b1416",
-                "reference": "0674d4cb8e598ce67df00fb95472c73e668b1416",
+                "url": "https://api.github.com/repos/livewire/livewire/zipball/781a1250dc8eab9121fd856ff0b6efca8c32756f",
+                "reference": "781a1250dc8eab9121fd856ff0b6efca8c32756f",
                 "shasum": ""
             },
             "require": {
                 "illuminate/database": "^7.0|^8.0",
                 "illuminate/support": "^7.0|^8.0",
                 "illuminate/validation": "^7.0|^8.0",
-                "php": "^7.2.5",
+                "php": "^7.2.5|^8.0",
                 "symfony/http-kernel": "^5.0"
             },
             "require-dev": {
@@ -2195,7 +2195,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2020-10-15T17:49:47+00:00"
+            "time": "2020-12-01T20:51:29+00:00"
         },
         {
             "name": "mcamara/laravel-localization",

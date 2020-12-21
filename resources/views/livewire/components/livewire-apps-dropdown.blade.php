@@ -7,7 +7,7 @@
     <div x-data="DATA()" class="flex flex-col cursor-pointer .relative">
         <div class="py-2 px-6 flex dark:hover:bg-blue-400 hover:bg-gray-200 items-center justify-between" x-on:click="toggle">
             <div class="flex flex-col items-start">
-                <span class="mr-2 dark:text-white text-white">{{ $currentApp->name }}</span>
+                <span class="mr-2 dark:text-white text-black">{{ $currentApp->name }}</span>
                 <span class="lowercase bg-gray-400 rounded px-2 pb-1 text-xs">{{ $currentApp->state }}</span>
             </div>
             <x-heroicon-s-chevron-down class="w-4 h-4 text-gray-500"/>
