@@ -20,10 +20,12 @@ class QrCodeScanController extends Controller
      *     path="/client/qr-code",
      *     tags={"qr-code"},
      *     summary="Recuperation des informations apres scan d'un Qr code []",
+     *     security={ {"api_key": {}}, },
      *     @OA\RequestBody(
      *         @OA\MediaType(
      *             mediaType="application/x-www-form-urlencoded",
      *             @OA\Schema(
+     *                  required={"operation_id"},
      *                  @OA\Property(property="operation_id", description="The operation id the user wants to pay for"),
      *             )
      *         )
@@ -98,6 +100,34 @@ class QrCodeScanController extends Controller
     }
 
 
+    /**
+     *
+     * @OA\Patch(
+     *     path="/client/qr-code/",
+     *     tags={"qr-code"},
+     *     summary="Mise a jour des informations de paiement apres ussd []",
+     *     security={ {"api_key": {}}, },
+     *     @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/x-www-form-urlencoded",
+     *             @OA\Schema(
+     *                  required={"operation_id", "mobile_id", "carrier_id", "ussd_content", "phone_number"},
+     *                  @OA\Property(property="operation_id", description="The operation id the user wants to pay for"),
+     *                  @OA\Property(property="mobile_id", description="The mobile id  received when scanning the qr code"),
+     *                  @OA\Property(property="carrier_id", description="The carrier id the user used to pay"),
+     *                  @OA\Property(property="ussd_content", description="The ussd content"),
+     *                  @OA\Property(property="sms_content", description="The sms content"),
+     *                  @OA\Property(property="phone_number", description="The phone number the user used to pay [country_calling_code+phonenumber]"),
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(response=200, description="SUCCESS"),
+     *
+     * )
+     * @param ApiQrCodeScanClientUpdateRequest $request
+     * @param ApiQrCodeScanRepository $codeScanRepository
+     * @return JsonResponse
+     */
     public function update(ApiQrCodeScanClientUpdateRequest $request, ApiQrCodeScanRepository $codeScanRepository)
     {
         $mobileOperationId = $request->input('mobile_id');

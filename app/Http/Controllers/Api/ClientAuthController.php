@@ -25,6 +25,7 @@ class ClientAuthController extends Controller
      *         @OA\MediaType(
      *             mediaType="application/x-www-form-urlencoded",
      *             @OA\Schema(
+     *                  required={"country_code", "phone number"},
      *                  @OA\Property(property="country_code", description="Client's country calling code", enum={"228", "229"}),
      *                  @OA\Property(property="phone number", description="Client's phone number"),
      *             )
@@ -88,6 +89,7 @@ class ClientAuthController extends Controller
      *         @OA\MediaType(
      *             mediaType="application/x-www-form-urlencoded",
      *             @OA\Schema(
+     *                  required={"country_code", "phone number", "token_fcm", "sms_code", "password", "confirm_password"},
      *                  @OA\Property(property="country_code", description="Client's country calling code", enum={"228", "229"}),
      *                  @OA\Property(property="phone number", description="Client's phone number"),
      *                  @OA\Property(property="token_fcm", description="Fcm token"),
@@ -139,6 +141,7 @@ class ClientAuthController extends Controller
      *         @OA\MediaType(
      *             mediaType="application/x-www-form-urlencoded",
      *             @OA\Schema(
+     *                  required={"country_code", "phone number", "password"},
      *                  @OA\Property(property="country_code", description="Client's country calling code", enum={"228", "229"}),
      *                  @OA\Property(property="phone number", description="Client's phone number"),
      *                  @OA\Property(property="password", description="Password"),
