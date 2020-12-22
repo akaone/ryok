@@ -84,6 +84,11 @@ class QrCodeScanController extends Controller
             auth()->user()->primaryAccount->id
         );
 
+        # todo: refactor this to a repository
+        $operationInfos->state = Operation::$PENDING;
+        $operationInfos->from = auth()->user()->primaryAccount->id;
+        $operationInfos->save();
+
         return ApiResponse::create(
             true,
             ApiErrorCode::NONE,
