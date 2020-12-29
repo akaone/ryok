@@ -87,7 +87,7 @@ test("client can pay a merchant with scan using mobile money", function () use (
         'operation_id' => $paymentOrderId,
     ], ['authorization' => "Bearer: {$token}"]);
 
-    dd($clientScanResponse->getData());
+    # dd($clientScanResponse->getData());
     $clientScanData = $clientScanResponse->getData();
     $this->assertTrue($clientScanData->success);
     $this->assertDatabaseHas('operations', ['id' => $paymentOrderId, 'state' => Operation::$PENDING, 'live' => true]);

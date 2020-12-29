@@ -4,7 +4,7 @@
 
     <div class="font-thin text-md text-blue-600 my-4">@lang('operations.staff-operations.index.title')</div>
 
-    <div dwire:poll.5s="operations">
+    <div dwire:poll.5s="operations" class="mb-6">
         <table x-on:click.away="setMessageId(null)" class="my-2 bg-gray-200 rounded border w-full">
             <tr class="border-b text-black">
                 <th class="text-sm py-3 px-2 font-light text-left w-3/12">@lang('operations.staff-operations.index.table-debitor')</th>

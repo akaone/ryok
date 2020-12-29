@@ -20,6 +20,8 @@ class StaffOperationsRespository
             ->leftJoin('apps',  'apps.id', '=', 'accounts.app_id')
             ->leftJoin('clients', 'clients.id', '=', 'accounts.client_id')
 
+            ->orderBy('op.created_at', 'DESC')
+
 
             ->select([
                 'op.state', 'op.amount_requested', 'op.currency_requested', 'op.live',
