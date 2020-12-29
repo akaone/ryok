@@ -16,9 +16,18 @@ class ApiQrCodeScanRepository
 
     public function operationInfos($operationId)
     {
-        return Operation::select([
-            'amount_requested', 'currency_requested', 'state', 'account_id', 'live', 'for_operation', 'id'
-        ])->find($operationId);
+        $operationForm = DB::table('operations as op')
+            ->where('op.id', '=', $operationId)
+            ->leftJoin('accounts as act', 'act.id', '=', 'op.account_id')
+            ->leftJoin('apps as ap',  'ap.id', '=', 'act.app_id')
+            ->select([
+                'op.amount_requested', 'op.currency_requested', 'op.state', 'op.account_id', 'op.live', 'op.for_operation', 'op.id',
+                'ap.name as app_name', 'ap.website_url as app_website_url', 'ap.icon as app_icon'
+            ])
+            ->first()
+        ;
+
+        return $operationForm;
     }
 
     public function allowedCarriers($accountId)
@@ -81,6 +90,24 @@ class ApiQrCodeScanRepository
             'state' => Operation::$CREATED,
             'live' => $live
         ]);
+    }
+
+
+    /**
+     * @param $carrierId
+     * @return CarrierUssd|null
+     */
+    public function carrierClientRegexes($carrierId)
+    {
+        return CarrierUssd::where('carrier_id', '=', $carrierId)
+            ->where('state', '=', CarrierUssd::$ACTIVATED)
+            ->select([
+                'client_ussd_amount_regex',
+                'client_ussd_reference_regex',
+                'client_sms_amount_regex',
+                'client_sms_reference_regex'
+            ])
+            ->first();
     }
 
 }

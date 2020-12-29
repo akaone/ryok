@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ApiQrCodeScanClientUpdateRequest;
 use App\Http\Requests\ApiQrCodeScanInfosRequest;
-use App\Models\Account;
 use App\Models\Operation;
 use App\Repositories\Api\ApiQrCodeScanRepository;
 use App\Responses\ApiErrorCode;
@@ -46,7 +45,6 @@ class QrCodeScanController extends Controller
         $operationId = $request->input('operation_id');
 
         # get operation (amount | currency)
-        /** @var Operation $operationInfos*/
         $operationInfos = $codeScanRepository->operationInfos($operationId);
         switch ($operationInfos->state) {
             case Operation::$PENDING:
@@ -72,6 +70,7 @@ class QrCodeScanController extends Controller
         }
 
         # operation fees
+        $fees = 0;
 
         # allowed carriers
         $carriers = $codeScanRepository->allowedCarriers($operationInfos->account_id);
@@ -85,14 +84,19 @@ class QrCodeScanController extends Controller
         );
 
         # todo: refactor this to a repository
-        $operationInfos->state = Operation::$PENDING;
-        $operationInfos->from = auth()->user()->primaryAccount->id;
-        $operationInfos->save();
+        $op = Operation::where('id', $operationInfos->id)->first();
+        $op->state = Operation::$PENDING;
+        $op->from = auth()->user()->primaryAccount->id;
+        $op->save();
 
         return ApiResponse::create(
             true,
             ApiErrorCode::NONE,
             [
+                'app_name' => $operationInfos->app_name,
+                'app_website_url' => $operationInfos->app_website_url,
+                'app_icon' => asset($operationInfos->app_icon),
+                'fees' => $fees,
                 'operation_id' => $operationInfos->id,
                 'mobile_id' => $mobileOperation->id,
                 'live' => $operationInfos->live,
@@ -142,9 +146,12 @@ class QrCodeScanController extends Controller
         $smsContent = $request->input('sms_content');
         $ussdContent = $request->input('ussd_content');
 
-        #todo: check if mobile operation_id exist in database
+        # todo: check if mobile operation_id exist in database
 
-        #todo: check if carrier id matches apps (account) allowed carriers
+        # todo: check if carrier id matches apps (account) allowed carriers
+
+        # todo: get transaction ref, amount and currency from the message
+        $carrier_regexes = $codeScanRepository->carrierClientRegexes($carrierId);
 
         $operation = $codeScanRepository->updateWithClientResponse($mobileOperationId, $ussdContent, $smsContent, $phoneNumber);
 

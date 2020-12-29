@@ -48,7 +48,7 @@ class CreateOperationsTable extends Migration
 
             $table->string('code')->nullable();
 
-            $table->string('account_id')->nullable();
+            $table->string('account_id')->nullable(); # phone number | account id
             $table->string('for_operation')->nullable();
             $table->string('from')->nullable(); # phone number | account id
             $table->string('to')->nullable();

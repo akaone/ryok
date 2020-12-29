@@ -22,6 +22,8 @@ class CarriersSmsController extends Controller
             return ApiResponse::create( false );
         }
 
+        # todo: get transaction ref, amount and currency from the message
+
         return ApiResponse::create( true );
 
     }

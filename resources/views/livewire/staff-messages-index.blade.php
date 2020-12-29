@@ -25,34 +25,36 @@
                         </button>
                     </td>
                 </tr>
-                <tr x-show="selectedMessageId == '{{ $message->id }}'" class="bg-blue-100">
-                    <td class="py-2 pl-2">
-                        <div class="flex flex-col items-start">
-                            <button
-                                x-on:click="$wire.set('transactionAmount', document.getSelection().toString())"
-                                class="flex focus:outline-none text-sm font-light border rounded">
-                                @lang("messages.staff-messages.index.pending-messages-transaction-amount")
-                            </button>
-                            <input wire:model="transactionAmount" type="text" class="px-2 border h-8 rounded w-3/4">
-                        </div>
-                    </td>
-                    <td>
-                        <div class="flex flex-col items-start">
-                            <button
-                                x-on:click="$wire.set('transactionReference', document.getSelection().toString())"
-                                class="flex focus:outline-none text-sm font-light border rounded">
-                                @lang("messages.staff-messages.index.pending-messages-transaction-reference")
-                            </button>
-                            <div class="flex w-full space-x-2">
-                                <input wire:model="transactionReference" type="text" class="px-2 border h-8 rounded w-6/12">
-                                <button class="bg-blue-600 rounded h-8 w-2/12 text-white shadow">
-                                    @lang("messages.staff-messages.index.pending-messages-save")
+                <template x-if="false">
+                    <div  class="bg-blue-100">
+                        <td class="py-2 pl-2">
+                            <div class="flex flex-col items-start">
+                                <button
+                                    x-on:click="$wire.set('transactionAmount', document.getSelection().toString())"
+                                    class="flex focus:outline-none text-sm font-light border rounded">
+                                    @lang("messages.staff-messages.index.pending-messages-transaction-amount")
                                 </button>
+                                <input wire:model="transactionAmount" type="text" class="px-2 border h-8 rounded w-3/4">
                             </div>
-                        </div>
-                    </td>
-                    <td></td>
-                </tr>
+                        </td>
+                        <td>
+                            <div class="flex flex-col items-start">
+                                <button
+                                    x-on:click="$wire.set('transactionReference', document.getSelection().toString())"
+                                    class="flex focus:outline-none text-sm font-light border rounded">
+                                    @lang("messages.staff-messages.index.pending-messages-transaction-reference")
+                                </button>
+                                <div class="flex w-full space-x-2">
+                                    <input wire:model="transactionReference" type="text" class="px-2 border h-8 rounded w-6/12">
+                                    <button class="bg-blue-600 rounded h-8 w-2/12 text-white shadow">
+                                        @lang("messages.staff-messages.index.pending-messages-save")
+                                    </button>
+                                </div>
+                            </div>
+                        </td>
+                        <td></td>
+                    </div>
+                </template>
             @endforeach
 
         </table>

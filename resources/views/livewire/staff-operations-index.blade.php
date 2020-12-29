@@ -4,7 +4,7 @@
 
     <div class="font-thin text-md text-blue-600 my-4">@lang('operations.staff-operations.index.title')</div>
 
-    <div wire:poll.5s="operations">
+    <div dwire:poll.5s="operations">
         <table x-on:click.away="setMessageId(null)" class="my-2 bg-gray-200 rounded border w-full">
             <tr class="border-b text-black">
                 <th class="text-sm py-3 px-2 font-light text-left w-3/12">@lang('operations.staff-operations.index.table-debitor')</th>
@@ -17,8 +17,12 @@
 
             @foreach($operations as $key => $operation)
                 <tr class="border-b hover:bg-gray-100 cursor-default bg-white text-gray-600">
-                    <td class="py-3 px-2 text-sm font-medium underline">{{ $operation->from }}</td>
-                    <td class="py-3 px-2 text-sm font-medium underline">{{ $operation->account_id }}</td>
+                    <td class="flex flex-col py-3 px-2 text-sm font-medium hover:underline">
+                        {{$this->renderCreditorAndCreditor($operation->debitor_account_id, $operation->debitor_account_type, $operation->apps_debitor_name, $operation->client_debitor_name) }}
+                    </td>
+                    <td class=" py-3 px-2 text-sm font-medium hover:underline">
+                        {{$this->renderCreditorAndCreditor($operation->creditor_account_id, $operation->creditor_account_type, $operation->apps_creditor_name, $operation->client_creditor_name) }}
+                    </td>
                     <td class="py-3 px-2 text-sm">
                         {{ $operation->amount_requested }} {{ $operation->currency_requested }}
                     </td>

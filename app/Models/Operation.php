@@ -19,4 +19,6 @@ class Operation extends Model
     public $incrementing = false;
     protected $primaryKey = 'id';
     protected $guarded = [];
+
+
 }

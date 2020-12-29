@@ -26,7 +26,7 @@ class ApiQrCodeScanClientUpdateRequest extends FormRequest
         return [
             'client_id' => ["required", "uuid"],
             'mobile_id' => ["required", "uuid"],
-            'carrier_id' => ["required"],
+            'carrier_id' => ["required", 'exists:carriers,id'],
             'ussd_content' => ["required"],
             'sms_content' => ["required"],
             'phone_number' => ["required"],

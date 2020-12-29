@@ -18,7 +18,10 @@ $carrier = null;
 
 beforeEach(function () use (&$paymentOrderId, &$carrier) {
     $merchant = factory(User::class)->create(['state' => 'ACTIVATED']);
-    $app = factory(App::class)->create(['state' => App::$ACTIVATED]);
+    $app = factory(App::class)->create([
+        'state' => App::$ACTIVATED,
+        'website_url' => "https://google.com",
+    ]);
     $appUser = AppUser::factory()->create(['app_id' => $app->id, 'user_id' => $merchant->id]);
     $appUser->assignRole('admin');
     /** @var AppKey $appKey */
@@ -44,7 +47,11 @@ beforeEach(function () use (&$paymentOrderId, &$carrier) {
     AppCarrier::factory()->create(['app_id' => $app->id, 'carrier_id' => $carrier->id, 'activated' => true]);
     CarrierUssd::factory()->create([
         'carrier_id' => $carrier->id,
-        'client_ussd_format' => "*145*1*1*[AMOUNT]*[PHONE]*1*[PIN]#"
+        'client_ussd_format' => "*145*1*1*[AMOUNT]*[PHONE]*1*[PIN]#",
+        'client_ussd_amount_regex' => "",
+        'client_ussd_reference_regex' => "",
+        'client_sms_amount_regex' => "",
+        'client_sms_reference_regex' => "",
     ]);
 
     $response = $this->json('POST', route('api.payment-request'), [
@@ -80,10 +87,10 @@ test("client can pay a merchant with scan using mobile money", function () use (
         'operation_id' => $paymentOrderId,
     ], ['authorization' => "Bearer: {$token}"]);
 
-    # dd($clientScanResponse->getData());
+    dd($clientScanResponse->getData());
     $clientScanData = $clientScanResponse->getData();
     $this->assertTrue($clientScanData->success);
-    $this->assertDatabaseHas('operations', ['id' => $paymentOrderId, 'state' => Operation::$CREATED, 'live' => true]);
+    $this->assertDatabaseHas('operations', ['id' => $paymentOrderId, 'state' => Operation::$PENDING, 'live' => true]);
     $this->assertDatabaseHas('operations', ['id' =>  $clientScanData->data->mobile_id, 'state' => Operation::$CREATED, 'live' => true]);
 
     # user send the ussd response and the sms response to the server
