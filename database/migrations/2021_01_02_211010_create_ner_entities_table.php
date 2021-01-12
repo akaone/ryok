@@ -11,6 +11,7 @@ class CreateNerEntitiesTable extends Migration
         Schema::create('ner_entities', function (Blueprint $table) {
             $table->bigIncrements('id');
 
+            $table->string('text')->nullable();
             $table->integer('start');
             $table->integer('end');
             $table->enum('label', ["CURRENCY", "AMOUNT", "REFERENCE"]);

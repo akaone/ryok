@@ -41,6 +41,8 @@ Route::group([
 
         Route::group([], base_path("routes/web-staff-merchants.php"));
 
+        Route::group([], base_path("routes/web-staff-ner.php"));
+
     });
 
 });

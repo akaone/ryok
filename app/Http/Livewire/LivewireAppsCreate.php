@@ -39,7 +39,6 @@ class LivewireAppsCreate extends Component
             'cfe_recto' => 'image|max:2048',
             'cfe_verso' => 'image|max:2048',
             'appIcon' => 'image|max:2048',
-            'appIcon' => 'image|max:2048',
             'pickedCarriers' => 'required|array|distinct|exists:carriers,ibm',
         ]);
 
@@ -65,7 +64,7 @@ class LivewireAppsCreate extends Component
 
         session()->flash('success', 'Application crée avec succés');
         return redirect()->route('dashboard.apps.index', ['appId' => $short->encode(Uuid::fromString($storedAppUuid))]);
-        
+
     }
 
 
