@@ -87,7 +87,7 @@ class ApiQrCodeScanRepository
             'currency_requested' => $currency,
             'for_operation' => $forOperationId,
             'account_id' => $userAccountId,
-            'state' => Operation::$CREATED,
+            'state' => Operation::$SCAN,
             'live' => $live
         ]);
     }
