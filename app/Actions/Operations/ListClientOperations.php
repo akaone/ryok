@@ -69,7 +69,7 @@ class ListClientOperations
         $operations->each(function($item, $key) use ($operations) {
             $operations[$key]->app_icon = asset($item->app_icon);
             $operations[$key]->created_date = $item->created_at->format('Y-m-d');
-            $operations[$key]->created_time = $item->created_at->format('H:i:s');
+            $operations[$key]->created_time = $item->created_at->format('H:i');
             unset($operations[$key]->created_at);
         });
 
@@ -104,6 +104,7 @@ class ListClientOperations
             ->join('operations as tmp', 'tmp.id', '=', 'op.for_operation')
             ->join('accounts as act', 'act.id', '=', 'tmp.account_id')
             ->join('apps', 'apps.id', '=', 'act.app_id')
+            ->orderBy('op.created_at', 'ASC')
             ->select([
                 'op.id' ,'op.ussd_reference', 'op.amount_requested as amount','op.from as phone_number',
                 'op.currency_requested as currency', 'op.created_at', 'op.live', 'op.state',
