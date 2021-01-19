@@ -65,7 +65,7 @@ class ListClientOperations
         $operations = $this->clientOperations($accountId, $page);
 
         $operations->each(function($item, $key) use ($operations) {
-            $operations[$key]->icon = asset($item->icon);
+            $operations[$key]->app_icon = asset($item->app_icon);
         });
 
         return $operations;
