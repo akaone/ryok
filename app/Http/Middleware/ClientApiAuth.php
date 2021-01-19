@@ -6,10 +6,11 @@ namespace App\Http\Middleware;
 use App\Responses\ApiErrorCode;
 use App\Responses\ApiResponse;
 use Closure;
+use Exception;
+use Firebase\JWT\ExpiredException;
 use \Firebase\JWT\JWT;
 use App\Models\Client;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class ClientApiAuth
 {
@@ -17,7 +18,7 @@ class ClientApiAuth
      * Handle an incoming request.
      *
      * @param Request $request
-     * @param \Closure $next
+     * @param Closure $next
      * @return mixed
      */
     public function handle(Request $request, Closure $next)
@@ -37,7 +38,12 @@ class ClientApiAuth
 
         try {
             $decoded = JWT::decode($token, $key, array('HS256'));
-        } catch (\Exception $e) {
+        } catch (ExpiredException $e) {
+            return ApiResponse::create(
+                false,
+                ApiErrorCode::JWT_TOKEN_EXPIRED
+            );
+        } catch (Exception $e) {
             # Firebase\\JWT\\SignatureInvalidException
             return ApiResponse::create(
                 false,

@@ -11,6 +11,7 @@ class ApiErrorCode
     # client is trying to perform action requiring sign-in without providing the jwt token
     const PLEASE_LOGIN_FIRST_JWT_MISSING = "PLEASE_LOGIN_FIRST_JWT_MISSING";
     const CANNOT_DECODE_JWT = "CANNOT_DECODE_JWT";
+    const JWT_TOKEN_EXPIRED = "JWT_TOKEN_EXPIRED";
     const USER_DOES_NOT_EXIST = "USER_DOES_NOT_EXIST";
     const YOU_HAVE_LOGIN_ON_ANOTHER_DEVICE = "YOU_HAVE_LOGIN_ON_ANOTHER_DEVICE";
     const ACCOUNT_IS_NOT_ACTIVATED = "ACCOUNT_IS_NOT_ACTIVATED";

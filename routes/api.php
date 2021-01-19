@@ -1,5 +1,6 @@
 <?php
 
+use App\Actions\Operations\ListClientOperations;
 use App\Http\Controllers\Api\ClientAuthController;
 use App\Http\Controllers\Api\QrCodeScanController;
 use App\Http\Controllers\Server\CarriersSmsController;
@@ -19,6 +20,7 @@ Route::post('client/login', [ClientAuthController::class, 'index'])->name('api.c
 Route::prefix("client")->name('api.client.')->middleware(['client.api.auth'])->group(function() {
 
     # historiques de transactions (client)
+    Route::get('operations', ListClientOperations::class)->name('operations.list');
 
     # scan qr code (client)
     Route::post("qr-code", [QrCodeScanController::class, 'index'])->name("qr-code.index");
