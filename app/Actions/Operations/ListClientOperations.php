@@ -104,7 +104,7 @@ class ListClientOperations
             ->join('operations as tmp', 'tmp.id', '=', 'op.for_operation')
             ->join('accounts as act', 'act.id', '=', 'tmp.account_id')
             ->join('apps', 'apps.id', '=', 'act.app_id')
-            ->orderBy('op.created_at', 'ASC')
+            ->orderBy('op.created_at', 'DESC')
             ->select([
                 'op.id' ,'op.ussd_reference', 'op.amount_requested as amount','op.from as phone_number',
                 'op.currency_requested as currency', 'op.created_at', 'op.live', 'op.state',
