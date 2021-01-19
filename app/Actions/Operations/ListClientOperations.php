@@ -40,6 +40,7 @@ use Lorisleiva\Actions\Concerns\AsAction;
  *                             @OA\Property(property="app_name", type="string", description="Name of the app the client paid to"),
  *                             @OA\Property(property="app_icon", type="string", description="Icon of the app the client paid to"),
  *                             @OA\Property(property="ussd_reference", type="string", description="Ussd transaction reference"),
+ *                             @OA\Property(property="state", type="enum", description="Sate of the operation", enum={"SCAN","CREATED","PENDING","PAID","FAILED","EXPIRED"} ),
  *                         )
  *                     ),
  *                 ),
@@ -100,7 +101,7 @@ class ListClientOperations
             ->join('apps', 'apps.id', '=', 'act.app_id')
             ->select([
                 'op.id' ,'op.ussd_reference', 'op.amount_requested as amount','op.from as phone_number',
-                'op.currency_requested as currency', 'op.created_at', 'op.live',
+                'op.currency_requested as currency', 'op.created_at', 'op.live', 'op.state',
                 'apps.name as app_name', 'apps.icon as app_icon'
             ])
             ->get();
