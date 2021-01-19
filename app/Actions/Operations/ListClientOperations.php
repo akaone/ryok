@@ -6,6 +6,7 @@ namespace App\Actions\Operations;
 
 use App\Models\Operation;
 use App\Responses\ApiResponse;
+use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Collection;
 use Lorisleiva\Actions\ActionRequest;
@@ -35,7 +36,8 @@ use Lorisleiva\Actions\Concerns\AsAction;
  *                             @OA\Property(property="amount", type="string", description="Operation's amount"),
  *                             @OA\Property(property="currency", type="enum", description="Operation's currency", enum={"XOF"}),
  *                             @OA\Property(property="phone_number", type="string", description="Used phone number"),
- *                             @OA\Property(property="created_at", type="string", description="Operation creation date"),
+ *                             @OA\Property(property="created_date", type="string", description="Operation creation date"),
+ *                             @OA\Property(property="created_time", type="string", description="Operation creation time"),
  *                             @OA\Property(property="live", type="enum", description="If oeration is live mode", enum={"0", "1"}),
  *                             @OA\Property(property="app_name", type="string", description="Name of the app the client paid to"),
  *                             @OA\Property(property="app_icon", type="string", description="Icon of the app the client paid to"),
@@ -66,6 +68,9 @@ class ListClientOperations
 
         $operations->each(function($item, $key) use ($operations) {
             $operations[$key]->app_icon = asset($item->app_icon);
+            $operations[$key]->created_date = $item->created_at->format('Y-m-d');
+            $operations[$key]->created_time = $item->created_at->format('H:i:s');
+            unset($operations[$key]->created_at);
         });
 
         return $operations;
