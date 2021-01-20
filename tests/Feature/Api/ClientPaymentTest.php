@@ -90,8 +90,8 @@ test("client can pay a merchant with scan using mobile money", function () use (
     # dd($clientScanResponse->getData());
     $clientScanData = $clientScanResponse->getData();
     $this->assertTrue($clientScanData->success);
-    $this->assertDatabaseHas('operations', ['id' => $paymentOrderId, 'state' => Operation::$PENDING, 'live' => true]);
-    $this->assertDatabaseHas('operations', ['id' =>  $clientScanData->data->mobile_id, 'state' => Operation::$CREATED, 'live' => true]);
+    $this->assertDatabaseHas('operations', ['id' => $paymentOrderId, 'state' => Operation::$CREATED, 'live' => true]);
+    $this->assertDatabaseHas('operations', ['id' =>  $clientScanData->data->mobile_id, 'state' => Operation::$SCAN, 'live' => true]);
 
     # user send the ussd response and the sms response to the server
     $clientUssdResponse = $this->json('PATCH', route('api.client.qr-code.update'), [

@@ -143,7 +143,7 @@ class ClientAuthController extends Controller
      *             @OA\Schema(
      *                  required={"country_code", "phone number", "password"},
      *                  @OA\Property(property="country_code", description="Client's country calling code", enum={"228", "229"}),
-     *                  @OA\Property(property="phone number", description="Client's phone number"),
+     *                  @OA\Property(property="phone_number", description="Client's phone number"),
      *                  @OA\Property(property="password", description="Password"),
      *             )
      *         )

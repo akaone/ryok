@@ -29,7 +29,40 @@ class QrCodeScanController extends Controller
      *             )
      *         )
      *     ),
-     *     @OA\Response(response=200, description="SUCCESS"),
+     *     @OA\Response(
+     *         response=200,
+     *         description="SUCCESS",
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 @OA\Property(
+     *                     property="data",
+     *                     type="object",
+     *                     @OA\Property(property="operation_id", type="string", description=""),
+     *                     @OA\Property(property="mobile_id", type="string", description=""),
+     *                     @OA\Property(property="fees", type="string", description=""),
+     *                     @OA\Property(property="app_website_url", type="string", description=""),
+     *                     @OA\Property(property="app_name", type="string", description="Name of the app"),
+     *                     @OA\Property(property="app_icon", type="string", description="Icon of the app"),
+     *                     @OA\Property(property="live", type="enum", description="If oeration is live mode", enum={"0", "1"}),
+     *                     @OA\Property(property="currency", type="enum", description="Operation's currency", enum={"XOF"}),
+     *                     @OA\Property(property="amount", type="string", description="Operation's amount"),
+     *                     @OA\Property(
+     *                          property="carriers",
+     *                          type="array",
+     *                          @OA\Items(
+     *                              @OA\Property(property="carrier_id", type="string", description=""),
+     *                              @OA\Property(property="client_ussd_format", type="string", description="*145*1*1*[AMOUNT]*[PHONE]*1*[PIN]#"),
+     *                              @OA\Property(property="name", type="string", description=""),
+     *                              @OA\Property(property="phone_regex", type="string", description=""),
+     *                              @OA\Property(property="ibm", type="string", description="mnc-mcc"),
+     *                              @OA\Property(property="country", type="string", description=""),
+     *                          ),
+     *                     ),
+     *                 ),
+     *             ),
+     *         )
+     *     ),
      *     @OA\Response(response=201, description="CANNOT_PAY_OPERATION_IS_PENDING"),
      *     @OA\Response(response=202, description="CANNOT_PAY_OPERATION_IS_PAID"),
      *     @OA\Response(response=203, description="CANNOT_PAY_OPERATION_IS_EXPIRED"),
@@ -83,11 +116,10 @@ class QrCodeScanController extends Controller
             auth()->user()->primaryAccount->id
         );
 
-        # todo: refactor this to a repository
-        $op = Operation::where('id', $operationInfos->id)->first();
-        $op->state = Operation::$PENDING;
-        $op->from = auth()->user()->primaryAccount->id;
-        $op->save();
+        # $op = Operation::where('id', $operationInfos->id)->first();
+        # $op->state = Operation::$PENDING;
+        # $op->from = auth()->user()->primaryAccount->id;
+        # $op->save();
 
         return ApiResponse::create(
             true,

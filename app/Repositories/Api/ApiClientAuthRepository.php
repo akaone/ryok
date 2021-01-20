@@ -64,8 +64,8 @@ class ApiClientAuthRepository
 
             $now = Carbon::now();
             $token = JWT::encode([
-                'iat' => $now,
-                'exp' => $now->addHours(1),
+                'iat' => $now->timestamp,
+                'exp' => $now->addHours(1)->timestamp,
                 'sub' => $client->id,
                 'phone_number' => "{$client->country_code} {$client->phone_number}",
             ], env("JWT_SECRET"));

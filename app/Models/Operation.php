@@ -15,6 +15,7 @@ class Operation extends Model
     public static $PAID = "PAID";
     public static $FAILED = "FAILED";
     public static $EXPIRED = "EXPIRED";
+    public static $SCAN = "SCAN";
 
     public $incrementing = false;
     protected $primaryKey = 'id';

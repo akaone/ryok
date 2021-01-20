@@ -32,7 +32,7 @@ class CreateOperationsTable extends Migration
 
             $table->boolean('live')->default(false);
 
-            $table->enum('state', ['CREATED', 'PENDING', 'PAID', 'FAILED', 'EXPIRED'])->default('CREATED');
+            $table->enum('state', ['SCAN', 'CREATED', 'PENDING', 'PAID', 'FAILED', 'EXPIRED'])->default('CREATED');
 
             $table->longText('ussd_response')->nullable();
             $table->longText('ussd_amount')->nullable();
