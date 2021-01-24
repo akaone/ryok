@@ -101,7 +101,7 @@
                         'start': start,
                         'end': end,
                         'label': label,
-                        'text': this.completeText.substring(start, end+1),
+                        'text': this.completeText.substring(start, end),
                     });
                     this.selectedTokens = [];
                 },
@@ -129,7 +129,7 @@
                     this.selectedTokens.push({
                         'label': token,
                         'start': indexIs,
-                        'end': indexIs + token.length -1,
+                        'end': indexIs + token.length,
                         'index': index
                     });
                 },
