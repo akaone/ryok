@@ -29,22 +29,24 @@
                 <div class="mt-4 underline">Fetched data</div>
 
                 <div class="flex flex-col mt-2 w-9/12">
-                <div class="flex space-x-2 items-start p-4 border">
-                    <button x-on:click="addMarkedEntities('AMOUNT')" class="cursor-pointer border rounded px-4 bg-green-300 border-green-400">AMOUNT</button>
-                    <button x-on:click="addMarkedEntities('CURRENCY')" class="cursor-pointer border rounded px-4 bg-yellow-300 border-yellow-400">CURRENCY</button>
-                    <button x-on:click="addMarkedEntities('REFERENCE')" class="cursor-pointer border rounded px-4  bg-red-300 border-red-400">REFERENCE</button>
-                </div>
-                <div class="text-sm flex flex-col border">
+                    <div class="flex space-x-2 items-start p-4 border">
+                        <button x-on:click="addMarkedEntities('AMOUNT')" class="text-sm cursor-pointer border rounded px-2 bg-green-300 border-green-400">Amount</button>
+                        <button x-on:click="addMarkedEntities('FEES')" class="text-sm cursor-pointer border rounded px-2 bg-pink-300 border-pink-400">Fees</button>
+                        <button x-on:click="addMarkedEntities('BALANCE')" class="text-sm cursor-pointer border rounded px-2 bg-blue-300 border-blue-400">Balance</button>
+                        <button x-on:click="addMarkedEntities('CURRENCY')" class="text-sm cursor-pointer border rounded px-2 bg-yellow-300 border-yellow-400">Currency</button>
+                        <button x-on:click="addMarkedEntities('REFERENCE')" class="text-sm cursor-pointer border rounded px-2 bg-red-300 border-red-400">Reference</button>
+                    </div>
+                    <div class="text-sm flex flex-col border">
                     <div class="flex flex-col flex-1">
                         <div id="formattedText" class="p-4 hidden">{{ $currentSentence->text }}</div>
                         <div class="flex flex-wrap p-4" id="formattedText" x-html="renderTokenizedText()"></div>
 
-                        <div class="flex flex-wrap items-start border-t px-4 py-2">
+                        <div class="hidden flex flex-wrap items-start border-t px-4 py-2">
                             <template x-for="(item, index) in markedEntities" :key="index">
-                                <div x-on:click="removeEntity(index, item.text)" class="cursor-pointer flex border rounded m-1 pl-2">
+                                <div x-on:click="removeEntity(index)" class="cursor-pointer flex border rounded m-1 pl-2">
                                     <span x-text="item.text"></span>
                                     <span class="ml-2 px-2 bg-gray-200 border-l" x-text="item.label"></span>
-                                    <span class="ml-2 px-2 bg-gray-200 border-l" x-text="item.start"></span>
+                                    <span class="text-xs" x-text="`${item.start} ${item.end}`"></span>
                                 </div>
                             </template>
                         </div>
@@ -60,7 +62,7 @@
                     </div>
                 </div>
 
-            </div>
+                </div>
             @endif
 
         </div>
@@ -70,6 +72,7 @@
     <script>
         function STAFF_NER_IMPORT_DATA() {
             return {
+                LABEL: "REFERENCE",
                 completeText: "",
                 markedEntities: [],
                 markedIndexes: [],
@@ -79,37 +82,54 @@
                 },
                 addMarkedEntities(label) {
                     if(this.selectedTokens.length <= 0) return null;
+                    const sortedRange = this.selectedTokens.sort((a, b) => {
+                        return a.index - b.index
+                    });
+                    this.markedIndexes.push({
+                        'isRange': true,
+                        'start': sortedRange[0].index,
+                        'end': sortedRange[sortedRange.length - 1].index,
+                        'label': label
+                    });
+
                     const sorted = this.selectedTokens.sort((a, b) => {
                         return a.end - b.end
-                    })
-                    sorted.forEach((el) => {this.markedIndexes.push({'index': el.index, 'label': label })})
+                    });
                     const start = sorted[0].start;
                     const end = sorted[sorted.length - 1].end;
-                    console.warn('start', sorted)
                     this.markedEntities.push({
                         'start': start,
                         'end': end,
                         'label': label,
-                        'text': this.completeText.substring(start, end),
+                        'text': this.completeText.substring(start, end+1),
                     });
                     this.selectedTokens = [];
                 },
-                removeEntity(index, text) {
+                removeEntity(index, resetSelected = true) {
                     this.markedEntities.splice(index, 1);
-                    this.selectedTokens = [];
+                    this.markedIndexes.splice(index, 1);
+                    if (resetSelected === true) {
+                        this.selectedTokens = [];
+                    }
                 },
                 toNext() {
                     if(this.markedEntities.length <= 0) return null;
                     @this.toNext(this.markedEntities);
                 },
-                toggleToken(token, index) {
-                    let regex = new RegExp('\\b' + token + '\\b');
-                    let indexIs = this.completeText.indexOf(token, index )
-                    console.warn('index', index, indexIs)
+                toggleToken(token, rest, index, spanMarkedIndex, spanSelectedIndex) {
+                    if(spanMarkedIndex >= 0) {
+                        this.removeEntity(spanMarkedIndex, false);
+                    }
+                    if(spanSelectedIndex >= 0) {
+                        this.selectedTokens.splice(spanSelectedIndex, 1);
+                        return;
+                    }
+                    let regx = new RegExp('\\b' + token + '\\b');
+                    let indexIs = this.completeText.indexOf(rest)
                     this.selectedTokens.push({
                         'label': token,
                         'start': indexIs,
-                        'end': indexIs + token.length,
+                        'end': indexIs + token.length -1,
                         'index': index
                     });
                 },
@@ -120,15 +140,24 @@
                         if (element === " " || element === "") return null;
                         let selectedClass = ""
                         let clickedClass = ""
+                        let spanMarkedIndex = -1
+                        let spanSelectedIndex = -1
                         try {
-                            this.markedIndexes.forEach(el => {
-                                if (el.index == position) {
+                            this.markedIndexes.forEach((el, counter) => {
+                                if ((el.isRange && (position >= el.start && position <= el.end))) {
+                                    spanMarkedIndex = counter;
                                     switch (el.label) {
                                         case "AMOUNT":
                                             selectedClass = "bg-green-300";
                                             break;
                                         case "CURRENCY":
                                             selectedClass = "bg-yellow-300";
+                                            break;
+                                        case "FEES":
+                                            selectedClass = "bg-pink-300";
+                                            break;
+                                        case "BALANCE":
+                                            selectedClass = "bg-blue-300";
                                             break;
                                         case "REFERENCE":
                                             selectedClass = "bg-red-300";
@@ -141,8 +170,9 @@
                                 }
                             });
 
-                            this.selectedTokens.forEach(token => {
+                            this.selectedTokens.forEach((token, ii) => {
                                 if (token.index == position) {
+                                    spanSelectedIndex = ii;
                                     clickedClass = "border border-black"
                                 }
                             });
@@ -150,10 +180,15 @@
                             console.warn('catch ' + element)
                         }
 
+                        let partial = ""
+                        for (let ii = position; ii < splitText.length; ii++) {
+                            partial += splitText[ii]
+                        }
+
                         htmlContent += `
                             <span
-                                x-on:click="toggleToken('${element}', '${position}')"
-                                class="hover:bg-gray-200 rounded px-1 mb-1 cursor-pointer ${selectedClass} ${clickedClass}">
+                                x-on:click="toggleToken('${element}', '${partial}', '${position}', '${spanMarkedIndex}', '${spanSelectedIndex}')"
+                                class="hover:bg-gray-200 px-1 mb-1 cursor-pointer ${selectedClass} ${clickedClass}">
                                 ${element}
                             </span>
                         `
