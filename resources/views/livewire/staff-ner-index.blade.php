@@ -26,6 +26,9 @@
                 </div>
             </a>
 
+            <button wire:click="generateJsonl" class="flex items-center justify-center px-4 h-8 shadow bg-green-500 rounded text-white font-light">
+                <span>Generate Jsonl</span>
+            </button>
             <button class="flex items-center justify-center px-4 h-8 shadow bg-yellow-500 rounded text-white font-light">
                 <span>Launch model training</span>
             </button>

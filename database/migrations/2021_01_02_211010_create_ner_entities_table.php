@@ -14,7 +14,7 @@ class CreateNerEntitiesTable extends Migration
             $table->string('text')->nullable();
             $table->integer('start');
             $table->integer('end');
-            $table->enum('label', ["CURRENCY", "AMOUNT", "REFERENCE"]);
+            $table->enum('label', ["CURRENCY", "FEES", "BALANCE", "AMOUNT", "REFERENCE"]);
 
             $table->unsignedBigInteger('ner_sentences_id');
             $table->foreign('ner_sentences_id')

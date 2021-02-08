@@ -41,7 +41,7 @@
                         <div id="formattedText" class="p-4 hidden">{{ $currentSentence->text }}</div>
                         <div class="flex flex-wrap p-4" id="formattedText" x-html="renderTokenizedText()"></div>
 
-                        <div class="hidden flex flex-wrap items-start border-t px-4 py-2">
+                        <div class=".hidden flex flex-wrap items-start border-t px-4 py-2">
                             <template x-for="(item, index) in markedEntities" :key="index">
                                 <div x-on:click="removeEntity(index)" class="cursor-pointer flex border rounded m-1 pl-2">
                                     <span x-text="item.text"></span>
@@ -72,6 +72,7 @@
     <script>
         function STAFF_NER_IMPORT_DATA() {
             return {
+                WEIRD_REPLACE: "@hack@",
                 LABEL: "REFERENCE",
                 completeText: "",
                 markedEntities: [],
@@ -124,8 +125,7 @@
                         this.selectedTokens.splice(spanSelectedIndex, 1);
                         return;
                     }
-                    let regx = new RegExp('\\b' + token + '\\b');
-                    let indexIs = this.completeText.indexOf(rest)
+                    let indexIs = this.completeText.indexOf(rest.replaceAll(this.WEIRD_REPLACE, "\n"))
                     this.selectedTokens.push({
                         'label': token,
                         'start': indexIs,
@@ -137,7 +137,7 @@
                     let htmlContent = "";
                     let splitText = this.completeText.split(/(\W)/);
                     splitText.forEach((element, position) => {
-                        if (element === " " || element === "") return null;
+                        if (element === " " || element === "" || element == "\n") return null;
                         let selectedClass = ""
                         let clickedClass = ""
                         let spanMarkedIndex = -1
@@ -184,7 +184,7 @@
                         for (let ii = position; ii < splitText.length; ii++) {
                             partial += splitText[ii]
                         }
-
+                        partial = partial.replaceAll("\n", this.WEIRD_REPLACE)
                         htmlContent += `
                             <span
                                 x-on:click="toggleToken('${element}', '${partial}', '${position}', '${spanMarkedIndex}', '${spanSelectedIndex}')"

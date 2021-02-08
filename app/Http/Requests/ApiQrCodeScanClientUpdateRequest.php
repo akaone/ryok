@@ -24,8 +24,7 @@ class ApiQrCodeScanClientUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'client_id' => ["required", "uuid"],
-            'mobile_id' => ["required", "uuid"],
+            'mobile_id' => ["required", "uuid", 'exists:operations,id'],
             'carrier_id' => ["required", 'exists:carriers,id'],
             'ussd_content' => ["required"],
             'sms_content' => ["required"],

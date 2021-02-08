@@ -24,7 +24,7 @@ class ApiQrCodeScanInfosRequest extends FormRequest
     public function rules()
     {
         return [
-            'operation_id' => ["required", "uuid"]
+            'operation_id' => ["required", "uuid", "exists:operations,id"]
         ];
     }
 }

@@ -30,35 +30,6 @@ class ApiQrCodeScanRepository
         return $operationForm;
     }
 
-    public function allowedCarriers($accountId)
-    {
-        $account = Account::where('id', $accountId)
-            ->select(['type', 'client_id', 'app_id'])
-            ->first();
-
-        $carriers = [];
-        switch ($account->type) {
-            case Account::$ACCOUNT_TYPE_APP:
-                $carriers = DB::table('app_carriers as ac')
-                    ->join('carriers as ca', 'ca.id', '=', 'ac.carrier_id' )
-                    ->join('carrier_ussds as cu', 'cu.carrier_id', '=', 'ac.carrier_id')
-                    ->where([
-                        'app_id' => $account->app_id,
-                        'activated' => true,
-                        'ca.state' => Carrier::$ACTIVATED,
-                        'cu.state' => CarrierUssd::$ACTIVATED
-                    ])
-                    ->select(['cu.client_ussd_format', 'ca.name', 'ca.phone_regex', 'ca.ibm', 'ca.id as carrier_id', 'ca.country'])
-                    ->get()
-                ;
-                break;
-            case Account::$ACCOUNT_TYPE_CLIENT:
-                break;
-        }
-
-        return $carriers;
-    }
-
     public function updateWithClientResponse($mobileOperationId, $ussdContent, $smsContent, $phoneNumber)
     {
         $operation = Operation::where('id', $mobileOperationId)->first();
@@ -78,20 +49,6 @@ class ApiQrCodeScanRepository
 
         return true;
     }
-
-    public function initMobileOperation($forOperationId, $live, $amount, $currency, $userAccountId)
-    {
-        return Operation::create([
-            'id' => Uuid::generate()->string,
-            'amount_requested' => $amount,
-            'currency_requested' => $currency,
-            'for_operation' => $forOperationId,
-            'account_id' => $userAccountId,
-            'state' => Operation::$SCAN,
-            'live' => $live
-        ]);
-    }
-
 
     /**
      * @param $carrierId

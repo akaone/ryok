@@ -53,26 +53,31 @@ class CreateOperationsTable extends Migration
             $table->string('from')->nullable(); # phone number | account id
             $table->string('to')->nullable();
 
-            /**
-             * FROM_CLIENT_MOBILE_MONEY_ACCOUNT
-             * STEPS:
-             *     1. from mobile money to client account
-             *     2. from client account to app account
-             *     3. from app account to ryok account (???)
-             */
+            $TYPES = [
+                "FROM_MOBILE_MONEY_TO_CLIENT_ACCOUNT",
+                "FROM_CLIENT_ACCOUNT_TO_MOBILE_MONEY",
+                "FROM_CLIENT_ACCOUNT_TO_APP_ACCOUNT",
+
+                "FROM_APP_ACCOUNT_TO_MOBILE_MONEY",
+                "FROM_APP_ACCOUNT_TO_RYOK_ACCOUNT",
+                "FROM_APP_ACCOUNT_TO_CLIENT_ACCOUNT",
+
+                "FROM_RYOK_ACCOUNT_TO_CLIENT_ACCOUNT",
+                "FROM_RYOK_ACCOUNT_TO_MOBILE_MONEY"
+            ];
+            $table->enum('type', $TYPES);
 
             /**
-             * FROM_ACCOUNT_TO_MOBILE_MONEY
-             * STEPS:
-             *     1. from app account to mobile money number
-             *     2. from app account to ryok account (???)
-             */
-
-            /**
-             * MOBILE_MONEY_WITHDRAW_FROM_ACCOUNT
-             * STEPS:
-             *     1. from app account to mobile money number
-             *     2. from app account to ryok account (???)
+             * FROM_MOBILE_MONEY_TO_CLIENT_ACCOUNT (client_deposit[free])
+             * FROM_CLIENT_ACCOUNT_TO_MOBILE_MONEY (client_cash_out[free])
+             * FROM_CLIENT_ACCOUNT_TO_APP_ACCOUNT (paying_goods[free])
+             *
+             * FROM_APP_ACCOUNT_TO_MOBILE_MONEY (withdraw[paid] | sending_out_money[paid])
+             * FROM_APP_ACCOUNT_TO_RYOK_ACCOUNT (withdraw_fees[free] | sending_fees[free])
+             * FROM_APP_ACCOUNT_TO_CLIENT_ACCOUNT (refund[paid] | sending_out_money[paid])
+             *
+             * FROM_RYOK_ACCOUNT_TO_CLIENT_ACCOUNT
+             * FROM_RYOK_ACCOUNT_TO_MOBILE_MONEY
              */
 
         });
