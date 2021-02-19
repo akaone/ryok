@@ -136,7 +136,7 @@ class QrCodeScanController extends Controller
      *         @OA\MediaType(
      *             mediaType="application/x-www-form-urlencoded",
      *             @OA\Schema(
-     *                  required={"operation_id", "mobile_id", "carrier_id", "ussd_content", "phone_number"},
+     *                  required={"operation_id", "mobile_id", "carrier_id", "ussd_content"},
      *                  @OA\Property(property="operation_id", description="The operation id the user wants to pay for"),
      *                  @OA\Property(property="mobile_id", description="The mobile id  received when scanning the qr code"),
      *                  @OA\Property(property="carrier_id", description="The carrier id the user used to pay"),
