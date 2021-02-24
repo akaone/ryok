@@ -95,7 +95,6 @@ test("client can pay a merchant with scan using mobile money", function () use (
 
     # user send the ussd response and the sms response to the server
     $clientUssdResponse = $this->json('PATCH', route('api.client.qr-code.update'), [
-        'client_id' =>  $client->id,
         'mobile_id' => $clientScanData->data->mobile_id,
         'carrier_id' =>  $carrier->id,
         'ussd_content' => "REF #207254621. Vous avez envoye 46000F a Femi de SOUZA...",

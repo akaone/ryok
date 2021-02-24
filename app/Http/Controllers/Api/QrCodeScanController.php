@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Actions\App\RetrieveAppAllowedCarriers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ApiQrCodeScanClientUpdateRequest;
 use App\Http\Requests\ApiQrCodeScanInfosRequest;
@@ -10,6 +11,7 @@ use App\Repositories\Api\ApiQrCodeScanRepository;
 use App\Responses\ApiErrorCode;
 use App\Responses\ApiResponse;
 use Illuminate\Http\JsonResponse;
+use App\Actions\Operations\InitMobileMoneyToClientAccount;
 
 class QrCodeScanController extends Controller
 {
@@ -79,47 +81,29 @@ class QrCodeScanController extends Controller
 
         # get operation (amount | currency)
         $operationInfos = $codeScanRepository->operationInfos($operationId);
+
         switch ($operationInfos->state) {
-            case Operation::$PENDING:
-                return ApiResponse::create(
-                    false,
-                    ApiErrorCode::CANNOT_PAY_OPERATION_IS_PENDING
-                );
             case Operation::$PAID:
-                return ApiResponse::create(
-                    false,
-                    ApiErrorCode::CANNOT_PAY_OPERATION_IS_PAID
-                );
-            case Operation::$EXPIRED:
-                return ApiResponse::create(
-                    false,
-                    ApiErrorCode::CANNOT_PAY_OPERATION_IS_EXPIRED
-                );
+                return ApiResponse::create(false, ApiErrorCode::CANNOT_PAY_OPERATION_IS_PAID);
             case Operation::$FAILED:
-                return ApiResponse::create(
-                    false,
-                    ApiErrorCode::CANNOT_PAY_OPERATION_IS_FAILED
-                );
+                return ApiResponse::create(false, ApiErrorCode::CANNOT_PAY_OPERATION_IS_FAILED);
+            default:
+                break;
         }
 
         # operation fees
         $fees = 0;
 
         # allowed carriers
-        $carriers = $codeScanRepository->allowedCarriers($operationInfos->account_id);
+        $carriers = RetrieveAppAllowedCarriers::make()->handle($operationInfos->account_id);
 
-        $mobileOperation = $codeScanRepository->initMobileOperation(
-            $operationInfos->id,
+        $mobileOperation = InitMobileMoneyToClientAccount::make()->handle(
             $operationInfos->live,
             $operationInfos->amount_requested,
             $operationInfos->currency_requested,
-            auth()->user()->primaryAccount->id
+            auth()->user()->primaryAccount->id,
+            $operationInfos->id
         );
-
-        # $op = Operation::where('id', $operationInfos->id)->first();
-        # $op->state = Operation::$PENDING;
-        # $op->from = auth()->user()->primaryAccount->id;
-        # $op->save();
 
         return ApiResponse::create(
             true,
@@ -152,7 +136,7 @@ class QrCodeScanController extends Controller
      *         @OA\MediaType(
      *             mediaType="application/x-www-form-urlencoded",
      *             @OA\Schema(
-     *                  required={"operation_id", "mobile_id", "carrier_id", "ussd_content", "phone_number"},
+     *                  required={"operation_id", "mobile_id", "carrier_id", "ussd_content"},
      *                  @OA\Property(property="operation_id", description="The operation id the user wants to pay for"),
      *                  @OA\Property(property="mobile_id", description="The mobile id  received when scanning the qr code"),
      *                  @OA\Property(property="carrier_id", description="The carrier id the user used to pay"),
@@ -173,19 +157,31 @@ class QrCodeScanController extends Controller
     {
         $mobileOperationId = $request->input('mobile_id');
         $carrierId = $request->input('carrier_id');
-        $clientId = $request->input('client_id');
         $phoneNumber = $request->input('phone_number');
         $smsContent = $request->input('sms_content');
         $ussdContent = $request->input('ussd_content');
 
-        # todo: check if mobile operation_id exist in database
+        # check if carrier id matches apps (account) allowed carriers
+        $clientOperation = Operation::where('id', $mobileOperationId)->first();
+        $sellerOperation = Operation::where('id', $clientOperation->for_operation)->first();
+        $allowedCarriers = RetrieveAppAllowedCarriers::make()->handle($sellerOperation->account_id);
+        $isAllowed = $allowedCarriers->search(function ($item, $key) use ($sellerOperation, $carrierId) {
+            return $item->carrier_id == $carrierId;
+        });
 
-        # todo: check if carrier id matches apps (account) allowed carriers
-
-        # todo: get transaction ref, amount and currency from the message
-        $carrier_regexes = $codeScanRepository->carrierClientRegexes($carrierId);
+        if($isAllowed < 0) {
+            return ApiResponse::create(false, ApiErrorCode::SELLER_OPERATION_DOESNT_EXIST);
+        }
 
         $operation = $codeScanRepository->updateWithClientResponse($mobileOperationId, $ussdContent, $smsContent, $phoneNumber);
+
+        # todo: Execute entity extraction on operation data
+
+        # todo: Treat transaction
+
+        # todo: Notify client
+
+        # todo: Callback merchant webhook
 
         return ApiResponse::create(
             true,

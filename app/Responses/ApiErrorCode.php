@@ -42,4 +42,6 @@ class ApiErrorCode
     const CANNOT_PAY_OPERATION_IS_EXPIRED = "CANNOT_PAY_OPERATION_IS_EXPIRED";
     # user/client cannot pay for this operation because the operation is failed
     const CANNOT_PAY_OPERATION_IS_FAILED = "CANNOT_PAY_OPERATION_IS_FAILED";
+    #
+    const SELLER_OPERATION_DOESNT_EXIST = "SELLER_OPERATION_DOESNT_EXIST";
 }

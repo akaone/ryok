@@ -43,6 +43,7 @@ class PaymentRequestRepository
                 'amount_requested' => $amount,
                 'currency_requested' => $currency,
                 'live' => $live,
+                'type' => Operation::FROM_CLIENT_ACCOUNT_TO_APP_ACCOUNT
             ]);
 
 

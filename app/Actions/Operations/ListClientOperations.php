@@ -5,6 +5,7 @@ namespace App\Actions\Operations;
 
 
 use App\Models\Operation;
+use App\Responses\ApiErrorCode;
 use App\Responses\ApiResponse;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
@@ -87,7 +88,7 @@ class ListClientOperations
     {
         return ApiResponse::create(
             true,
-            "",
+            ApiErrorCode::NONE,
             [
                 'operations' => $operations,
             ]
