@@ -1,17 +1,19 @@
 <?php
 
+use App\Actions\Auth\ApiClientSignUp;
+use App\Actions\Auth\ApiClientSignUpSms;
+use App\Actions\Auth\ApiLoginClient;
 use App\Actions\Operations\ListClientOperations;
-use App\Http\Controllers\Api\ClientAuthController;
 use App\Http\Controllers\Api\QrCodeScanController;
 use App\Http\Controllers\Server\CarriersSmsController;
 use App\Http\Controllers\Server\PaymentRequestController;
 
 # sign up client step 1
-Route::post('client/signup', [ClientAuthController::class, 'store'])->name('api.client.auth.store');
+Route::post('client/signup', ApiClientSignUp::class)->name('api.client.auth.store');
 # sign up client step 2
-Route::post('client/pass', [ClientAuthController::class, 'pass'])->name('api.client.auth.pass');
+Route::post('client/pass', ApiClientSignUpSms::class)->name('api.client.auth.pass');
 # user/login # connecter un client
-Route::post('client/login', [ClientAuthController::class, 'index'])->name('api.client.auth.login');
+Route::post('client/login', ApiLoginClient::class)->name('api.client.auth.login');
 
 # user/password/change # demande de modification mot de passe while connected
 # user/password/reset # demande de modification mot de passe not connected
