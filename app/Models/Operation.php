@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Uuids;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -10,6 +11,9 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Operation extends Model
 {
+    use HasFactory;
+    use Uuids;
+
     public static $CREATED = "CREATED";
     public static $PENDING = "PENDING";
     public static $PAID = "PAID";

@@ -17,9 +17,12 @@ Route::post('client/login', ApiLoginClient::class)->name('api.client.auth.login'
 
 # user/password/change # demande de modification mot de passe while connected
 # user/password/reset # demande de modification mot de passe not connected
-# user/password/confirm # confirmation de mot de passe apres reset
+# user/password/confirm # confirmation de mot de passe apres reset mw>?L%dFex
 
 Route::prefix("client")->name('api.client.')->middleware(['client.api.auth'])->group(function() {
+
+    # accounts stats for given month
+    Route::get('account/stats', \App\Actions\Account\ApiAccountStats::class)->name('account.stats');
 
     # historiques de transactions (client)
     Route::get('operations', ListClientOperations::class)->name('operations.list');

@@ -23,6 +23,8 @@ class CreateAccountsTable extends Migration
             $table->string('client_id')->nullable();
             $table->string('app_id')->nullable();
 
+            $table->string('balance')->nullable();
+
             $table->string('country_prefix')->nullable();
             $table->string('phone_number')->nullable();
 

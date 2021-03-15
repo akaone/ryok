@@ -100,6 +100,7 @@ class ListClientOperations
         # todo: add pagination
         # todo: this currently only show direct payment to merchant update to fit all operations cases
         return Operation::from('operations as op')
+            ->whereNotIn('op.state', [Operation::$SCAN])
             ->where('op.account_id', '=', $accountId)
             ->where('op.for_operation', '!=', null)
             ->join('operations as tmp', 'tmp.id', '=', 'op.for_operation')
