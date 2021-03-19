@@ -29,8 +29,10 @@ class ApiAccountStats
 
     public function handle(string $accountId, $month)
     {
-        $startOfMonth = Carbon::parse($month)->startOfMonth();
-        $endOfMonth = Carbon::parse($month)->endOfMonth();
+        $date = Carbon::parse($month);
+
+        $startOfMonth = $date->copy()->startOfMonth();
+        $endOfMonth = $date->copy()->endOfMonth();
 
         $operations = Operation::where('state', '=', Operation::$PAID)
             ->whereIn('type', [
@@ -50,6 +52,7 @@ class ApiAccountStats
             return $item->account_id == $accountId ? ApiAccountStats::credit : ApiAccountStats::debit;
         });
 
+
         $creditTotal =  $this->getOperationTotal($groupedByCreditAndDebit->get(ApiAccountStats::credit));
         $debitTotal = $this->getOperationTotal($groupedByCreditAndDebit->get(ApiAccountStats::debit));
 
@@ -57,6 +60,8 @@ class ApiAccountStats
         $debitOperations = $this->calculateOperations($groupedByCreditAndDebit->get(ApiAccountStats::debit));
 
         $response = collect();
+
+        $response->put('calendar_days', $this->getCalendarDays($date));
 
         $response->put('month_credit', $creditTotal);
         $response->put('credits', $creditOperations);
@@ -87,9 +92,7 @@ class ApiAccountStats
         $result = collect([]);
         if($collection) {
             $formattedByWeek = $collection->groupBy(function ($row) {
-                $weekStart = Carbon::parse($row->created_at)->startOfWeek()->format("d");
-                $weekEnd = Carbon::parse($row->created_at)->endOfWeek()->format("d");
-                return "{$weekStart}-{$weekEnd}";
+                return Carbon::parse($row->created_at)->format("d");
             });
 
 
@@ -100,6 +103,19 @@ class ApiAccountStats
 
         return $result;
 
+    }
+
+    private function getCalendarDays($date)
+    {
+
+        $numberOfDays = $date->copy()->daysInMonth;
+        $startOfMonth = $date->copy()->startOfMonth();
+
+        $calendar = collect();
+        for ($i = 0; $i < $numberOfDays; $i++) {
+            $calendar->push($startOfMonth->copy()->addDays($i)->format('d'));
+        }
+        return $calendar;
     }
 
     private function getOperationTotal($operations): int

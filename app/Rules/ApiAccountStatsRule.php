@@ -28,13 +28,14 @@ class ApiAccountStatsRule implements Rule
     {
         try {
             $parts = explode("-", $value);
-            if(count($parts) !== 2 || count($parts[0]) !== 4 || count($parts[1]) !== 2 ) {
+            if(count($parts) !== 2 || strlen($parts[0]) !== 4 || strlen($parts[1]) !== 2 ) {
                 return false;
             }
             Carbon::parse($value);
         } catch (\Exception $ex) {
             return false;
         }
+        return true;
     }
 
     /**
