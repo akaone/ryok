@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Apps;
 
 use Livewire\Component;
 use App\Repositories\Web\AppsRepository;
@@ -8,7 +8,11 @@ use App\Exceptions\UserAccessLevelException;
 use Ramsey\Uuid\Uuid;
 use PascalDeVink\ShortUuid\ShortUuid;
 
-class LivewireAppsList extends Component
+/**
+ * List all apps on created on the platform.
+ * ACL -> ['staff-*', 'app-read']
+ */
+class AppsList extends Component
 {
     private $appsList;
 
@@ -16,11 +20,11 @@ class LivewireAppsList extends Component
     {
         $short = new ShortUuid();
         $user = auth()->user()->fresh();
-        
+
         if($user->type != 'staff') { throw new UserAccessLevelException(trans('acl.exception.not-staff-member')); }
         if(!$user->hasPermissionTo('app-read')) { throw new UserAccessLevelException(trans('acl.exception.no-right')); }
-        
-        
+
+
         $this->appsList = $appRep->getUserApps($user->type, $user->id);
         $this->appsList->each(function($item, $key) use ($short) {
             $this->appsList[$key]->id = $short->encode(Uuid::fromString($item->id));
@@ -30,7 +34,7 @@ class LivewireAppsList extends Component
 
     public function render()
     {
-        return view('livewire.livewire-apps-list', [
+        return view('apps.apps-list', [
             'appsList' => $this->appsList
         ]);
     }

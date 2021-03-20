@@ -19,7 +19,7 @@ class AppsController extends Controller
         return view('apps.apps-index');
     }
 
-    
+
     /**
      * Show the form for creating an app.
      * ACL -> []
@@ -27,16 +27,6 @@ class AppsController extends Controller
     public function create()
     {
         return view('apps.apps-create');
-    }
-
-    
-    /**
-     * List all apps on created on the plateform.
-     * ACL -> ['staff-*', 'app-read']
-     */
-    public function list()
-    {
-        return view('apps.apps-list');
     }
 
     /**
