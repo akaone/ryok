@@ -1,7 +1,5 @@
 <?php
 
-
-use App\Http\Controllers\Web\AppsController;
 use App\Http\Controllers\Web\StaffAppsPaymentController;
 
 Route::prefix("app")->name('staff.apps.')->group(function () {
@@ -13,6 +11,6 @@ Route::prefix("app")->name('staff.apps.')->group(function () {
     Route::get("/{appId}", \App\Http\Livewire\Apps\AppShow::class)->name("show");
 
     # staff app transaction details
-    Route::get("/{appId}/payments/{paymentId}", [StaffAppsPaymentController::class, 'show'])->name("payments.show");
+    Route::get("/{appId}/payments/{paymentId}", \App\Http\Livewire\Apps\StaffAppsPaymentsShow::class)->name("payments.show");
 
 });
