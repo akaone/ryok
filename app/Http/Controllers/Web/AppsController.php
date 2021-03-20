@@ -28,16 +28,4 @@ class AppsController extends Controller
     {
         return view('apps.apps-create');
     }
-
-    /**
-     * Display app details.
-     * ACL -> ['staff-*', 'app-read']
-     */
-    public function show($appId)
-    {
-        return view('apps.app-show', [
-            'appId' => $appId
-        ]);
-    }
-
 }

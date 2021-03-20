@@ -10,7 +10,7 @@ Route::prefix("app")->name('staff.apps.')->group(function () {
     Route::get("/list", \App\Http\Livewire\Apps\AppsList::class)->name("list");
 
     # staff - show app details
-    Route::get("/{appId}", [AppsController::class, "show"])->name("show");
+    Route::get("/{appId}", \App\Http\Livewire\Apps\AppShow::class)->name("show");
 
     # staff app transaction details
     Route::get("/{appId}/payments/{paymentId}", [StaffAppsPaymentController::class, 'show'])->name("payments.show");

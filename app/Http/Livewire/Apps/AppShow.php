@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Apps;
 
 use App\Models\App;
 use App\Repositories\Web\AppsUsersRepository;
@@ -11,13 +11,22 @@ use Ramsey\Uuid\Uuid;
 use PascalDeVink\ShortUuid\ShortUuid;
 use App\Exceptions\UserAccessLevelException;
 
-class LivewireAppShow extends Component
+/**
+ * Display app details.
+ * ACL -> ['staff-*', 'app-read']
+ */
+class AppShow extends Component
 {
     public $appId;
     public $infos;
     public $members;
     public $creditOperations;
     public $debitOperations;
+
+    public function mount()
+    {
+        $this->appId = request()->appId;
+    }
 
     public function activateApp(AppsRepository $appsRep)
     {
@@ -85,6 +94,6 @@ class LivewireAppShow extends Component
             ["app_users_id"]
         );
 
-        return view('livewire.livewire-app-show');
+        return view('apps.app-show');
     }
 }
