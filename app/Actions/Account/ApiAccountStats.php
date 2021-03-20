@@ -92,7 +92,10 @@ class ApiAccountStats
         $result = collect([]);
         if($collection) {
             $formattedByWeek = $collection->groupBy(function ($row) {
-                return Carbon::parse($row->created_at)->format("d");
+                $date = Carbon::parse($row->created_at);
+                $weekStart = $date->copy()->startOfWeek()->format("d");
+                $weekEnd = $date->copy()->endOfWeek()->format("d");
+                return "{$weekStart}-{$weekEnd}";
             });
 
 
@@ -105,16 +108,20 @@ class ApiAccountStats
 
     }
 
-    private function getCalendarDays($date)
+    private function getCalendarDays(Carbon $startDate): Collection
     {
-
-        $numberOfDays = $date->copy()->daysInMonth;
-        $startOfMonth = $date->copy()->startOfMonth();
+        $month = $startDate->copy()->month;
+        $year = $startDate->copy()->year;
+        $date = Carbon::createFromDate($year,$month);
+        // $numberOfWeeks = floor($date->daysInMonth / Carbon::DAYS_PER_WEEK);
 
         $calendar = collect();
-        for ($i = 0; $i < $numberOfDays; $i++) {
-            $calendar->push($startOfMonth->copy()->addDays($i)->format('d'));
+        for ($i=1; $i <= $date->daysInMonth ; $i++) {
+            $tempDate = Carbon::createFromDate($year,$month,$i);
+            $calendar->push($tempDate->copy()->startOfWeek()->format("d") . "-" . $tempDate->copy()->endOfweek()->format("d"));
+            $i+=7;
         }
+
         return $calendar;
     }
 
