@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\StaffMerchants;
 
 use App\Repositories\Web\StaffMerchantsRepository;
 use Livewire\Component;
@@ -21,7 +21,7 @@ class StaffMerchantsIndex extends Component
     {
         $this->merchants(new StaffMerchantsRepository());
 
-        return view('livewire.staff-merchants-index', [
+        return view('staff-merchants.staff-merchants-index', [
             'merchants' => $this->merchants
         ])
         ->extends('layouts.dash')
