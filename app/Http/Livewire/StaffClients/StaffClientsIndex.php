@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\StaffClients;
 
 use App\Repositories\Web\StaffClientsRepository;
 use Livewire\Component;
@@ -20,7 +20,7 @@ class StaffClientsIndex extends Component
     public function render()
     {
         $this->clients(new StaffClientsRepository());
-        return view('livewire.staff-clients-index', [
+        return view('staff-clients.staff-clients-index', [
             'clients' => $this->clients,
         ])
         ->extends('layouts.dash')

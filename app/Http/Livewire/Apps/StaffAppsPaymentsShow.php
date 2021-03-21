@@ -17,6 +17,8 @@ class StaffAppsPaymentsShow extends Component
 
     public function render()
     {
-        return view('apps.staff-apps-payments-show')->layout('layouts.no-modal');
+        return view('apps.staff-apps-payments-show')
+            ->extends('layouts.no-modal')
+            ->section('body');
     }
 }

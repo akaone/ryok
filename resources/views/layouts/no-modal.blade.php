@@ -21,7 +21,6 @@
         </div>
 
         @yield('body')
-        {{ $slot }}
 
         <livewire:scripts />
         <script src="{{ asset('js/alpine.js') }}"></script>

@@ -79,6 +79,8 @@ class StaffCarriersCreate extends Component
         if(!auth()->user()->fresh()->hasPermissionTo('carriers-create')) {
             throw new UserAccessLevelException;
         }
-        return view('staff-carriers.staff-carriers-create')->layout('layouts.no-modal');
+        return view('staff-carriers.staff-carriers-create')
+            ->extends('layouts.no-modal')
+            ->section('body');
     }
 }
