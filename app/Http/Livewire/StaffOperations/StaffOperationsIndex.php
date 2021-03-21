@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\StaffOperations;
 
 use App\Models\Account;
 use App\Repositories\StaffOperationsRespository;
@@ -35,7 +35,7 @@ class StaffOperationsIndex extends Component
     {
         $this->operations(new StaffOperationsRespository());
         # dump($this->operations);
-        return view('livewire.staff-operations-index', [
+        return view('staff-operations.staff-operations-index', [
             'operations' => $this->operations,
         ])
         ->extends('layouts.dash')
