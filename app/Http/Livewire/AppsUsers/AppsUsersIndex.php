@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\AppsUsers;
 
 use App\Repositories\Web\AppsUsersRepository;
 use Livewire\Component;
 use Ramsey\Uuid\Uuid;
 use PascalDeVink\ShortUuid\ShortUuid;
 
-class LivewireAppsUsersIndex extends Component
+class AppsUsersIndex extends Component
 {
     private $appsUsersList;
     public $appId;
@@ -26,7 +26,7 @@ class LivewireAppsUsersIndex extends Component
             $this->appsUsersList[$key]->app_users_id = $short->encode(Uuid::fromString($item->app_users_id));
         });
 
-        return view('livewire.livewire-apps-users-index', [
+        return view('apps-users.apps-users-index', [
             'appId' => $this->appId,
             'appsUsersList' => $this->appsUsersList,
         ]);

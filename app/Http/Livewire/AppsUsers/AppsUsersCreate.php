@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\AppsUsers;
 
 use App\Repositories\Web\AppsUsersRepository;
 use Livewire\Component;
 use App\Utils\FreshAppUser;
 use App\Rules\IsMemberAlreadyAppUser;
 use PascalDeVink\ShortUuid\ShortUuid;
-class LivewireAppsUsersCreate extends Component
+class AppsUsersCreate extends Component
 {
     public $members = [
         ['email' => '', 'role' => ''],
@@ -16,9 +16,9 @@ class LivewireAppsUsersCreate extends Component
     private $freshUser;
 
 
-    public function mount($appId)
+    public function mount()
     {
-        $this->appId = $appId;
+        $this->appId = request()->appId;
         $this->freshUser = FreshAppUser::user(auth()->user()->id, $this->appId);
     }
 
@@ -66,6 +66,8 @@ class LivewireAppsUsersCreate extends Component
 
     public function render()
     {
-        return view('livewire.livewire-apps-users-create');
+        return view('apps-users.apps-users-create')
+            ->extends('layouts.no-modal')
+            ->section('body');
     }
 }

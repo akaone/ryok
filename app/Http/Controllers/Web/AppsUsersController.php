@@ -8,20 +8,6 @@ use Illuminate\Http\Request;
 class AppsUsersController extends Controller
 {
     /**
-     */
-    public function index()
-    {
-        return view('apps-users.apps-users-index');
-    }
-
-    /**
-     */
-    public function create()
-    {
-        return view('apps-users.apps-users-create');
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request

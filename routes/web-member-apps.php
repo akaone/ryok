@@ -7,6 +7,8 @@ use App\Http\Livewire\Apps\AppsCreate;
 use App\Http\Livewire\Apps\AppsIndex;
 use App\Http\Livewire\AppsApi\AppsApiIndex;
 use App\Http\Livewire\AppsOperations\AppsOperationsIndex;
+use App\Http\Livewire\AppsUsers\AppsUsersCreate;
+use App\Http\Livewire\AppsUsers\AppsUsersIndex;
 
 Route::prefix("apps")->name('apps.')->group(function () {
 
@@ -24,10 +26,10 @@ Route::prefix("apps")->name('apps.')->group(function () {
     Route::get("/{appId}/api", AppsApiIndex::class)->name("api.index");
 
     # apps/{appId}/users -> list of app users
-    Route::get("/{appId}/users", [AppsUsersController::class, "index"])->name("users.index");
+    Route::get("/{appId}/users", AppsUsersIndex::class)->name("users.index");
 
     # apps/{appId}/users/create (get) -> add a user to an app form
-    Route::get("/{appId}/users/create", [AppsUsersController::class, "create"])->name("users.create");
+    Route::get("/{appId}/users/create", AppsUsersCreate::class)->name("users.create");
 
     # apps/{appId}/users/{userId}/show -> show a app_users
     Route::get("/{appId}/users/{userId}/show", [AppsUsersController::class, "show"])->name("users.show");
