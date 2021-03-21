@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\AppsUsers;
 
 use App\Repositories\Web\AppsUsersRepository;
 use Livewire\Component;
 use App\Utils\FreshAppUser;
 use PascalDeVink\ShortUuid\ShortUuid;
 
-class LivewireAppsUsersShow extends Component
+class AppsUsersShow extends Component
 {
 
     public $appId;
@@ -38,7 +38,8 @@ class LivewireAppsUsersShow extends Component
 
     public function mount()
     {
-
+        $this->appId = request()->appId;
+        $this->userId = request()->userId;
     }
 
     public function render()
@@ -51,7 +52,7 @@ class LivewireAppsUsersShow extends Component
 
         $role = $appUsersRep->appUserRole($short->decode($this->userId));
 
-        return view('livewire.livewire-apps-users-show', [
+        return view('apps-users.apps-users-show', [
             'appUser' => $appUser,
             'role' => $role,
         ]);

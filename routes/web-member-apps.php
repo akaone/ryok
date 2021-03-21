@@ -2,13 +2,13 @@
 
 use App\Http\Controllers\Web\AppsSettingsController;
 use App\Http\Controllers\Web\AppsStateController;
-use App\Http\Controllers\Web\AppsUsersController;
 use App\Http\Livewire\Apps\AppsCreate;
 use App\Http\Livewire\Apps\AppsIndex;
 use App\Http\Livewire\AppsApi\AppsApiIndex;
 use App\Http\Livewire\AppsOperations\AppsOperationsIndex;
 use App\Http\Livewire\AppsUsers\AppsUsersCreate;
 use App\Http\Livewire\AppsUsers\AppsUsersIndex;
+use App\Http\Livewire\AppsUsers\AppsUsersShow;
 
 Route::prefix("apps")->name('apps.')->group(function () {
 
@@ -32,7 +32,7 @@ Route::prefix("apps")->name('apps.')->group(function () {
     Route::get("/{appId}/users/create", AppsUsersCreate::class)->name("users.create");
 
     # apps/{appId}/users/{userId}/show -> show a app_users
-    Route::get("/{appId}/users/{userId}/show", [AppsUsersController::class, "show"])->name("users.show");
+    Route::get("/{appId}/users/{userId}/show", AppsUsersShow::class)->name("users.show");
 
     # apps/{appId}/users/{userId}/edit
     # apps/{appId}/users/{userId}/state
