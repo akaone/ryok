@@ -1,11 +1,11 @@
 <?php
 
-use App\Http\Controllers\Web\AppsApiController;
 use App\Http\Controllers\Web\AppsSettingsController;
 use App\Http\Controllers\Web\AppsStateController;
 use App\Http\Controllers\Web\AppsUsersController;
 use App\Http\Livewire\Apps\AppsCreate;
 use App\Http\Livewire\Apps\AppsIndex;
+use App\Http\Livewire\AppsApi\AppsApiIndex;
 use App\Http\Livewire\AppsOperations\AppsOperationsIndex;
 
 Route::prefix("apps")->name('apps.')->group(function () {
@@ -21,7 +21,7 @@ Route::prefix("apps")->name('apps.')->group(function () {
     # apps/{appId}/operations/payouts -> payouts & settings
 
     # apps/{appId}/api -> api key and documentation
-    Route::get("/{appId}/api", [AppsApiController::class, "index"])->name("api.index");
+    Route::get("/{appId}/api", AppsApiIndex::class)->name("api.index");
 
     # apps/{appId}/users -> list of app users
     Route::get("/{appId}/users", [AppsUsersController::class, "index"])->name("users.index");
