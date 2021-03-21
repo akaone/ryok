@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\StaffNer;
 
 use App\Models\NerSentence;
 use Livewire\Component;
@@ -45,7 +45,7 @@ class StaffNerIndex extends Component
 
     public function render()
     {
-        return view('livewire.staff-ner-index')
+        return view('staff-ner.staff-ner-index')
             ->extends('layouts.dash')
             ->section('body');
     }

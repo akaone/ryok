@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\StaffNer;
 
 use App\Imports\NerSentencesImport;
 use App\Models\NerEntity;
@@ -63,7 +63,7 @@ class StaffNerImportData extends Component
     {
         $this->notLabeledSentences();
 
-        return view('livewire.staff-ner-import-data', [
+        return view('staff-ner.staff-ner-import-data', [
             'currentSentence' => $this->currentSentence,
             'currentSentencePaginate' => $this->currentSentencePaginate,
         ])

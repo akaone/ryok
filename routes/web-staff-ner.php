@@ -1,8 +1,8 @@
 <?php
 
 
-use App\Http\Livewire\StaffNerImportData;
-use App\Http\Livewire\StaffNerIndex;
+use App\Http\Livewire\StaffNer\StaffNerImportData;
+use App\Http\Livewire\StaffNer\StaffNerIndex;
 
 Route::prefix("staff/named-entity-recognition")->name('staff.ner.')->group(function () {
 
