@@ -19,13 +19,4 @@ class AppsController extends Controller
         return view('apps.apps-index');
     }
 
-
-    /**
-     * Show the form for creating an app.
-     * ACL -> []
-     */
-    public function create()
-    {
-        return view('apps.apps-create');
-    }
 }

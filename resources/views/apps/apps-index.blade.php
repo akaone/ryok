@@ -1,7 +1,5 @@
-@extends('layouts.dash')
+<div>
+    @section('title', trans('apps.index.title'))
 
-@section('title', trans('apps.index.title'))
-
-@section('body')
-  apps-index
-@endsection
+    apps-index
+</div>

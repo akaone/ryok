@@ -1,16 +1,20 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Apps;
+
 use Livewire\WithFileUploads;
 use App\Repositories\Web\AppsRepository;
 use App\Repositories\Web\StaffCarriersRepository;
-use Illuminate\Support\Facades\Storage;
 use Ramsey\Uuid\Uuid;
 use PascalDeVink\ShortUuid\ShortUuid;
 
 use Livewire\Component;
 
-class LivewireAppsCreate extends Component
+/**
+ * Show the form for creating an app.
+ * ACL -> []
+ */
+class AppsCreate extends Component
 {
 
     use WithFileUploads;
@@ -80,6 +84,8 @@ class LivewireAppsCreate extends Component
         $this->carriersList = $carriersList;
 
 
-        return view('livewire.livewire-apps-create');
+        return view('apps.apps-create')
+            ->extends('layouts.no-modal')
+            ->section('body');
     }
 }

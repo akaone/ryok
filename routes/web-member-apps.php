@@ -1,19 +1,20 @@
 <?php
 
 use App\Http\Controllers\Web\AppsApiController;
-use App\Http\Controllers\Web\AppsController;
 use App\Http\Controllers\Web\AppsSettingsController;
 use App\Http\Controllers\Web\AppsStateController;
 use App\Http\Controllers\Web\AppsUsersController;
+use App\Http\Livewire\Apps\AppsCreate;
+use App\Http\Livewire\Apps\AppsIndex;
 use App\Http\Livewire\AppsOperationsIndex;
 
 Route::prefix("apps")->name('apps.')->group(function () {
 
     # apps/create (get) -> create a new app form
-    Route::get("/create", [AppsController::class, "create"])->name("create");
+    Route::get("/create", AppsCreate::class)->name("create");
 
     # apps -> list a specific app
-    Route::get("/{appId}", [AppsController::class, "index"])->name("index");
+    Route::get("/{appId}", AppsIndex::class)->name("index");
 
     # apps/{appId}/operations -> operations of sells & withdrawal
     Route::get('/{appId}/operations', AppsOperationsIndex::class)->name('operations.index');
