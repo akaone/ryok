@@ -10,13 +10,6 @@ use Illuminate\Support\Facades\Auth;
 class LoginController extends Controller
 {
 
-
-    public function index()
-    {
-        return view('login/login-index');
-    }
-
-
     public function destroy()
     {
         auth()->logout();

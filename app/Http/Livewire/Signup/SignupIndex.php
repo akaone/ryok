@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Signup;
 
 use Livewire\Component;
 use Webpatser\Uuid\Uuid;
 use Illuminate\Http\Request;
 use App\Repositories\Web\SignUpRepository;
 
-class LivewireSignupIndex extends Component
+class SignupIndex extends Component
 {
     public $email;
     public $name;
@@ -43,6 +43,8 @@ class LivewireSignupIndex extends Component
 
     public function render()
     {
-        return view('livewire.livewire-signup-index');
+        return view('signup.signup-index')
+            ->extends('layouts.home')
+            ->section('body');
     }
 }

@@ -2,11 +2,15 @@
 
 use App\Http\Controllers\Web\HomeController;
 use App\Http\Controllers\Web\LoginController;
-use App\Http\Controllers\Web\SignUpController;
+
+use App\Http\Livewire\Login\LoginIndex;
+use App\Http\Livewire\Signup\SignupDone;
+use App\Http\Livewire\Signup\SignupIndex;
+use App\Http\Livewire\Signup\SignupUpdate;
 
 Route::get("/", [HomeController::class, "index"])->name("home.index");
 
-Route::get("/login", [LoginController::class, "index"])->name("login");
+Route::get("/login", LoginIndex::class)->name("login");
 
 Route::get("/logout", [LoginController::class, "destroy"])->name("login.destroy");
 
@@ -21,12 +25,12 @@ Route::get("/logout", [LoginController::class, "destroy"])->name("login.destroy"
 Route::prefix("sign-up")->name('sign-up.')->group(function () {
 
     # sign-up/create -> new sign up form
-    Route::get("", [SignUpController::class, "index"])->name("index");
+    Route::get("", SignupIndex::class)->name("index");
 
     # when sign-up is done
-    Route::get("/done/{userId}", [SignUpController::class, "done"])->name('done');
+    Route::get("/done/{userId}", SignupDone::class)->name('done');
 
     # sign-up/verify -> verify the email of a signup user
-    Route::get("/verify/{emailLink}", [SignUpController::class, "update"])->name('verify');
+    Route::get("/verify/{emailLink}", SignupUpdate::class)->name('verify');
 
 });

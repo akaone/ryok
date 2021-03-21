@@ -1,7 +1,5 @@
-@extends('layouts.home')
+<div class="bg-gray-ef h-screen flex flex-col sm:items-center">
+    @section('title', trans('signup.update_title'))
 
-@section('title', trans('signup.update_title'))
-
-@section('body')
-  <livewire:livewire-signup-update />
-@endsection
+    SignUpVerify
+</div>
