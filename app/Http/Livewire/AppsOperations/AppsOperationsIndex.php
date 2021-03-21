@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\AppsOperations;
 
 use App\Models\App;
 use App\Repositories\Web\AppsOperationsRepository;
@@ -36,7 +36,7 @@ class AppsOperationsIndex extends Component
     {
         $this->operations(new AppsOperationsRepository());
 
-        return view('livewire.apps-operations-index', [
+        return view('apps-operations.apps-operations-index', [
             'operations' => $this->operations
         ])
         ->extends('layouts.dash')

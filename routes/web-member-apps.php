@@ -6,7 +6,7 @@ use App\Http\Controllers\Web\AppsStateController;
 use App\Http\Controllers\Web\AppsUsersController;
 use App\Http\Livewire\Apps\AppsCreate;
 use App\Http\Livewire\Apps\AppsIndex;
-use App\Http\Livewire\AppsOperationsIndex;
+use App\Http\Livewire\AppsOperations\AppsOperationsIndex;
 
 Route::prefix("apps")->name('apps.')->group(function () {
 
