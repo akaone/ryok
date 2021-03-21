@@ -6,7 +6,7 @@ use App\Http\Controllers\Web\StaffCarriersController;
 Route::prefix("carriers")->name('carriers.')->group(function () {
 
     # carriers -> List of supported carriers on the platform
-    Route::get("/", [StaffCarriersController::class, "index"])->name("index");
+    Route::get("/", \App\Http\Livewire\StaffCarriers\StaffCarriersIndex::class)->name("index");
 
     # carriers/create -> Form to add a new carrier
     Route::get("/create", [StaffCarriersController::class, "create"])->name("create");
