@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\StaffMessages;
 
 use App\Repositories\Web\StaffMessagesRepository;
 use Livewire\Component;
@@ -21,7 +21,7 @@ class StaffMessagesIndex extends Component
     public function render()
     {
         $this->messages(new StaffMessagesRepository());
-        return view('livewire.staff-messages-index', [
+        return view('staff-messages.staff-messages-index', [
             'pendingMessages' => $this->pendingMessages,
             'treatedMessages' => $this->treatedMessages,
         ])
