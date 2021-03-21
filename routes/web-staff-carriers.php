@@ -9,7 +9,7 @@ Route::prefix("carriers")->name('carriers.')->group(function () {
     Route::get("/", \App\Http\Livewire\StaffCarriers\StaffCarriersIndex::class)->name("index");
 
     # carriers/create -> Form to add a new carrier
-    Route::get("/create", [StaffCarriersController::class, "create"])->name("create");
+    Route::get("/create", \App\Http\Livewire\StaffCarriers\StaffCarriersCreate::class)->name("create");
 
 
     # carriers/store (post) -> Add the new carrier

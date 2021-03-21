@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\StaffCarriers;
 
 use Livewire\Component;
 use App\Models\Country;
 use App\Repositories\Web\StaffCarriersRepository;
 use App\Exceptions\UserAccessLevelException;
 
-class LivewireStaffCarriersCreate extends Component
+class StaffCarriersCreate extends Component
 {
     public $countryList;
     public $carrierName;
@@ -76,10 +76,9 @@ class LivewireStaffCarriersCreate extends Component
     public function render()
     {
 
-        $user = auth()->user()->fresh();
         if(!auth()->user()->fresh()->hasPermissionTo('carriers-create')) {
             throw new UserAccessLevelException;
         }
-        return view('livewire.livewire-staff-carriers-create');
+        return view('staff-carriers.staff-carriers-create')->layout('layouts.no-modal');
     }
 }
