@@ -165,15 +165,10 @@ class AppsRepository
      */
     public function linkInitialCarriers($appId, $pickedCarriers)
     {
-        $now = Carbon::now();
         foreach ($pickedCarriers as $key => $value) {
-            $carrier = Carrier::whereIbm($value)->select('id')->first();
             AppCarrier::updateOrCreate(
-                ['app_id' => $appId, 'carrier_id' => $carrier->id],
-                [
-                    'activated' => true,
-                    'updated_at' => $now,
-                ]
+                ['app_id' => $appId, 'carrier_id' => $value],
+                ['activated' => true]
             );
         }
     }

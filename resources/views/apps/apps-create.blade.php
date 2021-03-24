@@ -107,7 +107,7 @@
                 <div class="md:ml-6 flex-1">
                     <div class="font-thin md:w-8/12">{{trans('apps.create.app-carriers-description')}}</div>
                     <div class="flex flex-wrap">
-                        @foreach($carriersList as $key => $item)
+                        {{--@foreach($carriersList as $key => $item)
                             <div wire:key="{{$item->id}}" class="flex w-4/12">
                                 <label class="pr-6 py-2" for="">
                                     <input
@@ -117,7 +117,27 @@
                                     {{ $item->name }} ({{ $item->country }})
                                 </label>
                             </div>
-                        @endforeach
+                        @endforeach--}}
+                            @foreach($carriersList as $key => $item)
+                                <div wire:key="{{$key}}" class="w-4/12 border-l">
+                                    <div class="flex bg-gray-100 items-center px-2 py-1">
+                                        <input wire:model="pickedCarriers" @if(collect($pickedCarriers)->contains($key)) checked @endif type="checkbox" value="{{ $key }}">
+                                        <span class="flex items-center font-bolf text-xl pl-2">
+                                            {{$key}}
+                                        </span>
+                                    </div>
+                                    <div class="flex flex-wrap p-2 border-b">
+                                        @foreach($item as $index => $value)
+                                            <div wire:key="{{$value->id}}" class="w-4/12 p-1">
+                                                <label class="pr-6 py-2" for="">
+                                                    {{ $value->name }}
+                                                </label>
+
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            @endforeach
                         @error('pickedCarriers') <div class="text-red-600 text-sm w-full">{{ $message }}</div> @enderror
                     </div>
 

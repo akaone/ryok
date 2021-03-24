@@ -40,7 +40,7 @@ class AppsSettingsIndex extends Component
     {
         // todo: validate pickedCarriers
         $this->validate([
-            'pickedCarriers' => 'required|min:1',
+            'pickedCarriers' => 'required|array|min:1',
             'pickedCarriers.*' => 'required|string',
         ]);
 
@@ -74,9 +74,6 @@ class AppsSettingsIndex extends Component
         $appCarriersRep = new AppCarriersRepository();
 
         $carriers = $appCarriersRep->findAllAppCarriers($appId);
-
-        return $carriers->groupBy(function($item, $key) {
-            return $item->country;
-        });
+        return $carriers->groupBy('country');
     }
 }
