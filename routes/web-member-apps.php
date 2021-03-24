@@ -6,6 +6,7 @@ use App\Http\Livewire\Apps\AppsCreate;
 use App\Http\Livewire\Apps\AppsIndex;
 use App\Http\Livewire\AppsApi\AppsApiIndex;
 use App\Http\Livewire\AppsOperations\AppsOperationsIndex;
+use App\Http\Livewire\AppsSettings\AppsSettingsIndex;
 use App\Http\Livewire\AppsUsers\AppsUsersCreate;
 use App\Http\Livewire\AppsUsers\AppsUsersIndex;
 use App\Http\Livewire\AppsUsers\AppsUsersShow;
@@ -42,7 +43,7 @@ Route::prefix("apps")->name('apps.')->group(function () {
     Route::patch("/{appId}/state", [AppsStateController::class, "update"])->name("state.update");
 
     # apps/{appId}/settings
-    Route::get("/{appId}/settings", [AppsSettingsController::class, 'index'])->name('settings.index');
+    Route::get("/{appId}/settings", AppsSettingsIndex::class)->name('settings.index');
     # apps/{appId}/carriers - add allowed caariers
     # apps/{appId}/keys/edit -> edit bundle id | site url | webhook
     # apps/{appId}/countries -> manage enabled countries

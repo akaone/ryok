@@ -1,4 +1,4 @@
-<div class="flex flex-col px-4">
+<div class="flex flex-col px-4 mb-12">
 
     @section('title', trans('apps.apps-operations.title'))
 
