@@ -20,7 +20,7 @@
         x-transition:enter-end="opacity-100 transform scale-100"
         class="bg-white shadow-md border absolute w-5/12 md:w-3/12 z-50 ml-1 mt-1 rounded">
             @foreach($allApps as $app)
-                <a href="{{ route('dashboard.apps.index', ['appId' => $app->id ]) }}">
+                <a @if($app->id != request()->appId) href="{{ route('dashboard.apps.index', ['appId' => $app->id ]) }}" @endif>
                     <div x-on:click="toggle" class="flex flex-col items-start py-2 px-6 flex border-b hover:bg-gray-200">
                         @if($app->id == request()->appId)
                             <span class="mr-2 underline text-pblue">{{ $app->name }}</span>
