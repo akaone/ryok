@@ -24,6 +24,11 @@ class AppsStateController extends Controller
     /**
      * Update the specified app's state.
      * ACL staff-admin & app-state
+     * @param Request $request
+     * @param $appId
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws UserAccessLevelException
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function update(Request $request, $appId)
     {
@@ -54,7 +59,7 @@ class AppsStateController extends Controller
             default:
                 break;
         }
-        
+
         $this->rp->editAppState($user->id, $appId, [
             'state' => $state,
             'state_reason' => $stateReason,

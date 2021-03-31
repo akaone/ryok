@@ -154,11 +154,17 @@ return [
         'index' => [
             'title' => "Keys and documentation",
 
-            'app-keys-title' => 'Application keys',
-            'development-keys-title' => 'Development api keys',
-            'public-keys-label' => 'Public key',
-            'secret-keys-label' => 'Secret key',
-            'production-keys-title' => 'Production api keys',
+            'app-keys-title' => "Clefs d'authentification",
+            'development-keys-title' => 'Clefs de développement',
+            'public-keys-label' => 'Clef publique',
+            'secret-keys-label' => 'Clef secrete',
+            'production-keys-title' => 'Clefs de de production',
+
+            'app-webhook-title' => "Url webhook de l'application",
+            'app-webhook-description' => "Configurer l'url webhook de votre application, il doit être en",
+            'app-webhook-https' => 'https',
+            'app-webhook-update-button' => "Mettre à jour l'url webhook",
+            'update-webhook-success' => "Webhook mise à jour",
 
             'doc-create-payment-title' => 'Create a payment request',
             'doc-create-payment-description' => "To make a payment request to your user, you should request a payment link from us using your secret key. Do this from your backend to make sure that your secret key is kept secret and doesn't get accesed by your users or any malicious individual.",

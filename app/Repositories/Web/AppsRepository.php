@@ -162,6 +162,8 @@ class AppsRepository
 
     /**
      * Link carriers to app
+     * @param $appId
+     * @param $pickedCarriers
      */
     public function linkInitialCarriers($appId, $pickedCarriers)
     {
@@ -171,5 +173,16 @@ class AppsRepository
                 ['activated' => true]
             );
         }
+    }
+
+    /**
+     * Update the webhook of an app
+     * @param string $newUrl
+     * @param string $appId
+     */
+    public function updateAppWebhook(string $newUrl, string $appId)
+    {
+        App::where('id', '=', $appId)
+            ->update(['webhook_url' => $newUrl]);
     }
 }

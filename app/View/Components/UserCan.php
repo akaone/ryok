@@ -17,7 +17,9 @@ class UserCan extends Component
     /**
      * Create a new component instance.
      *
-     * @return void
+     * @param $acl
+     * @param $id
+     * @throws \App\Exceptions\UserAccessLevelException
      */
     public function __construct($acl, $id)
     {
@@ -38,7 +40,7 @@ class UserCan extends Component
     {
         if($this->enabled) {
             return <<<'blade'
-                {{ $slot }} 
+                {{ $slot }}
             blade;
         }
         return null;

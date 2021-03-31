@@ -74,7 +74,7 @@ class RoleTableSeeder extends Seeder
             ["name" => "carriers-state", "display" => ""],
             ["name" => "carriers-ussd-read", "display" => ""],
             ["name" => "carriers-ussd-edit", "display" => ""],
-            
+
         ];
         foreach ($PERMISSIONS as $key => $value) {
             Permission::create($value);
@@ -110,7 +110,7 @@ class RoleTableSeeder extends Seeder
 
         $devRole->givePermissionTo([
             'app-read', 'app-create',
-            'app-keys-read',
+            'app-keys-read', 'app-keys-reset',
             'operations-read'
         ]);
 
