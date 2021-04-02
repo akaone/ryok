@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Apps;
 
 use App\Models\App;
+use App\Repositories\Web\AppCarriersRepository;
 use App\Repositories\Web\AppsUsersRepository;
 use App\Utils\HashUuid;
 use Livewire\Component;
@@ -22,6 +23,8 @@ class AppShow extends Component
     public $members;
     public $creditOperations;
     public $debitOperations;
+    public $pickedCarriers = [];
+    public $carrierLoaded = false;
 
     public function mount()
     {
@@ -94,6 +97,28 @@ class AppShow extends Component
             ["app_users_id"]
         );
 
-        return view('apps.app-show');
+
+        $appCarriers = $this->getAppCarriers($decodedAppId);
+
+        if(collect($this->pickedCarriers)->isEmpty() && !$this->carrierLoaded) {
+            $appCarriers->each(function($carrier, $key)  {
+                if(!$carrier->where('activated', true)->isEmpty()) {
+                    $this->pickedCarriers = collect($this->pickedCarriers)->push($key);
+                }
+            });
+            $this->carrierLoaded = true;
+        }
+
+        return view('apps.app-show', [
+            'appCarriers' => $appCarriers,
+        ]);
+    }
+
+    private function getAppCarriers(string $appId): \Illuminate\Support\Collection
+    {
+        $appCarriersRep = new AppCarriersRepository();
+
+        $carriers = $appCarriersRep->findAllAppCarriers($appId);
+        return $carriers->groupBy('country');
     }
 }

@@ -38,7 +38,7 @@
         <div class="border border-green-400 rounded px-4 py-1 text-center">
             <span class="lowercase">{{ $infos->state }}</span>
         </div>
-        <table class="my-2 rounded border">
+        <table class="my-2 rounded border w-full">
             <tr class="border-b  bg-gray-200 text-black">
                 <th class="text-sm py-3 px-2 font-light text-left w-3/12">@lang('apps.app.show.infos-field')</th>
                 <th class="text-sm py-3 px-2 font-light text-left w-9/12">@lang('apps.app.show.infos-details')</th>
@@ -78,7 +78,33 @@
             </tr>
         </table>
 
-        <div class="flex py-4 px-4 space-x-2 bg-gray-100 rounded w-full">
+        <!-- start App's carrier-->
+        <div class="flex flex-wrap w-full my-4 border">
+            @foreach($appCarriers as $key => $item)
+                <div wire:key="{{$key}}" class="w-4/12 border-l">
+                    <div class="flex bg-gray-100 items-center px-2 py-1">
+                        <input wire:model="pickedCarriers" @if(collect($pickedCarriers)->contains($key)) checked @endif type="checkbox" value="{{ $key }}">
+                        <span class="flex items-center font-bolf text-xl pl-2">
+                        {{$key}}
+                    </span>
+                    </div>
+                    <div class="flex flex-wrap p-2 border-b">
+                        @foreach($item as $index => $value)
+                            <div wire:key="{{$value->id}}" class="w-4/12 p-1">
+                                <label class="pr-6 py-2" for="">
+                                    {{ $value->name }}
+                                </label>
+
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            @endforeach
+
+        </div>
+        <!-- end App's carrier-->
+
+        <div class="flex py-4 px-4 space-x-2 bg-gray-100 rounded">
             @switch($infos->state)
                 @case('PENDING')
                 <button
@@ -136,6 +162,15 @@
                     @lang('apps.app.show.infos-activate-btn')
                 </button>
                 @break
+
+                @case('DELETED')
+                <button
+                    disabled
+                    class="shadow rounded py-1 px-6 text-white bg-gray-600">
+                    {{ __("apps.app.show.infos-app-is-deleted") }}
+                </button>
+                @break
+
             @endswitch
         </div>
     </div>
