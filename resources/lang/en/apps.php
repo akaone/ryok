@@ -182,4 +182,20 @@ return [
         ],
     ],
 
+    'apps-settings' => [
+        'index' => [
+            'title' => "Settings",
+            'carriers-title' => "Carriers",
+            'carriers-description' => "Below are all the countries we currently support. Check or uncheck the countries that you want to accept payment from",
+            'carriers-update-button' => "Click here to update",
+            'carriers-update-success' => "Carriers updated successfully",
+
+            'delete-section-title' => "Delete this application",
+            'delete-section-description' => "Deleting this app will result in payment not being able to be processed",
+            'delete-section-button' => "Delete anyway",
+            'delete-confirm' => "Do you really want to delete this application ?",
+            'delete-confirm-button' => "Delete",
+        ],
+    ],
+
 ];

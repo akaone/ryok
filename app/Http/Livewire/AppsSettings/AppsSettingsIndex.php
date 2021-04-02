@@ -2,7 +2,10 @@
 
 namespace App\Http\Livewire\AppsSettings;
 
+use App\Models\App;
 use App\Repositories\Web\AppCarriersRepository;
+use App\Repositories\Web\AppsRepository;
+use App\Utils\FreshAppUser;
 use App\Utils\HashUuid;
 use Illuminate\Support\Collection;
 use Livewire\Component;
@@ -36,6 +39,15 @@ class AppsSettingsIndex extends Component
         ]);
     }
 
+    public function deleteApp(AppsRepository $appsRepository)
+    {
+        $appsRepository->validationAction(HashUuid::decode($this->appId), App::$DELETED);
+
+        session()->flash('success', trans('apps.apps-settings.index.app-delete-success'));
+
+        return redirect()->route('dashboard.stats.index');
+    }
+
     public function updateAppCarriers(AppCarriersRepository $appCarriersRepository)
     {
         // todo: validate pickedCarriers
@@ -43,6 +55,12 @@ class AppsSettingsIndex extends Component
             'pickedCarriers' => 'required|array|min:1',
             'pickedCarriers.*' => 'required|string',
         ]);
+
+        $appUser = FreshAppUser::user(auth()->user()->id, $this->appId);
+        if(!$appUser->fresh()->hasPermissionTo('app-edit')) {
+            session()->flash('error', trans('user.acl.exception'));
+            return null;
+        }
 
         $decodedAppId = HashUuid::decode($this->appId);
         $appCarriers = $this->getAppCarriers($decodedAppId);
@@ -66,7 +84,7 @@ class AppsSettingsIndex extends Component
         $disabledCarriers = $disabledCarriers->flatten();
         $appCarriersRepository->pruneAppCarriers($disabledCarriers, $decodedAppId);
 
-        session()->flash('success', trans('apps.apps-settings.index.carriers-update.success'));
+        session()->flash('success', trans('apps.apps-settings.index.carriers-update-success'));
     }
 
     private function getAppCarriers(string $appId): \Illuminate\Support\Collection

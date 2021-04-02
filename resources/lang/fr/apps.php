@@ -182,4 +182,20 @@ return [
         ],
     ],
 
+    'apps-settings' => [
+        'index' => [
+            'title' => "Settings",
+            'carriers-title' => "Opérateurs",
+            'carriers-description' => "Ci-dessous se trouve la liste de tous les pays que nous supportons. Selectionnez les pays d'on vous souhaiter accepter des paiements",
+            'carriers-update-button' => "Mettre à jour",
+            'carriers-update-success' => "Opérateurs mis à jour",
+
+            'delete-section-title' => "Supprimer cette application",
+            'delete-section-description' => "En supprimant cette application vous ne pourrais plus accepter de nouveau paiement pour cette application",
+            'delete-section-button' => "Supprimer quand meme",
+            'delete-confirm' => "Voulez vous vraiment supprimer cette application ?",
+            'delete-confirm-button' => "Supprimer",
+        ],
+    ],
+
 ];
