@@ -37,9 +37,11 @@ Route::prefix("client")->name('api.client.')->middleware(['client.api.auth'])->g
 
 
 # creer une operation (marchand)
-Route::post("payment-request", [PaymentRequestController::class, 'index'])->name('api.payment-request')->middleware('merchant.api.auth');
+Route::post("payment-request", [PaymentRequestController::class, 'index'])->name('api.payment-request.index')->middleware('merchant.api.auth');
 
 # etat d'une operation (marchand)
+Route::get("payment-request/{id}", [PaymentRequestController::class, 'show'])->name('api.payment-request.show')->middleware('merchant.api.auth');
+
 
 # envoi des sms de transaction au server (watcher app)
 Route::post("carriers/sms", [CarriersSmsController::class, 'store'])->name('api.carriers-sms.store');

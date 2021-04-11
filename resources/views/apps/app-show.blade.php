@@ -5,33 +5,34 @@
 
 @component('components.alert')@endcomponent
 
-<!-- TABS -->
+    <!-- start TABS -->
     <div class="flex w-full px-4 pt-2 mb-4 font-light text-gray-600 border-b sticky top-0 bg-white">
         <div
             x-on:click="changeTab('infos')"
-            x-bind:class="{'border-t-8 border-green-600': activeTab == 'infos' }"
-            class="cursor-pointer bg-white py-2 px-6 border-l border-t-2 border-r flex justify-center border-t-8 border-green-600">
+            x-bind:class="{'border-b-2 border-green-600': activeTab == 'infos' }"
+            class="cursor-pointer bg-white py-2 px-6 flex justify-center">
             @lang('apps.app.show.tab-infos')
         </div>
         <div
             x-on:click="changeTab('members')"
-            x-bind:class="{'border-t-8 border-green-600': activeTab == 'members' }"
-            class="cursor-pointer bg-white py-2 px-6 border-l border-t-2 border-r flex justify-center border-t-8 border-green-600">
+            x-bind:class="{'border-b-2 border-green-600': activeTab == 'members' }"
+            class="cursor-pointer bg-white py-2 px-6 flex justify-center">
             @lang('apps.app.show.tab-members')
         </div>
         <div
             x-on:click="changeTab('carriers')"
-            x-bind:class="{'border-t-8 border-green-600': activeTab == 'carriers' }"
-            class="cursor-pointer bg-white py-2 px-6 border-l border-t-2 border-r flex justify-center border-t-8 border-green-600">
+            x-bind:class="{'border-b-2 border-green-600': activeTab == 'carriers' }"
+            class="cursor-pointer bg-white py-2 px-6 flex justify-center">
             @lang('apps.app.show.tab-carriers')
         </div>
         <div
             x-on:click="changeTab('payments')"
-            x-bind:class="{'border-t-8 border-green-600': activeTab == 'payments' }"
-            class="cursor-pointer bg-white py-2 px-6 border-l border-t-2 border-r flex justify-center border-t-8 border-green-600">
+            x-bind:class="{'border-b-2 border-green-600': activeTab == 'payments' }"
+            class="cursor-pointer bg-white py-2 px-6 flex justify-center">
             @lang('apps.app.show.tab-payments')
         </div>
     </div>
+    <!-- end TABS -->
 
     <!-- APP INFOS -->
     <div x-show="activeTab == 'infos'" class="flex flex-col items-start px-4">
@@ -77,32 +78,6 @@
                 </td>
             </tr>
         </table>
-
-        <!-- start App's carrier-->
-        <div class="flex flex-wrap w-full my-4 border">
-            @foreach($appCarriers as $key => $item)
-                <div wire:key="{{$key}}" class="w-4/12 border-l">
-                    <div class="flex bg-gray-100 items-center px-2 py-1">
-                        <input wire:model="pickedCarriers" @if(collect($pickedCarriers)->contains($key)) checked @endif type="checkbox" value="{{ $key }}">
-                        <span class="flex items-center font-bolf text-xl pl-2">
-                        {{$key}}
-                    </span>
-                    </div>
-                    <div class="flex flex-wrap p-2 border-b">
-                        @foreach($item as $index => $value)
-                            <div wire:key="{{$value->id}}" class="w-4/12 p-1">
-                                <label class="pr-6 py-2" for="">
-                                    {{ $value->name }}
-                                </label>
-
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
-            @endforeach
-
-        </div>
-        <!-- end App's carrier-->
 
         <div class="flex py-4 px-4 space-x-2 bg-gray-100 rounded">
             @switch($infos->state)
@@ -174,6 +149,34 @@
             @endswitch
         </div>
     </div>
+
+    <!-- start App's carrier-->
+    <div x-show="activeTab == 'carriers'" class="flex flex-col items-start px-4">
+        <div class="flex flex-wrap w-full my-4 border">
+            @foreach($appCarriers as $key => $item)
+                <div wire:key="{{$key}}" class="w-4/12 border-l">
+                    <div class="flex bg-gray-100 items-center px-2 py-1">
+                        <input @if(collect($pickedCarriers)->contains($key)) checked @endif type="checkbox" value="{{ $key }}">
+                        <span class="flex items-center font-bolf text-xl pl-2">
+                        {{$key}}
+                    </span>
+                    </div>
+                    <div class="flex flex-wrap p-2 border-b">
+                        @foreach($item as $index => $value)
+                            <div wire:key="{{$value->id}}" class="w-4/12 p-1">
+                                <label class="pr-6 py-2" for="">
+                                    {{ $value->name }}
+                                </label>
+
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            @endforeach
+
+        </div>
+    </div>
+    <!-- end App's carrier-->
 
     <!-- APP MEMBERS -->
     <div x-show="activeTab == 'members'" class="flex flex-col px-4">

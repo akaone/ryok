@@ -10,7 +10,7 @@ use Webpatser\Uuid\Uuid;
 
 test("member cannot get payment object without secret key", function () {
 
-    $response = $this->json('POST', route('api.payment-request'), [
+    $response = $this->json('POST', route('api.payment-request.index'), [
         'amount' => 1000,
         'currency' => "XOF"
     ]);
@@ -24,7 +24,7 @@ test("member cannot get payment object without secret key", function () {
 
 test("member cannot be auth with fake secret key", function () {
 
-    $response = $this->json('POST', route('api.payment-request'), [
+    $response = $this->json('POST', route('api.payment-request.index'), [
         'amount' => 1000,
         'currency' => "XOF"
     ], ['apikey' => 'sk-live-fake-some-secret']);
@@ -52,7 +52,7 @@ test("member can get an api payment object", function () {
     ]);
     $account = Account::factory()->create(['app_id' => $app->id, 'id' => Uuid::generate()->string, 'type' => 'APP' ]);
 
-    $response = $this->json('POST', route('api.payment-request'), [
+    $response = $this->json('POST', route('api.payment-request.index'), [
         'amount' => 1500,
         'currency' => "XOF"
     ], ['apikey' => $appKey->secret_key]);

@@ -26,6 +26,7 @@ class PaymentRequestController extends Controller
                 true,
                 ApiErrorCode::NONE,
                 [
+                    'id' => $paymentInfos->id,
                     'qr_code' => $paymentInfos->qrCode,
                     'url' => $paymentInfos->deepLinkUrl,
                     'live' => $paymentInfos->live,
@@ -33,10 +34,12 @@ class PaymentRequestController extends Controller
             );
         }
 
-        return ApiResponse::create(
-            false,
-            ApiErrorCode::NONE,
-        );
+        return ApiResponse::create(false);
+
+    }
+
+    public function show($id)
+    {
 
     }
 }

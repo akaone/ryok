@@ -7,8 +7,9 @@
     <table x-on:click.away="setMessageId(null)" class="my-2 bg-gray-200 rounded border w-full">
         <tr class="border-b text-black">
             <th class="text-sm py-3 px-2 font-light text-left w-2/12">Amount</th>
-            <th class="text-sm py-3 px-2 font-light text-left w-2/12">Live</th>
-            <th class="text-sm py-3 px-2 font-light text-left w-2/12">State</th>
+            <th class="text-sm py-3 px-2 font-light text-left w-1/12">Live</th>
+            <th class="text-sm py-3 px-2 font-light text-left w-1/12">State</th>
+            <th class="text-sm py-3 px-2 font-light text-left w-2/12">Type</th>
             <th class="text-sm py-3 px-2 font-light text-left w-3/12">Created at</th>
             <th class="text-sm py-3 px-2 font-light text-left w-3/12">Last updated at</th>
         </tr>
@@ -30,6 +31,7 @@
                 <td class="py-3 px-2 text-sm">
                     <span class="lowercase rounded border px-1">{{ $operation->state }}</span>
                 </td>
+                <td class="py-3 px-2 text-sm">{{ __("apps.apps-operations.index.{$operation->type}") }}</td>
                 <td class="py-3 px-2 text-sm">{{ $operation->created_at }}</td>
                 <td class="py-3 px-2 text-sm">{{ $operation->updated_at }}</td>
             </tr>

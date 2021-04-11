@@ -8,6 +8,23 @@
         <livewire:styles />
         <style>
             [x-cloak] { display: none; }
+            pre {
+                line-height: 0;
+                counter-reset: line;
+            }
+            pre span {
+                display: block;
+                line-height: 1.5rem;
+            }
+            pre span:before {
+                counter-increment: line;
+                content: counter(line);
+                display: inline-block;
+                border-right: 1px solid #ddd;
+                padding: 0 .5em;
+                margin-right: .5em;
+                color: #888;
+            }
         </style>
     </head>
     <body class="flex flex-row min-h-screen" style="min-width: 930px !important;">

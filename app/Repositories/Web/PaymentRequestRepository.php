@@ -54,6 +54,7 @@ class PaymentRequestRepository
                 ->save(public_path() . $qrImagePath); */
 
             $infos->created = true;
+            $infos->id = $operationId;
             $infos->qrCode = asset($qrImagePath);
             $infos->deepLinkUrl = $deepLink;
             $infos->live = $live;

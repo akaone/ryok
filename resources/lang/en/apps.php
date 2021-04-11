@@ -173,12 +173,25 @@ return [
             'doc-create-payment-params' => 'Parameters',
             'doc-create-payment-params-required' => 'required',
             'doc-create-payment-params-secret-description' => "Your app's secret key",
-            'doc-create-payment-params-amount-description' => "The amount you want your users to pay",
+            'doc-create-payment-params-amount-description' => "The amount you want your users to pay (in cent)",
             'doc-create-payment-params-currency-description' => "The currency you wish your users to pay in",
 
             'doc-create-payment-responses' => 'Responses',
+            'doc-create-payment-request-url' => 'Request url',
 
             'doc-create-payment-code' => 'Code samples',
+            'doc-api-status' => 'status :number',
+            'doc-api-create-payment-success' => 'Everything went well',
+            'doc-api-payment-id' => 'payment id',
+            'doc-api-payment-url' => 'payment url',
+            'doc-api-payment-live' => 'boolean showing if the payment is live or in demo',
+            'doc-api-app-not-activated' => 'The app is not activated',
+
+            'doc-app-show-description' => "After the payment link generation, you can at anytime check the status of the payment.",
+            'doc-app-show-subtitle' => "Here is a demo of how you can check the status of a payment:",
+            'doc-app-show-generated-payment-id' => "The id of the payment previously generated",
+            'doc-app-show-payment-found' => "Payment found",
+            'doc-app-show-payment-not-found' => "Payment not found",
         ],
     ],
 

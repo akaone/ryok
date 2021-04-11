@@ -54,7 +54,7 @@ beforeEach(function () use (&$paymentOrderId, &$carrier) {
         'client_sms_reference_regex' => "",
     ]);
 
-    $response = $this->json('POST', route('api.payment-request'), [
+    $response = $this->json('POST', route('api.payment-request.index'), [
         'amount' => 1500,
         'currency' => "XOF"
     ], ['apikey' => $appKey->secret_key]);

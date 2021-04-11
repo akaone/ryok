@@ -92,7 +92,7 @@ class ApiAccountStats
         $result = collect([]);
         if($collection) {
             $formattedByWeek = $collection->groupBy(function ($row) {
-                $date = Carbon::parse($row->created_at);
+                $date = Carbon::parse($row->updated_at);
                 $weekStart = $date->copy()->startOfWeek()->format("d");
                 $weekEnd = $date->copy()->endOfWeek()->format("d");
                 return "{$weekStart}-{$weekEnd}";

@@ -25,7 +25,7 @@ class ApiPaymentRequest extends FormRequest
     {
         return [
             'amount' => "required",
-            'currency' => "required|in:XOF,USD,EUR",
+            'currency' => "required|in:XOF",
         ];
     }
 }

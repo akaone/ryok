@@ -22,6 +22,8 @@ class ApiErrorCode
     const MERCHANT_API_AUTH_INVALID = "MERCHANT_API_AUTH_INVALID";
     # merchant cannot generate live payment request when the app is not activated
     const MERCHANT_APP_IS_NOT_ACTIVATED = "MERCHANT_APP_IS_NOT_ACTIVATED";
+    # cannot find the operation (payment) the merchant is looking for
+    const MERCHANT_OPERATION_NOT_FOUND = "MERCHANT_OPERATION_NOT_FOUND";
 
     # CLIENT
     # the provided phone number check against libphonenumber is not valid
