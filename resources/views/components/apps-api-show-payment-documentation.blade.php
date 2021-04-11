@@ -22,7 +22,7 @@
         </h3>
         <span class="mb-2 rounded-md bg-gray-100 text-black py-1 pl-2 pr-4 font-medium">
             <span class="rounded-md border bg-green-400 text-sm px-2 mr-1 text-white select-none">GET</span>
-            <span class="select-all">{{ route('api.payment-request.show') }}/{id}</span>
+            <span class="select-all">{{ route('api.payment-request.show', ['id' => 'id']) }}</span>
         </span>
     </div>
 
