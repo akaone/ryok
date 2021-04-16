@@ -133,7 +133,7 @@
         </div>
         <div class="flex flex-col flex-1 h-screen overflow-y-scroll relative">
             <livewire:components.livewire-top />
-            <div class="flex-grow">
+            <div class="flex-grow dark:bg-gray-800">
                 @yield('body')
             </div>
         </div>

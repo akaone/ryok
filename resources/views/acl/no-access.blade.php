@@ -3,7 +3,7 @@
 @section('title', trans('acl.no-access'))
 
 @section('body')
-    <div class="bg-gray-200 h-screen">
+    <div class="bg-gray-100 h-screen">
 
         <div class="flex flex-col items-start bg-white border px-8 mx-auto w-full md:w-8/12 m-4 rounded">
             <div class='pt-6 pb-2'>

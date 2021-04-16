@@ -2,8 +2,7 @@
     <!-- Statistiques -->
     <a class="block px-4 mt-4" href="{{ route('dashboard.apps.index', ['appId' => $selectedApp ]) }}">
         <div
-            :class="{ 'bg-gray-200 dark:bg-blue-400': isActiveRoute('/dashboard/apps/{{$selectedApp}}', true) }"
-            class="my-1 py-2 px-2 rounded flex items-center text-sm font-light cursor-pointer dark:hover:bg-blue-400 hover:bg-gray-200"
+            class="my-1 py-2 px-2 rounded flex items-center text-sm font-light cursor-pointer dark:hover:bg-blue-400 hover:bg-gray-200 {{ request()->routeIs('dashboard.apps.index') ? 'bg-gray-200 dark:bg-blue-400' : '' }}"
         >
             <x-heroicon-s-chart-pie class="w-4 h-4 mr-3 dark:text-white text-gray-500"/>
             <span class="dark:text-white text-black">Statisques</span>

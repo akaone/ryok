@@ -10,7 +10,7 @@
             [x-cloak] { display: none; }
         </style>
     </head>
-    <body class="flex flex-col min-h-screen bg-gray-200">
+    <body class="flex flex-col min-h-screen bg-gray-100">
         <div class="bg-white py-2 border-b sticky top-0 px-8 md:px-0">
             <div class="mx-auto w-full md:w-8/12 flex items-center text-blue-600">
                 <a href="{{  url()->previous() }}" class="hover:bg-gray-100 p-2 rounded-full cursor-pointer mr-2">
