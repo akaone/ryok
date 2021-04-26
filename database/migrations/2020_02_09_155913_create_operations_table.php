@@ -29,6 +29,7 @@ class CreateOperationsTable extends Migration
             $table->string('currency_used')->nullable();
 
             $table->string('exchange_rate')->nullable();
+            $table->string('fee')->nullable();
 
             $table->boolean('live')->default(false);
 

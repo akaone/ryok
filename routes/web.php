@@ -6,7 +6,7 @@ use App\Http\Controllers\Web\StatsController;
 
 Route::group([
     'prefix' => LaravelLocalization::setLocale(),
-    'middleware' => ['localize', 'localizationRedirect', 'localeSessionRedirect']
+    'middleware' => ['localize', 'localizationRedirect']
 ], function () {
 
     Route::get('/mailable', function () {

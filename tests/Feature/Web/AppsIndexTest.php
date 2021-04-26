@@ -1,7 +1,7 @@
 <?php
 
 use function Pest\Livewire\livewire;
-use App\Http\Livewire\LivewireAppsList;
+use App\Http\Livewire\Apps\AppsList;
 use App\Http\Livewire\Components\LivewireAppsDropdown;
 use App\Models\User;
 use App\Models\App;
@@ -16,12 +16,12 @@ test('staff user can see all created apps by users', function () {
         'email' => 'desouzakevinm@gmail.com',
     ]);
     $user->assignRole('staff-admin');
-    
+
     factory(App::class, 5)->create();
-    
+
     # act
     $this->actingAs($user);
-    $component  = livewire(LivewireAppsList::class);
+    $component  = livewire(AppsList::class);
     $renderedView = $component->lastRenderedView;
     # dd($component->lastRenderedView->getData()['appsList']);
 
@@ -56,7 +56,7 @@ test('member user can only see app of which he is a app_user', function () {
         'state' => 'ACTIVATED',
         'email' => 'desouzakevinm@gmail.com',
     ]);
-    
+
     factory(App::class, 5)->create();
     $userApps = factory(App::class, 2)->create();
 
@@ -84,7 +84,7 @@ test('member can only see app where he is activated', function () {
         'state' => 'ACTIVATED',
         'email' => 'desouzakevinm@gmail.com',
     ]);
-    
+
     factory(App::class, 5)->create();
     $userAppOne = factory(App::class)->create();
     $userAppTwo = factory(App::class)->create();
@@ -99,8 +99,8 @@ test('member can only see app where he is activated', function () {
         'user_id' => $user->id,
         'state' => 'ACTIVATED'
     ]);
-    
-    
+
+
     $this->actingAs($user);
     $component  = livewire(LivewireAppsDropdown::class);
     $renderedView = $component->lastRenderedView;
